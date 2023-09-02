@@ -16,12 +16,6 @@ job "home-assistant" {
         to           = 8123
         host_network = "private"
       }
-
-      port "public" {
-        to           = 8123
-        static       = 8123
-        host_network = "public"
-      }
     }
 
     task "home-assistant" {

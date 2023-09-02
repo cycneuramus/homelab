@@ -6,11 +6,6 @@ locals {
 job "jellyfin" {
   constraint {
     attribute = "${attr.unique.hostname}"
-    value     = "apex"
-  }
-
-  constraint {
-    attribute = "${attr.unique.hostname}"
     operator  = "set_contains_any"
     value     = "apex,home,vps"
   }

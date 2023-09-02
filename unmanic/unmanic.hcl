@@ -5,11 +5,6 @@ locals {
 }
 
 job "unmanic" {
-  constraint {
-    attribute = "${attr.unique.hostname}"
-    value     = "apex"
-  }
-
   group "server" {
     count = 1
 
