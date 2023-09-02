@@ -1,0 +1,5 @@
+DATABASE_URL=postgres://<db_user>:<db_pass>@%2Ftmp%2Fsock/<db_name>
+DATABASE_PREFIX=oc_
+LOG=debug
+REDIS_URL=redis+unix:///tmp/sock/redis.sock
+NEXTCLOUD_URL=http://{{ env "NOMAD_ADDR_server" }}

@@ -1,0 +1,21 @@
+DB_DATABASE_NAME=immich
+DB_PASSWORD=
+DB_USERNAME=
+DB_HOSTNAME=/tmp/sock
+
+REDIS_SOCKET=/tmp/sock/redis.sock
+
+PUBLIC_IMMICH_SERVER_URL=http://{{ env "NOMAD_ADDR_server" }}
+IMMICH_MACHINE_LEARNING_URL=http://{{ env "NOMAD_ADDR_machinelearning" }}
+IMMICH_SERVER_URL=http://{{ env "NOMAD_ADDR_server" }}
+IMMICH_WEB_URL=http://{{ env "NOMAD_ADDR_web" }}
+
+TYPESENSE_HOST={{ env "NOMAD_IP_typesense" }}
+TYPESENSE_PORT={{ env "NOMAD_HOST_PORT_typesense" }}
+TYPESENSE_API_KEY=
+TYPESENSE_DATA_DIR=/data
+
+JWT_SECRET=
+LOG_LEVEL=simple
+NODE_ENV=production
+REVERSE_GEOCODING_PRECISION=3

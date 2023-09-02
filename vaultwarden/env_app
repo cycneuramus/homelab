@@ -1,0 +1,13 @@
+DATABASE_URL=postgresql://<db_user>:<db_pass>@{{ env "NOMAD_ADDR_db" }}/<db_name>
+DOMAIN=https://vaultwarden.example.com
+ROCKET_PORT=8080
+SIGNUPS_ALLOWED=false
+TRASH_AUTO_DELETE_DAYS=30
+SMTP_HOST=
+SMTP_FROM=
+SMTP_AUTH_MECHANISM=Login
+SMTP_PORT=465
+SMTP_SSL=false
+SMTP_EXPLICIT_TLS=true
+SMTP_USERNAME=
+SMTP_PASSWORD=
