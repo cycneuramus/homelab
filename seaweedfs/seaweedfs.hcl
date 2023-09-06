@@ -22,6 +22,12 @@ job "seaweedfs" {
     }
 
     network {
+      port "s3" {
+        to           = 8333
+        static       = 8333
+        host_network = "private"
+      }
+
       port "master_http" {
         to           = 9333
         static       = 9333
@@ -101,6 +107,13 @@ job "seaweedfs" {
         tags     = ["local"]
       }
 
+      service {
+        name     = "s3-${attr.unique.hostname}"
+        port     = "s3"
+        provider = "nomad"
+        tags     = ["local"]
+      }
+
       config {
         image = "chrislusf/seaweedfs:latest"
         ports = ["master_http", "master_grpc"]
@@ -153,14 +166,21 @@ job "seaweedfs" {
         destination = "local/filer.toml"
       }
 
+      template {
+        data        = file("s3.json")
+        destination = "local/s3.json"
+      }
+
       config {
         image = "chrislusf/seaweedfs:latest"
-        ports = ["filer_http", "filer_grpc"]
+        ports = ["filer_http", "filer_grpc", "s3"]
 
         args = [
           "filer",
           "-master=${NOMAD_ADDR_master_http}",
-          "-s3=false",
+          "-s3",
+          "-s3.config=/local/s3.json",
+          "-s3.allowEmptyFolder=true",
           "-webdav=false",
           "-defaultReplicaPlacement=200",
           "-dataCenter=${attr.unique.hostname}",
