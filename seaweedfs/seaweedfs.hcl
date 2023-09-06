@@ -1,14 +1,15 @@
 locals {
   strg = pathexpand("~/.local/share/seaweedfs")
+  masters = "10.10.10.10:9333,10.10.10.11:9333,10.10.10.12:9333"
 }
 
 job "seaweedfs" {
-  group "master" {
-    count = 1
+  group "seaweedfs" {
+    count = 3
 
     constraint {
-      attribute = "${meta.performance}"
-      value     = "high"
+      attribute = "${meta.storage}"
+      value     = "large"
     }
 
     update {
@@ -21,49 +22,88 @@ job "seaweedfs" {
     }
 
     network {
-      port "http" {
+      port "master_http" {
         to           = 9333
         static       = 9333
         host_network = "private"
       }
 
-      port "grpc" {
+      port "master_grpc" {
         to           = 19333
         static       = 19333
+        host_network = "private"
+      }
+
+      port "filer_http" {
+        to           = 8888
+        static       = 8888
+        host_network = "private"
+      }
+
+      port "filer_grpc" {
+        to           = 18888
+        static       = 18888
+        host_network = "private"
+      }
+
+      port "volume_http" {
+        to           = 8080
+        static       = 8080
+        host_network = "private"
+      }
+
+      port "volume_grpc" {
+        to           = 18080
+        static       = 18080
         host_network = "private"
       }
     }
 
     task "preflight" {
       driver = "raw_exec"
+      user   = "antsva"
 
       lifecycle {
         hook    = "prestart"
         sidecar = false
       }
 
+      template {
+        data        = <<-EOF
+          #!/bin/bash
+          mkdir -p ${local.strg}/{master,filer,volume}
+        EOF
+        destination = "local/preflight.sh"
+        perms       = 755
+      }
+
       config {
-        command = "mkdir"
-        args    = ["-p", "${local.strg}/master"]
+        command = "local/preflight.sh"
       }
     }
 
     task "master" {
       driver = "docker"
+      user   = "1000:1000"
 
       kill_signal  = "SIGINT"
       kill_timeout = "90s"
 
+      lifecycle {
+        hook    = "prestart"
+        sidecar = true
+      }
+
       service {
-        name     = "seaweedfs-master"
-        port     = "http"
+        name     = "seaweedfs-master-${attr.unique.hostname}"
+        port     = "master_http"
         provider = "nomad"
-        tags     = ["private"]
+        tags     = ["local"]
       }
 
       config {
         image = "chrislusf/seaweedfs:latest"
-        ports = ["http", "grpc"]
+        ports = ["master_http", "master_grpc"]
 
         args = [
           "master",
@@ -71,8 +111,9 @@ job "seaweedfs" {
           "-defaultReplication=200",
           "-volumeSizeLimitMB=1024",
           "-garbageThreshold=0.0001",
-          "-ip=${NOMAD_IP_http}",
+          "-ip=${NOMAD_IP_master_http}",
           "-ip.bind=0.0.0.0",
+          "-peers=${local.masters}",
           "-raftHashicorp",
           "-resumeState"
         ]
@@ -84,59 +125,10 @@ job "seaweedfs" {
         }
       }
     }
-  }
-
-  group "filer" {
-    count = 3
-
-    constraint {
-      attribute = "${meta.storage}"
-      value     = "large"
-    }
-
-    constraint {
-      distinct_hosts = true
-    }
-
-    update {
-      max_parallel = 1
-      stagger      = "2m"
-    }
-
-    migrate {
-      min_healthy_time = "2m"
-    }
-
-    network {
-      port "http" {
-        to           = 8888
-        static       = 8888
-        host_network = "private"
-      }
-
-      port "grpc" {
-        to           = 18888
-        static       = 18888
-        host_network = "private"
-      }
-    }
-
-    task "preflight" {
-      driver = "raw_exec"
-
-      lifecycle {
-        hook    = "prestart"
-        sidecar = false
-      }
-
-      config {
-        command = "mkdir"
-        args    = ["-p", "${local.strg}/filer"]
-      }
-    }
 
     task "filer" {
       driver = "docker"
+      user   = "1000:1000"
 
       kill_signal  = "SIGINT"
       kill_timeout = "90s"
@@ -147,9 +139,9 @@ job "seaweedfs" {
 
       service {
         name     = "seaweedfs-filer-${attr.unique.hostname}"
-        port     = "http"
+        port     = "filer_http"
         provider = "nomad"
-        tags     = ["private"]
+        tags     = ["local"]
       }
 
       template {
@@ -161,27 +153,18 @@ job "seaweedfs" {
         destination = "local/filer.toml"
       }
 
-      template {
-        data        = <<-EOF
-          {{- range nomadService "seaweedfs-master" -}}
-          MASTER_ADDR={{ .Address }}:{{ .Port }}{{ end }}
-        EOF
-        destination = "env"
-        env         = true
-      }
-
       config {
         image = "chrislusf/seaweedfs:latest"
-        ports = ["http", "grpc"]
+        ports = ["filer_http", "filer_grpc"]
 
         args = [
           "filer",
-          "-master=${MASTER_ADDR}",
+          "-master=${NOMAD_ADDR_master_http}",
           "-s3=false",
           "-webdav=false",
           "-defaultReplicaPlacement=200",
           "-dataCenter=${attr.unique.hostname}",
-          "-ip=${NOMAD_IP_http}",
+          "-ip=${NOMAD_IP_filer_http}",
           "-ip.bind=0.0.0.0",
         ]
 
@@ -198,59 +181,10 @@ job "seaweedfs" {
         }
       }
     }
-  }
-
-  group "volume" {
-    count = 3
-
-    constraint {
-      attribute = "${meta.storage}"
-      value     = "large"
-    }
-
-    constraint {
-      distinct_hosts = true
-    }
-
-    update {
-      max_parallel = 1
-      stagger      = "2m"
-    }
-
-    migrate {
-      min_healthy_time = "2m"
-    }
-
-    network {
-      port "http" {
-        to           = 8080
-        static       = 8080
-        host_network = "private"
-      }
-
-      port "grpc" {
-        to           = 18080
-        static       = 18080
-        host_network = "private"
-      }
-    }
-
-    task "preflight" {
-      driver = "raw_exec"
-
-      lifecycle {
-        hook    = "prestart"
-        sidecar = false
-      }
-
-      config {
-        command = "mkdir"
-        args    = ["-p", "${local.strg}/volume"]
-      }
-    }
 
     task "volume" {
       driver = "docker"
+      user   = "1000:1000"
 
       kill_signal  = "SIGINT"
       kill_timeout = "90s"
@@ -259,26 +193,24 @@ job "seaweedfs" {
         memory_max = 4096
       }
 
-      template {
-        data        = <<-EOF
-          {{- range nomadService "seaweedfs-master" -}}
-          MASTER_ADDR={{ .Address }}:{{ .Port }}{{ end }}
-        EOF
-        destination = "env"
-        env         = true
+      service {
+        name     = "seaweedfs-volume-${attr.unique.hostname}"
+        port     = "volume_http"
+        provider = "nomad"
+        tags     = ["local"]
       }
 
       config {
         image = "chrislusf/seaweedfs:latest"
-        ports = ["http", "grpc"]
+        ports = ["volume_http", "volume_grpc"]
 
         args = [
           "volume",
-          "-mserver=${MASTER_ADDR}",
+          "-mserver=${NOMAD_ADDR_master_http}",
           "-max=100",
           "-dir=/data",
           "-dataCenter=${attr.unique.hostname}",
-          "-ip=${NOMAD_IP_http}",
+          "-ip=${NOMAD_IP_volume_http}",
           "-ip.bind=0.0.0.0",
         ]
 
