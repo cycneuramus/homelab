@@ -58,15 +58,19 @@
 	}
 }
 
-(reverse_proxy-failover) {
-	reverse_proxy {args[0]} {args[1]} {
-		transport http {
-			dial_timeout 3s
-			response_header_timeout 5s
+(loadbalance) {
+	@{args[0]} expression `{labels.2} == "{args[0]}"`
+	route @{args[0]} {
+		reverse_proxy {args[1:]} {
+			transport http {
+				dial_timeout 3s
+				response_header_timeout 5s
+			}
+
+			lb_policy random
+			lb_try_duration 10s
+			fail_duration 30s
 		}
-		lb_policy first
-		lb_try_duration 10s
-		fail_duration 30s
 	}
 }
 
@@ -106,13 +110,15 @@
 
 *.{$DOMAIN} {
 	map {labels.2} {upstream} {access} {
-	{{ range nomadServices -}}
-	{{- range nomadService .Name -}}
-	{{- if .Tags | contains "private" | not -}}
+		{{ $skip := parseJSON `["private"]` -}}
+		{{- range nomadServices -}}
+		{{- if containsNone $skip .Tags -}}
+		{{- $allocID := env "NOMAD_ALLOC_ID" -}}
+		{{- range nomadService 1 $allocID .Name -}}
 		{{ .Name | toLower }} {{ .Address }}:{{ .Port }} {{- if .Tags | contains "public" }} public {{- end }}
-	{{ end -}}
-	{{- end -}}
-	{{- end -}}
+		{{ end -}}
+		{{- end -}}
+		{{- end -}}
 
 		nomad 10.10.10.10:4646
 		syncthing 10.10.10.11:8384
@@ -132,6 +138,11 @@
 	import libreddit-quirks
 	import nextcloud-quirks
 
+	{{ range nomadServices -}}
+	{{- if .Tags | contains "multi" -}}
+	import loadbalance {{ .Name }} {{ range nomadService .Name }}{{ .Address }}:{{ .Port}} {{ end }}
+	{{ end -}}
+	{{- end }}
 	reverse_proxy {upstream}
 }
 

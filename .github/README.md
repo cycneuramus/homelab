@@ -4,7 +4,8 @@ This repository contains the skeleton files for a homelab of self-hosted service
 
 ### Highlights
 
-+ [Caddy](https://caddyserver.com) as load balancer, l4 proxy, and [fully automated](https://github.com/cycneuramus/homelab/blob/master/caddy/Caddyfile.tpl#L108-L115) reverse proxy
++ [Caddy](https://caddyserver.com) as load balancer, l4 proxy, and [fully automated](https://github.com/cycneuramus/homelab/blob/master/caddy/Caddyfile.tpl#L113-L121) reverse proxy
++ Highly available [SeaweedFS](https://github.com/seaweedfs/seaweedfs) deployment for distributed storage with [load-balanced](https://github.com/cycneuramus/homelab/blob/master/caddy/Caddyfile.tpl#L141-L145) S3 endpoints
 + Optimized [Nextcloud](https://nextcloud.com) and [Immich](https://immich.app) setups using UNIX sockets for backend communication
 + Extensive use of [Nomad service discovery](https://developer.hashicorp.com/nomad/docs/networking/service-discovery) to minimize networking dependencies
 + Self-cleaning [Rclone Docker volumes](https://rclone.org/docker) for cloud storage backends

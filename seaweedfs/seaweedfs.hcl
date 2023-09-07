@@ -101,17 +101,17 @@ job "seaweedfs" {
       }
 
       service {
-        name     = "seaweedfs-master-${attr.unique.hostname}"
+        name     = "s3-master"
         port     = "master_http"
         provider = "nomad"
-        tags     = ["local"]
+        tags     = ["local", "multi"]
       }
 
       service {
-        name     = "s3-${attr.unique.hostname}"
+        name     = "s3"
         port     = "s3"
         provider = "nomad"
-        tags     = ["local"]
+        tags     = ["local", "multi"]
       }
 
       config {
@@ -151,10 +151,10 @@ job "seaweedfs" {
       }
 
       service {
-        name     = "seaweedfs-filer-${attr.unique.hostname}"
+        name     = "s3-filer"
         port     = "filer_http"
         provider = "nomad"
-        tags     = ["local"]
+        tags     = ["local", "multi"]
       }
 
       template {
@@ -214,10 +214,10 @@ job "seaweedfs" {
       }
 
       service {
-        name     = "seaweedfs-volume-${attr.unique.hostname}"
+        name     = "s3-volume"
         port     = "volume_http"
         provider = "nomad"
-        tags     = ["local"]
+        tags     = ["local", "multi"]
       }
 
       config {
