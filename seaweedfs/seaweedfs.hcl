@@ -226,7 +226,7 @@ job "seaweedfs" {
 
         args = [
           "volume",
-          "-mserver=${NOMAD_ADDR_master_http}",
+          "-mserver=${local.masters}",
           "-max=100",
           "-dir=/data",
           "-dataCenter=${attr.unique.hostname}",
