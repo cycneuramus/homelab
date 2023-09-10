@@ -1,6 +1,12 @@
 locals {
-  strg = pathexpand("~/.local/share/seaweedfs")
-  masters = "10.10.10.10:9333,10.10.10.11:9333,10.10.10.12:9333"
+  masters = [
+    "10.10.10.10:9333",
+    "10.10.10.11:9333",
+    "10.10.10.12:9333",
+  ]
+
+  peers = join(",", "${local.masters}")
+  strg  = pathexpand("~/.local/share/seaweedfs")
 }
 
 job "seaweedfs" {
@@ -126,7 +132,7 @@ job "seaweedfs" {
           "-garbageThreshold=0.0001",
           "-ip=${NOMAD_IP_master_http}",
           "-ip.bind=0.0.0.0",
-          "-peers=${local.masters}",
+          "-peers=${local.peers}",
           "-raftHashicorp",
           "-resumeState"
         ]
@@ -147,7 +153,7 @@ job "seaweedfs" {
       kill_timeout = "90s"
 
       resources {
-        memory_max = 1024
+        memory_max = 4096
       }
 
       service {
@@ -227,7 +233,8 @@ job "seaweedfs" {
         args = [
           "volume",
           "-mserver=${local.masters}",
-          "-max=100",
+          "-max=50",
+          "-idleTimeout=300",
           "-dir=/data",
           "-dataCenter=${attr.unique.hostname}",
           "-ip=${NOMAD_IP_volume_http}",
