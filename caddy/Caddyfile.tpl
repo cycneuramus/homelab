@@ -139,7 +139,7 @@
 	import nextcloud-quirks
 
 	{{ range nomadServices -}}
-	{{- if .Tags | contains "multi" -}}
+	{{- if and (.Tags | contains "multi") (.Tags | contains "private" | not) -}}
 	import loadbalance {{ .Name }} {{ range nomadService .Name }}{{ .Address }}:{{ .Port}} {{ end }}
 	{{ end -}}
 	{{- end }}
