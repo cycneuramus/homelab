@@ -67,7 +67,7 @@
 				response_header_timeout 5s
 			}
 
-			lb_policy random
+			lb_policy first
 			lb_try_duration 10s
 			fail_duration 30s
 		}
@@ -135,7 +135,6 @@
 	import basicauth arcade {$TM_USER} {$TM_PASSWORD}
 	import basicauth tm {$TM_USER} {$TM_PASSWORD}
 
-	import libreddit-quirks
 	import nextcloud-quirks
 
 	{{ range nomadServices -}}
