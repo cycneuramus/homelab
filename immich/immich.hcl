@@ -44,11 +44,6 @@ job "immich" {
         host_network = "private"
       }
 
-      port "db" {
-        to           = 5432
-        host_network = "private"
-      }
-
       port "redis" {
         to           = 6379
         host_network = "private"
@@ -265,39 +260,6 @@ job "immich" {
           type   = "bind"
           source = "${local.strg}/typesense"
           target = "/data"
-        }
-      }
-    }
-
-    task "db" {
-      driver = "docker"
-      user   = "1000:1000"
-
-      template {
-        data        = file("env_db")
-        destination = "env_db"
-        env         = true
-      }
-
-      config {
-        image = "postgres:15-alpine"
-        ports = ["db"]
-
-        command = "postgres"
-        args = [
-          "-c", "unix_socket_directories=/var/run/postgresql,/tmp/sock"
-        ]
-
-        mount {
-          type   = "bind"
-          source = "${local.strg}/db"
-          target = "/var/lib/postgresql/data"
-        }
-
-        mount {
-          type   = "bind"
-          source = "${local.strg}/sock"
-          target = "/tmp/sock"
         }
       }
     }

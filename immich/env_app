@@ -1,7 +1,9 @@
 DB_DATABASE_NAME=immich
 DB_PASSWORD=
 DB_USERNAME=
-DB_HOSTNAME=/tmp/sock
+{{ range nomadService "patroni-ingress" -}}
+DB_HOSTNAME={{ .Address}}
+DB_PORT={{ .Port }}{{ end }}
 
 REDIS_SOCKET=/tmp/sock/redis.sock
 
