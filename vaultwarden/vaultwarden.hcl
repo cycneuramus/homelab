@@ -31,7 +31,7 @@ job "vaultwarden" {
         name     = "vaultwarden"
         port     = "app"
         provider = "nomad"
-        tags     = ["public", "monitor"]
+        tags     = ["public"]
       }
 
       template {
@@ -60,7 +60,7 @@ job "vaultwarden" {
         name     = "vaultwarden-db"
         port     = "db"
         provider = "nomad"
-        tags     = ["private", "monitor"]
+        tags     = ["private"]
       }
 
       template {

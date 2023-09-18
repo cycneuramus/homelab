@@ -34,7 +34,7 @@ job "mailserver" {
         name     = "mailserver-25"
         port     = "mailserver-25"
         provider = "nomad"
-        tags     = ["private", "monitor"]
+        tags     = ["private"]
       }
 
       service {

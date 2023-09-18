@@ -42,7 +42,7 @@ job "gitea" {
         name     = "git"
         port     = "http"
         provider = "nomad"
-        tags     = ["public", "monitor"]
+        tags     = ["public"]
       }
 
       template {
@@ -80,7 +80,7 @@ job "gitea" {
         name     = "git-db"
         port     = "http"
         provider = "nomad"
-        tags     = ["private", "monitor"]
+        tags     = ["private"]
       }
 
       template {

@@ -91,7 +91,7 @@ job "nextcloud" {
         name     = "nextcloud"
         port     = "server"
         provider = "nomad"
-        tags     = ["public", "monitor"]
+        tags     = ["public"]
       }
 
       template {
@@ -239,7 +239,7 @@ job "nextcloud" {
         name     = "nextcloud-db"
         port     = "db"
         provider = "nomad"
-        tags     = ["private", "monitor"]
+        tags     = ["private"]
       }
 
       template {
@@ -363,7 +363,7 @@ job "nextcloud" {
         name     = "collabora"
         port     = "collabora"
         provider = "nomad"
-        tags     = ["local", "monitor"]
+        tags     = ["local"]
       }
 
       env {

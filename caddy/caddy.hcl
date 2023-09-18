@@ -174,7 +174,7 @@ job "caddy" {
       name     = "caddy-redis"
       port     = "redis"
       provider = "nomad"
-      tags     = ["private", "monitor"]
+      tags     = ["private"]
     }
 
     task "redis" {

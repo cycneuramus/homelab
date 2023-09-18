@@ -32,7 +32,7 @@ job "terraforming-mars" {
         name     = "tm"
         port     = "http"
         provider = "nomad"
-        tags     = ["public", "monitor"]
+        tags     = ["public"]
       }
 
       env {

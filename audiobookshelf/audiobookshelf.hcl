@@ -51,7 +51,7 @@ job "audiobookshelf" {
         name     = "audiobooks"
         port     = "http"
         provider = "nomad"
-        tags     = ["public", "monitor"]
+        tags     = ["public"]
       }
 
       config {

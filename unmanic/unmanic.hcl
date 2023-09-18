@@ -31,7 +31,7 @@ job "unmanic" {
         name     = "unmanic"
         port     = "http"
         provider = "nomad"
-        tags     = ["local", "monitor"]
+        tags     = ["local"]
       }
 
       env {

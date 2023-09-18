@@ -35,7 +35,7 @@ job "kutt" {
         name     = "kutt"
         port     = "app"
         provider = "nomad"
-        tags     = ["private", "monitor"]
+        tags     = ["private"]
       }
 
       template {
@@ -61,7 +61,7 @@ job "kutt" {
         name     = "kutt-db"
         port     = "db"
         provider = "nomad"
-        tags     = ["private", "monitor"]
+        tags     = ["private"]
       }
 
       template {

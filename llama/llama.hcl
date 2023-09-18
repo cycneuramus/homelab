@@ -36,7 +36,7 @@ job "llama" {
         name     = "llama-api"
         port     = "api"
         provider = "nomad"
-        tags     = ["local", "monitor"]
+        tags     = ["local"]
       }
 
       env {
@@ -73,7 +73,7 @@ job "llama" {
         name     = "llama"
         port     = "ui"
         provider = "nomad"
-        tags     = ["local", "monitor"]
+        tags     = ["local"]
       }
 
       env {

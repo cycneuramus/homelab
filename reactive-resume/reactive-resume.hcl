@@ -39,7 +39,7 @@ job "resume" {
         name     = "resume"
         port     = "frontend"
         provider = "nomad"
-        tags     = ["local", "monitor"]
+        tags     = ["local"]
       }
 
       template {
@@ -65,7 +65,7 @@ job "resume" {
         name     = "resume-backend"
         port     = "backend"
         provider = "nomad"
-        tags     = ["local", "monitor"]
+        tags     = ["local"]
       }
 
       template {
@@ -88,7 +88,7 @@ job "resume" {
         name     = "resume-db"
         port     = "db"
         provider = "nomad"
-        tags     = ["private", "monitor"]
+        tags     = ["private"]
       }
 
       template {

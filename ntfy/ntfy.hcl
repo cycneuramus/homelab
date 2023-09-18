@@ -26,7 +26,7 @@ job "ntfy" {
         name     = "ntfy"
         port     = "http"
         provider = "nomad"
-        tags     = ["local", "monitor"]
+        tags     = ["local"]
       }
 
       template {

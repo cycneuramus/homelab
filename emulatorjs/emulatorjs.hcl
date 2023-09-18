@@ -57,7 +57,7 @@ job "emulatorjs" {
         name     = "arcade"
         port     = "http"
         provider = "nomad"
-        tags     = ["public", "monitor"]
+        tags     = ["public"]
       }
 
       service {

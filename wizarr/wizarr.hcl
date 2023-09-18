@@ -26,7 +26,7 @@ job "wizarr" {
         name     = "wizarr"
         port     = "http"
         provider = "nomad"
-        tags     = ["public", "monitor"]
+        tags     = ["public"]
       }
 
       template {

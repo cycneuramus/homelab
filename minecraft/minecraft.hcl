@@ -41,14 +41,14 @@ job "minecraft" {
         name     = "minecraft-java"
         port     = "java"
         provider = "nomad"
-        tags     = ["private", "monitor"]
+        tags     = ["private"]
       }
 
       service {
         name     = "minecraft-bedrock"
         port     = "bedrock"
         provider = "nomad"
-        tags     = ["private", "monitor"]
+        tags     = ["private"]
       }
 
       template {

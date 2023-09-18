@@ -38,7 +38,7 @@ job "libreddit" {
         name     = "libreddit"
         port     = "http"
         provider = "nomad"
-        tags     = ["local", "monitor"]
+        tags     = ["local"]
       }
 
       template {

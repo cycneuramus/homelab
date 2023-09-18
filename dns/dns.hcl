@@ -46,7 +46,7 @@ job "dns" {
         name     = "unbound"
         port     = "unbound"
         provider = "nomad"
-        tags     = ["private", "monitor"]
+        tags     = ["private"]
       }
 
       config {
@@ -62,7 +62,7 @@ job "dns" {
         name     = "adguard"
         port     = "adguard"
         provider = "nomad"
-        tags     = ["local", "monitor"]
+        tags     = ["local"]
       }
 
       template {

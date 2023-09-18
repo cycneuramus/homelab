@@ -40,7 +40,7 @@ job "searx" {
         name     = "searx"
         port     = "app"
         provider = "nomad"
-        tags     = ["local", "monitor"]
+        tags     = ["local"]
       }
 
       template {

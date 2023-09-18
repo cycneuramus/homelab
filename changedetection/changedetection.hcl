@@ -30,7 +30,7 @@ job "changedetection" {
         name     = "change"
         port     = "http"
         provider = "nomad"
-        tags     = ["local", "monitor"]
+        tags     = ["local"]
       }
 
       env {

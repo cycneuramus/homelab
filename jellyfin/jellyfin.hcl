@@ -57,7 +57,7 @@ job "jellyfin" {
         name     = "jellyfin"
         port     = "http"
         provider = "nomad"
-        tags     = ["public", "monitor"]
+        tags     = ["public"]
       }
 
       env {

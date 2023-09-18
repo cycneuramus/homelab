@@ -25,7 +25,7 @@ job "jellyseerr" {
         name     = "jellyseerr"
         port     = "http"
         provider = "nomad"
-        tags     = ["public", "monitor"]
+        tags     = ["public"]
       }
 
       env {

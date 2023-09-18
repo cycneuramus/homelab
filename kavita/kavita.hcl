@@ -40,7 +40,7 @@ job "kavita" {
         name     = "kavita"
         port     = "http"
         provider = "nomad"
-        tags     = ["local", "monitor"]
+        tags     = ["local"]
       }
 
       config {

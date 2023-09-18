@@ -25,7 +25,7 @@ job "home-assistant" {
         name     = "hass"
         port     = "private"
         provider = "nomad"
-        tags     = ["local", "monitor"]
+        tags     = ["local"]
       }
 
       env {

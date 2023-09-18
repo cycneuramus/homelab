@@ -41,7 +41,7 @@ job "transfer" {
         name     = "transfer"
         port     = "http"
         provider = "nomad"
-        tags     = ["private", "monitor"]
+        tags     = ["private"]
       }
 
       template {

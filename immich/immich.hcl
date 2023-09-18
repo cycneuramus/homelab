@@ -75,7 +75,7 @@ job "immich" {
         name     = "immich-server"
         port     = "server"
         provider = "nomad"
-        tags     = ["private", "monitor"]
+        tags     = ["private"]
       }
 
       template {

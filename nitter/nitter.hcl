@@ -36,7 +36,7 @@ job "nitter" {
         name     = "nitter"
         port     = "app"
         provider = "nomad"
-        tags     = ["local", "monitor"]
+        tags     = ["local"]
       }
 
       template {

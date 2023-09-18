@@ -26,7 +26,7 @@ job "grocy" {
         name     = "grocy"
         port     = "http"
         provider = "nomad"
-        tags     = ["public", "monitor"]
+        tags     = ["public"]
       }
 
       env {
