@@ -21,11 +21,6 @@ job "resume" {
         to           = 3100
         host_network = "private"
       }
-
-      port "db" {
-        to           = 5432
-        host_network = "private"
-      }
     }
 
     task "frontend" {
@@ -77,35 +72,6 @@ job "resume" {
       config {
         image = "amruthpillai/reactive-resume:server-latest"
         ports = ["backend"]
-      }
-    }
-
-    task "db" {
-      driver = "docker"
-      user   = "1000:1000"
-
-      service {
-        name     = "resume-db"
-        port     = "db"
-        provider = "nomad"
-        tags     = ["private"]
-      }
-
-      template {
-        data        = file(".env")
-        destination = "env"
-        env         = true
-      }
-
-      config {
-        image = "postgres:15"
-        ports = ["db"]
-
-        mount {
-          type   = "bind"
-          source = "${local.strg}/db"
-          target = "/var/lib/postgresql/data"
-        }
       }
     }
   }
