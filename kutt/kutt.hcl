@@ -17,11 +17,6 @@ job "kutt" {
         host_network = "private"
       }
 
-      port "db" {
-        to           = 5432
-        host_network = "private"
-      }
-
       port "redis" {
         to           = 6379
         host_network = "private"
@@ -49,36 +44,7 @@ job "kutt" {
         ports = ["app"]
 
         command = "./wait-for-it.sh"
-        args    = ["${NOMAD_ADDR_db}", "--", "npm", "start"]
-      }
-    }
-
-    task "db" {
-      driver = "docker"
-      user   = "1000:1000"
-
-      service {
-        name     = "kutt-db"
-        port     = "db"
-        provider = "nomad"
-        tags     = ["private"]
-      }
-
-      template {
-        data        = file("env_db")
-        destination = "env_db"
-        env         = true
-      }
-
-      config {
-        image = "postgres:15-alpine"
-        ports = ["db"]
-
-        mount {
-          type   = "bind"
-          source = "${local.strg}/db"
-          target = "/var/lib/postgresql/data"
-        }
+        args    = ["${DB_HOST}:${DB_PORT}", "--", "npm", "start"]
       }
     }
 

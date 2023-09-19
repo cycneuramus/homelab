@@ -1,5 +1,6 @@
-DB_HOST={{ env "NOMAD_IP_db"}}
-DB_PORT={{ env "NOMAD_HOST_PORT_db"}}
+{{ range nomadService "patroni-ingress" -}}
+DB_HOST={{ .Address }}
+DB_PORT={{ .Port }}{{ end }}
 DB_NAME=
 DB_USER=
 DB_PASSWORD=
