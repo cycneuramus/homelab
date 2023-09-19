@@ -89,7 +89,7 @@ job "patroni" {
       kill_timeout = "30s"
 
       resources {
-        cpu = 1000
+        cpu        = 1000
         memory_max = 2048
       }
 

@@ -1,5 +1,6 @@
 locals {
-  strg = pathexpand("~/cld/nextcloud")
+  version = "27.0.2-apache"
+  strg    = pathexpand("~/cld/nextcloud")
 
   cloud_vol = {
     userdata-1 = "nextcloud_userdata-1"
@@ -57,11 +58,6 @@ job "nextcloud" {
         to           = 9980
         host_network = "private"
       }
-
-      port "db" {
-        to           = 5432
-        host_network = "private"
-      }
     }
 
     task "cleanup" {
@@ -101,7 +97,7 @@ job "nextcloud" {
       }
 
       config {
-        image = "nextcloud:27-apache"
+        image = "nextcloud:${local.version}"
         ports = ["server"]
 
         mount {
@@ -207,8 +203,14 @@ job "nextcloud" {
         gid         = 1000
       }
 
+      template {
+        data        = file("env_server")
+        destination = "env_server"
+        env         = true
+      }
+
       config {
-        image      = "nextcloud:27-apache"
+        image      = "nextcloud:${local.version}"
         entrypoint = ["/local/cron.sh"]
 
         mount {
@@ -221,46 +223,6 @@ job "nextcloud" {
           type   = "bind"
           source = "${local.strg}/config/config.php"
           target = "/var/www/html/config/config.php"
-        }
-
-        mount {
-          type   = "bind"
-          source = "${local.strg}/sock"
-          target = "/tmp/sock"
-        }
-      }
-    }
-
-    task "db" {
-      driver = "docker"
-      user   = "1000:1000"
-
-      service {
-        name     = "nextcloud-db"
-        port     = "db"
-        provider = "nomad"
-        tags     = ["private"]
-      }
-
-      template {
-        data        = file("env_db")
-        destination = "env_db"
-        env         = true
-      }
-
-      config {
-        image = "postgres:15"
-        ports = ["db"]
-
-        command = "postgres"
-        args = [
-          "-c", "unix_socket_directories=/var/run/postgresql,/tmp/sock"
-        ]
-
-        mount {
-          type   = "bind"
-          source = "${local.strg}/db"
-          target = "/var/lib/postgresql/data"
         }
 
         mount {
@@ -318,30 +280,24 @@ job "nextcloud" {
         tags     = ["private"]
       }
 
-      env {
-        LOG           = "info"
-        NEXTCLOUD_URL = "http://${NOMAD_ADDR_server}"
+      template {
+        data        = file("env_push")
+        destination = "env_push"
+        env         = true
       }
 
       config {
-        image = "nextcloud:27-fpm-alpine"
+        image = "nextcloud:${local.version}"
         ports = ["push"]
 
         entrypoint = [
-          "/var/www/html/custom_apps/notify_push/bin/x86_64/notify_push",
-          "/var/www/html/config/config.php"
+          "/local/notify_push"
         ]
 
         mount {
           type   = "bind"
-          source = "${local.strg}/config/config.php"
-          target = "/var/www/html/config/config.php"
-        }
-
-        mount {
-          type   = "bind"
-          source = "${local.strg}/data"
-          target = "/var/www/html"
+          source = "${local.strg}/data/custom_apps/notify_push/bin/${attr.kernel.arch}/notify_push"
+          target = "/local/notify_push"
         }
 
         mount {

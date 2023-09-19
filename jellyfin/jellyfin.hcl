@@ -1,5 +1,5 @@
 locals {
-  strg = pathexpand("~/cld/jellyfin")
+  strg      = pathexpand("~/cld/jellyfin")
   cloud_vol = "jellyfin"
 }
 

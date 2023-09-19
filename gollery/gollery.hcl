@@ -3,7 +3,7 @@ locals {
 
   cloud_vol = {
     user-1    = "gollery_user-1"
-    user-2  = "gollery_user-2"
+    user-2    = "gollery_user-2"
     extracted = "gollery_extracted"
   }
 

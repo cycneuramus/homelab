@@ -85,9 +85,9 @@ job "immich" {
       }
 
       config {
-        image = "ghcr.io/immich-app/immich-server:release"
+        image      = "ghcr.io/immich-app/immich-server:release"
         force_pull = true
-        ports = ["server"]
+        ports      = ["server"]
 
         command = "start-server.sh"
 
@@ -127,7 +127,7 @@ job "immich" {
       }
 
       config {
-        image   = "ghcr.io/immich-app/immich-server:release"
+        image      = "ghcr.io/immich-app/immich-server:release"
         force_pull = true
 
         command = "start-microservices.sh"
@@ -168,9 +168,9 @@ job "immich" {
       }
 
       config {
-        image = "ghcr.io/immich-app/immich-machine-learning:release"
+        image      = "ghcr.io/immich-app/immich-machine-learning:release"
         force_pull = true
-        ports = ["machinelearning"]
+        ports      = ["machinelearning"]
 
         mount {
           type   = "bind"
@@ -210,9 +210,9 @@ job "immich" {
       }
 
       config {
-        image = "ghcr.io/immich-app/immich-web:release"
+        image      = "ghcr.io/immich-app/immich-web:release"
         force_pull = true
-        ports = ["web"]
+        ports      = ["web"]
       }
     }
 
@@ -233,9 +233,9 @@ job "immich" {
       }
 
       config {
-        image = "ghcr.io/immich-app/immich-proxy:release"
+        image      = "ghcr.io/immich-app/immich-proxy:release"
         force_pull = true
-        ports = ["ingress"]
+        ports      = ["ingress"]
       }
     }
 
