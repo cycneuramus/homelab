@@ -23,11 +23,6 @@ job "gitea" {
         host_network = "private"
       }
 
-      port "db" {
-        to           = 5432
-        host_network = "private"
-      }
-
       port "redis" {
         to           = 6379
         host_network = "private"
@@ -68,35 +63,6 @@ job "gitea" {
           type   = "bind"
           source = "${local.strg}/data"
           target = "/var/lib/gitea"
-        }
-      }
-    }
-
-    task "db" {
-      driver = "docker"
-      user   = "1000:1000"
-
-      service {
-        name     = "git-db"
-        port     = "http"
-        provider = "nomad"
-        tags     = ["private"]
-      }
-
-      template {
-        data        = file("env_db")
-        destination = "env_db"
-        env         = true
-      }
-
-      config {
-        image = "postgres:15"
-        ports = ["db"]
-
-        mount {
-          type   = "bind"
-          source = "${local.strg}/db"
-          target = "/var/lib/postgresql/data"
         }
       }
     }

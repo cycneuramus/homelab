@@ -6,10 +6,11 @@ GITEA__cache.last_commit__ENABLED=true
 GITEA__cache.last_commit_COMMITS_COUNT=50
 GITEA__cache__HOST=redis://{{ env "NOMAD_ADDR_redis" }}/0?pool_size=100&idle_timeout=180s
 GITEA__database__DB_TYPE=postgres
-GITEA__database__HOST={{ env "NOMAD_ADDR_db" }}
-GITEA__database__NAME=gitea
-GITEA__database__PASSWD=gitea
-GITEA__database__USER=gitea
+{{ range nomadService "patroni-ingress" -}}
+GITEA__database__HOST={{ .Address }}:{{ .Port }}{{ end }}
+GITEA__database__NAME=
+GITEA__database__PASSWD=
+GITEA__database__USER=
 GITEA__mailer__ENABLED=false
 GITEA__openid__ENABLED_OPENID_SIGNIN=false
 GITEA__openid__ENABLED_OPENID_SIGNUP=false
