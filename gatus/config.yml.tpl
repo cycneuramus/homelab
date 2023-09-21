@@ -32,7 +32,7 @@ default-endpoint: &defaults
 endpoints:
 
 {{- define "infra" -}}
-patroni-ingress
+haproxy
 postgres-apex
 postgres-green
 postgres-vps

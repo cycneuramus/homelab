@@ -1,6 +1,5 @@
-{{ range nomadService "patroni-ingress" -}}
-DB_HOST={{ .Address }}
-DB_PORT={{ .Port }}{{ end }}
+DB_HOST={{ env "attr.unique.network.ip-address" }}
+DB_PORT=15432
 DB_NAME=
 DB_USER=
 DB_PASSWORD=

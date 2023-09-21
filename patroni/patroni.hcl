@@ -45,7 +45,6 @@ job "patroni" {
 
       port "postgres" {
         to           = 5432
-        static       = 5432
         host_network = "private"
       }
     }
@@ -122,52 +121,6 @@ job "patroni" {
           source = "${local.strg}/data"
           target = "/home/patroni/data"
         }
-      }
-    }
-  }
-
-  group "haproxy" {
-    network {
-      port "ingress" {
-        to           = 5000
-        host_network = "private"
-      }
-
-      port "stats" {
-        to           = 7000
-        host_network = "private"
-      }
-    }
-
-    task "haproxy" {
-      driver = "docker"
-
-      service {
-        name     = "patroni-ingress"
-        port     = "ingress"
-        provider = "nomad"
-        tags     = ["private"]
-      }
-
-      service {
-        name     = "haproxy"
-        port     = "stats"
-        provider = "nomad"
-        tags     = ["local"]
-      }
-
-      template {
-        data        = file("haproxy.cfg")
-        destination = "local/haproxy.cfg"
-      }
-
-      config {
-        image = "haproxy:lts-alpine"
-        ports = ["ingress", "stats"]
-
-        entrypoint = [
-          "haproxy", "-f", "/local/haproxy.cfg"
-        ]
       }
     }
   }

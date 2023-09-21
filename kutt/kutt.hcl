@@ -44,7 +44,7 @@ job "kutt" {
         ports = ["app"]
 
         command = "./wait-for-it.sh"
-        args    = ["${DB_HOST}:${DB_PORT}", "--", "npm", "start"]
+        args    = ["${attr.unique.network.ip-address}:15432", "--", "npm", "start"]
       }
     }
 

@@ -1,5 +1,4 @@
-{{ range nomadService "patroni-ingress" -}}
-POSTGRES_HOST={{ .Address }}:{{ .Port }}{{ end }}
+POSTGRES_HOST={{ env "attr.unique.network.ip-address" }}:15432
 POSTGRES_DB=
 POSTGRES_USER=
 POSTGRES_PASSWORD=

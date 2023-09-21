@@ -4,9 +4,10 @@ This repository contains the skeleton files for a homelab of self-hosted service
 
 ### Highlights
 
-+ [Caddy](https://caddyserver.com) as load balancer, [l4 proxy](https://github.com/mholt/caddy-l4), and [fully automated](https://github.com/cycneuramus/homelab/blob/master/caddy/Caddyfile.tpl#L113-L121) reverse proxy
-+ Highly available [SeaweedFS](https://github.com/seaweedfs/seaweedfs) deployment for distributed S3 object storage with [auto-failover](https://github.com/cycneuramus/homelab/blob/master/caddy/Caddyfile.tpl#L141-L145) endpoints
-+ Highly available Postgres database cluster by means of [Patroni](https://github.com/zalando/patroni)
++ [Caddy](https://caddyserver.com) as [l4 proxy](https://github.com/mholt/caddy-l4) and [fully automated](https://github.com/cycneuramus/homelab/blob/master/caddy/Caddyfile.tpl#L113-L121) reverse proxy
++ [HAProxy](https://www.haproxy.org/) as [internal load balancer](https://github.com/cycneuramus/homelab/blob/master/haproxy/cfg-haproxy.cfg) for infrastructure services
++ Highly available [SeaweedFS](https://github.com/seaweedfs/seaweedfs) deployment for distributed S3 object storage with [auto-failover](https://github.com/cycneuramus/homelab/blob/master/caddy/Caddyfile.tpl#L141-L145) for external endpoints
++ Highly available [PostgreSQL](https://www.postgresql.org) database cluster by means of [Patroni](https://github.com/zalando/patroni)
 + Extensive use of [Nomad service discovery](https://developer.hashicorp.com/nomad/docs/networking/service-discovery) to minimize networking dependencies
 + Self-cleaning [Rclone Docker volumes](https://rclone.org/docker) for cloud storage backends
-+ All services aside from the proxies are closed to the outside world, communicating only over a private mesh network
++ All services aside from the reverse proxy are closed to the outside world, communicating only over a private mesh network

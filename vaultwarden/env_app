@@ -1,5 +1,4 @@
-{{ range nomadService "patroni-ingress" -}}
-DATABASE_URL=postgresql://<db_user>:<db_pass>@{{ .Address }}:{{ .Port }}{{ end }}/vaultwarden
+DATABASE_URL=postgresql://<db_user>:<db_pass>@{{ env "attr.unique.network.ip-address" }}:15432/vaultwarden
 DOMAIN=https://vaultwarden.example.com
 ROCKET_PORT=8080
 SIGNUPS_ALLOWED=false
