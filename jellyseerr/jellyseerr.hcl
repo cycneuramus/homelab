@@ -37,8 +37,8 @@ job "jellyseerr" {
       template {
         data        = file("settings.json")
         destination = "local/settings.json"
-        uid         = "1000"
-        gid         = "1000"
+        uid         = 1000
+        gid         = 1000
       }
 
       config {

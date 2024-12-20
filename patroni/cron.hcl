@@ -40,7 +40,7 @@ job "patroni-cron" {
             -f /patroni/backup.sql
         EOF
         destination = "local/pg_backup.sh"
-        perms       = "755"
+        perms       = 755
       }
 
       config {

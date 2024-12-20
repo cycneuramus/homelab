@@ -22,7 +22,7 @@ job "unmanic-cron" {
           {{ end }}
         EOF
         destination = "local/entrypoint.sh"
-        perms       = "755"
+        perms       = 755
       }
 
       config {

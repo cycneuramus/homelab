@@ -110,7 +110,7 @@ job "nextcloud" {
       template {
         data        = file("config/cron.sh")
         destination = "/local/cron.sh"
-        perms       = "755"
+        perms       = 755
         uid         = 1000
         gid         = 1000
       }

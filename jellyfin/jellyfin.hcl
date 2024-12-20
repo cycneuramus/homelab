@@ -37,8 +37,8 @@ job "jellyfin" {
       template {
         data        = file("encoding.xml.tpl")
         destination = "local/encoding.xml"
-        uid         = "1000"
-        gid         = "1000"
+        uid         = 1000
+        gid         = 1000
       }
 
       config {
