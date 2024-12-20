@@ -1,28 +1,9 @@
 locals {
-  strg = pathexpand("~/cld/libreddit")
+  version = latest
 }
 
 job "libreddit" {
-  constraint {
-    attribute = "${meta.performance}"
-    value     = "high"
-  }
-
-  constraint {
-    attribute = "${attr.cpu.arch}"
-    operator  = "!="
-    value     = "arm64"
-  }
-
-  constraint {
-    attribute = "${meta.datacenter}"
-    operator  = "!="
-    value     = "eso"
-  }
-
   group "libreddit" {
-    count = 1
-
     network {
       port "http" {
         to           = 8080
@@ -31,25 +12,30 @@ job "libreddit" {
     }
 
     task "libreddit" {
-      driver = "docker"
-      user   = "1000:1000"
+      driver = "podman"
+      # user   = "1000:1000"
 
       service {
-        name     = "libreddit"
-        port     = "http"
-        provider = "nomad"
-        tags     = ["local"]
+        name         = "libreddit"
+        port         = "http"
+        provider     = "nomad"
+        address_mode = "host"
+        tags         = ["local"]
       }
 
       template {
-        source      = "${local.strg}/.env"
+        data        = file(".env")
         destination = "env"
         env         = true
       }
 
       config {
-        image = "spikecodes/libreddit:latest"
+        image = "quay.io/redlib/redlib:${local.version}"
         ports = ["http"]
+
+        logging = {
+          driver = "journald"
+        }
       }
     }
   }

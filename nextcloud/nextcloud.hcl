@@ -1,33 +1,15 @@
 locals {
-  version = "27.0.2-apache"
-  strg    = pathexpand("~/cld/nextcloud")
-
-  cloud_vol = {
-    userdata-1 = "nextcloud_userdata-1"
-    userdata-2 = "nextcloud_userdata-2"
-    userdata-3 = "nextcloud_userdata-3"
+  versions = {
+    nextcloud = "30.0.3-apache"
+    collabora = "24.04.10.2.1"
   }
 
-  cleanup_args = concat(["volume", "rm"], values("${local.cloud_vol}"))
+  strg      = "/mnt/jfs/nextcloud"
+  mnt-crypt = "/mnt/crypt"
+  sock      = pathexpand("~/cld/nextcloud/sock")
 }
 
 job "nextcloud" {
-  constraint {
-    attribute = "${meta.performance}"
-    value     = "high"
-  }
-
-  constraint {
-    attribute = "${meta.storage}"
-    value     = "large"
-  }
-
-  constraint {
-    attribute = "${attr.cpu.arch}"
-    operator  = "!="
-    value     = "arm64"
-  }
-
   affinity {
     attribute = "${attr.unique.hostname}"
     value     = "apex"
@@ -36,13 +18,11 @@ job "nextcloud" {
 
   affinity {
     attribute = "${attr.unique.hostname}"
-    value     = "home"
-    weight    = 25
+    value     = "ambi"
+    weight    = 50
   }
 
   group "nextcloud" {
-    count = 1
-
     network {
       port "server" {
         to           = 80
@@ -60,134 +40,66 @@ job "nextcloud" {
       }
     }
 
-    task "cleanup" {
-      driver = "raw_exec"
-
-      lifecycle {
-        hook    = "poststop"
-        sidecar = false
-      }
-
-      config {
-        command = "docker"
-        args    = "${local.cleanup_args}"
-      }
-    }
-
     task "server" {
-      driver = "docker"
+      driver = "podman"
       user   = "1000:1000"
 
       resources {
-        cpu        = 1000
+        cpu        = 2048
         memory_max = 4096
       }
 
       service {
-        name     = "nextcloud"
-        port     = "server"
-        provider = "nomad"
-        tags     = ["public"]
+        name         = "nextcloud"
+        port         = "server"
+        provider     = "nomad"
+        address_mode = "host"
+        tags         = ["public"]
       }
 
       template {
-        data        = file("env_server")
-        destination = "env_server"
+        data        = file("config/database.config.php")
+        destination = "local/database.config.php"
+        uid         = 1000
+        gid         = 1000
+      }
+
+      template {
+        data        = file("env_app")
+        destination = "env_app"
         env         = true
       }
 
       config {
-        image = "nextcloud:${local.version}"
-        ports = ["server"]
+        image  = "nextcloud:${local.versions.nextcloud}"
+        ports  = ["server"]
+        userns = "keep-id"
 
-        mount {
-          type   = "bind"
-          source = "${local.strg}/config/config.php"
-          target = "/var/www/html/config/config.php"
+        sysctl = {
+          "net.ipv4.ip_unprivileged_port_start" = "80"
         }
 
-        mount {
-          type   = "bind"
-          source = "${local.strg}/config/www2.conf"
-          target = "/usr/local/etc/php-fpm.d/www2.conf"
+        logging = {
+          driver = "journald"
         }
 
-        mount {
-          type   = "bind"
-          source = "${local.strg}/config/nextcloud.ini"
-          target = "/usr/local/etc/php/conf.d/nextcloud.ini"
-        }
-
-        mount {
-          type   = "bind"
-          source = "${local.strg}/config/redis-session.ini"
-          target = "/usr/local/etc/php/conf.d/redis-session.ini"
-        }
-
-        mount {
-          type   = "bind"
-          source = "${local.strg}/data"
-          target = "/var/www/html"
-        }
-
-        mount {
-          type   = "bind"
-          source = "${local.strg}/sock"
-          target = "/tmp/sock"
-        }
-
-        mount {
-          type   = "volume"
-          source = "${local.cloud_vol.userdata-1}"
-          target = "/var/www/html/data/user-1"
-          volume_options {
-            driver_config {
-              name = "rclone"
-              options {
-                remote = "crypt:cld/nextcloud/user-1"
-                uid    = "1000"
-                gid    = "1000"
-              }
-            }
-          }
-        }
-
-        mount {
-          type   = "volume"
-          source = "${local.cloud_vol.userdata-2}"
-          target = "/var/www/html/data/user-2"
-          volume_options {
-            driver_config {
-              name = "rclone"
-              options {
-                remote = "crypt:cld/nextcloud/user-2"
-                uid    = "1000"
-                gid    = "1000"
-              }
-            }
-          }
-        }
-
-        mount {
-          type   = "volume"
-          source = "${local.cloud_vol.userdata-3}"
-          target = "/var/www/html/data/user-3"
-          volume_options {
-            driver_config {
-              name = "rclone"
-              options {
-                remote = "crypt:cld/nextcloud/user-3"
-                uid    = "1000"
-                gid    = "1000"
-              }
-            }
-          }
-        }
+        volumes = [
+          "local/database.config.php:/var/www/html/config/database.config.php",
+          "${local.strg}/config/config.php:/var/www/html/config/config.php",
+          "${local.strg}/config/www2.conf:/usr/local/etc/php-fpm.d/www2.conf",
+          "${local.strg}/config/nextcloud.ini:/usr/local/etc/php/conf.d/nextcloud.ini",
+          "${local.strg}/config/redis-session.ini:/usr/local/etc/php/conf.d/redis-session.ini",
+          "${local.strg}/data:/var/www/html",
+          "${local.sock}:/tmp/sock",
+          "${local.mnt-crypt}/nextcloud/antsva:/var/www/html/data/antsva",
+          "${local.mnt-crypt}/nextcloud/amabilis:/var/www/html/data/amabilis",
+          "${local.mnt-crypt}/nextcloud/jowl:/var/www/html/data/jowl",
+        ]
       }
     }
 
     task "cron" {
-      driver = "docker"
+      driver = "podman"
       user   = "1000:1000"
 
       lifecycle {
@@ -204,37 +116,38 @@ job "nextcloud" {
       }
 
       template {
-        data        = file("env_server")
-        destination = "env_server"
+        data        = file("config/database.config.php")
+        destination = "local/database.config.php"
+        uid         = 1000
+        gid         = 1000
+      }
+
+      template {
+        data        = file("env_app")
+        destination = "env_app"
         env         = true
       }
 
       config {
-        image      = "nextcloud:${local.version}"
+        image      = "nextcloud:${local.versions.nextcloud}"
         entrypoint = ["/local/cron.sh"]
+        userns     = "keep-id"
 
-        mount {
-          type   = "bind"
-          source = "${local.strg}/data"
-          target = "/var/www/html"
+        logging = {
+          driver = "journald"
         }
 
-        mount {
-          type   = "bind"
-          source = "${local.strg}/config/config.php"
-          target = "/var/www/html/config/config.php"
-        }
-
-        mount {
-          type   = "bind"
-          source = "${local.strg}/sock"
-          target = "/tmp/sock"
-        }
+        volumes = [
+          "local/database.config.php:/var/www/html/config/database.config.php",
+          "${local.strg}/config/config.php:/var/www/html/config/config.php",
+          "${local.strg}/data:/var/www/html",
+          "${local.sock}:/tmp/sock",
+        ]
       }
     }
 
     task "redis" {
-      driver = "docker"
+      driver = "podman"
       user   = "1000:1000"
 
       template {
@@ -249,23 +162,24 @@ job "nextcloud" {
       }
 
       config {
-        image = "redis:alpine"
-
-        command = "redis-server"
+        image  = "valkey/valkey:7.2-alpine"
+        userns = "keep-id"
         args = [
           "/local/redis.conf"
         ]
 
-        mount {
-          type   = "bind"
-          source = "${local.strg}/sock"
-          target = "/tmp/sock"
+        logging = {
+          driver = "journald"
         }
+
+        volumes = [
+          "${local.sock}:/tmp/sock",
+        ]
       }
     }
 
     task "push" {
-      driver = "docker"
+      driver = "podman"
       user   = "1000:1000"
 
       lifecycle {
@@ -274,10 +188,11 @@ job "nextcloud" {
       }
 
       service {
-        name     = "nextcloud-push"
-        port     = "push"
-        provider = "nomad"
-        tags     = ["private"]
+        name         = "nextcloud-push"
+        port         = "push"
+        provider     = "nomad"
+        address_mode = "host"
+        tags         = ["private"]
       }
 
       template {
@@ -287,52 +202,54 @@ job "nextcloud" {
       }
 
       config {
-        image = "nextcloud:${local.version}"
-        ports = ["push"]
+        image  = "nextcloud:${local.versions.nextcloud}"
+        ports  = ["push"]
+        userns = "keep-id"
 
         entrypoint = [
-          "/local/notify_push"
+          "/local/notify_push",
         ]
 
-        mount {
-          type   = "bind"
-          source = "${local.strg}/data/custom_apps/notify_push/bin/${attr.kernel.arch}/notify_push"
-          target = "/local/notify_push"
+        logging = {
+          driver = "journald"
         }
 
-        mount {
-          type   = "bind"
-          source = "${local.strg}/sock"
-          target = "/tmp/sock"
-        }
+        volumes = [
+          "${local.strg}/data/custom_apps/notify_push/bin/${attr.kernel.arch}/notify_push:/local/notify_push",
+          "${local.sock}:/tmp/sock",
+        ]
       }
     }
 
     task "collabora" {
-      driver = "docker"
+      driver = "podman"
 
       resources {
-        memory_max = 2048
+        memory_max = 4096
       }
 
       service {
-        name     = "collabora"
-        port     = "collabora"
-        provider = "nomad"
-        tags     = ["local"]
+        name         = "collabora"
+        port         = "collabora"
+        provider     = "nomad"
+        address_mode = "host"
+        tags         = ["local"]
       }
 
-      env {
-        DONT_GEN_SSL_CERT = "1"
-        dictionaries      = "en sv"
-        extra_params      = "--o:ssl.enable=false --o:ssl.termination=true"
+      template {
+        data        = file("env_collabora")
+        destination = "env_collaboa"
+        env         = true
       }
 
       config {
-        image = "collabora/code:latest"
+        image = "collabora/code:${local.versions.collabora}"
         ports = ["collabora"]
+
+        logging = {
+          driver = "journald"
+        }
       }
     }
   }
 }
-

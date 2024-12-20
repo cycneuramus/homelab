@@ -1,49 +1,41 @@
 locals {
-  strg    = pathexpand("~/cld/grocy")
-  version = "latest"
+  strg    = "/mnt/jfs/grocy"
+  version = "4.2"
 }
 
 job "grocy" {
-  constraint {
-    attribute = "${meta.performance}"
-    value     = "high"
-  }
-
   group "grocy" {
-    count = 1
-
     network {
       port "http" {
-        to           = 80
+        to           = 8080
         host_network = "private"
       }
     }
 
     task "grocy" {
-      driver = "docker"
+      driver = "podman"
+      user   = "1000:1000"
 
       service {
-        name     = "grocy"
-        port     = "http"
-        provider = "nomad"
-        tags     = ["public"]
-      }
-
-      env {
-        PUID = "1000"
-        PGID = "1000"
-        TZ   = "Europe/Stockholm"
+        name         = "grocy"
+        port         = "http"
+        provider     = "nomad"
+        address_mode = "host"
+        tags         = ["public"]
       }
 
       config {
-        image = "linuxserver/grocy:${local.version}"
-        ports = ["http"]
+        image  = "ghcr.io/bbx0/grocy:${local.version}"
+        ports  = ["http"]
+        userns = "keep-id"
 
-        mount {
-          type   = "bind"
-          source = "${local.strg}/config"
-          target = "/config"
+        logging = {
+          driver = "journald"
         }
+
+        volumes = [
+          "${local.strg}/data:/data"
+        ]
       }
     }
   }

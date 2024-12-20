@@ -1,20 +1,25 @@
+storage:
+  type: postgres
+  path: "postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@{{ env "attr.unique.network.ip-address" }}:15432/gatus?sslmode=disable"
+  caching: true
+
 alerting:
   custom:
-    url: "https://ntfy.example.com"
+    url: "https://ntfy.${DOMAIN}"
     method: "POST"
     body: |
       {
         "topic": "cluster",
-        "title": "[ENDPOINT_GROUP]",
-        "message": "[ENDPOINT_NAME]: [ALERT_TRIGGERED_OR_RESOLVED]",
+        "title": "[ENDPOINT_NAME]",
+        "message": "[ALERT_TRIGGERED_OR_RESOLVED]",
         "priority": 3
       }
     placeholders:
       ALERT_TRIGGERED_OR_RESOLVED:
-        TRIGGERED: "❌ DOWN"
-        RESOLVED: "✅ UP"
-default-endpoint: &defaults
-  group: Services
+        TRIGGERED: "🔴 DOWN"
+        RESOLVED: "🟢 UP"
+
+service-endpoint: &services
   interval: 5m
   conditions:
     - "[CONNECTED] == true"
@@ -27,69 +32,142 @@ default-endpoint: &defaults
     - type: custom
       enabled: true
       send-on-resolved: true
-      failure-threshold: 5
+      failure-threshold: 2
       success-threshold: 2
+
 endpoints:
 
-{{- define "infra" -}}
-haproxy
+{{- define "databases" -}}
+etcd
+keydb-ambi
+keydb-apex
+keydb-horreum
+postgres-ambi
 postgres-apex
-postgres-green
-postgres-vps
-s3
-s3-filer
-s3-master
-s3-volume
+postgres-horreum
 {{- end -}}
 
-{{- define "networking" -}}
-l4-proxy-green
-l4-proxy-vps
-reverse-proxy-green
-reverse-proxy-vps
-adguard
-unbound
+{{- define "infra" -}}
+caddy-apex
+caddy-ambi
+caddy-horreum
+haproxy-apex
+haproxy-ambi
+haproxy-horreum
+s3-apex
+s3-ambi
+s3-horreum
 {{- end -}}
 
-{{- define "services" -}}
-arcade
-audiobooks
+{{- define "proxying" -}}
 change
-collabora
-git
-grocy
-hass
-immich-server
-jellyfin
-jellyseerr
-kavita
+flaresolverr
 kutt
 libreddit
-llama
-llama-api
-mailserver-25
-navidrome
-nextcloud
-nitter
+searx
+{{- end -}}
+
+{{- define "communication" -}}
+imaps
+matrix
+meet
 ntfy
-prowlarr
-rdt
+signal-bridge
+signal-cli-rest-api
+smtp
+smtps
+stalwart
+{{- end -}}
+
+{{- define "personal" -}}
+fmd
+grocy
+hannes
+hass
+immich
 resume
 resume-backend
-searx
-tm
-transfer
-unmanic
 vaultwarden
-wizarr
 {{- end -}}
+
+{{- define "collaboration" -}}
+collabora
+filestash
+gist
+git
+nextcloud
+rallly
+transfer
+{{- end -}}
+
+{{- define "entertainment" -}}
+arcade
+audiobooks
+jellyfin
+navidrome
+tm
+{{- end -}}
+
+{{- define "curation" -}}
+bazarr
+jellyseerr
+jellystat
+pinchflat
+prowlarr
+radarr
+rdt
+sonarr
+soulseek
+unmanic
+wizarr
+{{- end }}
+
+  - name: turn
+    !!merge <<: *services
+    group: 05. Communication
+    url: tcp://${TURN_IP}:3478
+
+  - name: apex
+    !!merge <<: *services
+    group: 01. Nomad nodes
+    url: http://10.10.10.10:4646/v1/agent/health
+    conditions:
+      - "[STATUS] == 200"
+
+  - name: ambi
+    !!merge <<: *services
+    group: 01. Nomad nodes
+    url: http://10.10.10.11:4646/v1/agent/health
+    conditions:
+      - "[STATUS] == 200"
+
+  - name: horreum
+    !!merge <<: *services
+    group: 01. Nomad nodes
+    url: http://10.10.10.12:4646/v1/agent/health
+    conditions:
+      - "[STATUS] == 200"
+
+{{ range $service := executeTemplate "databases" | split "\n" -}}
+{{- $allocID := env "NOMAD_ALLOC_ID" -}}
+{{- $upstream := nomadService 1 $allocID $service }}
+  - name: {{ $service }}
+    !!merge <<: *services
+    group: 02. Databases
+{{- if $upstream -}}
+{{- range $upstream }}
+    url: tcp://{{ .Address }}:{{ .Port }}{{ end }}
+{{- else }}
+    url: tcp://localhost:1111
+{{- end }}
+{{ end }}
 
 {{ range $service := executeTemplate "infra" | split "\n" -}}
 {{- $allocID := env "NOMAD_ALLOC_ID" -}}
 {{- $upstream := nomadService 1 $allocID $service }}
   - name: {{ $service }}
-    !!merge <<: *defaults
-    group: Infra
+    !!merge <<: *services
+    group: 03. Infra
 {{- if $upstream -}}
 {{- range $upstream }}
     url: tcp://{{ .Address }}:{{ .Port }}{{ end }}
@@ -98,12 +176,12 @@ wizarr
 {{- end }}
 {{ end }}
 
-{{ range $service := executeTemplate "networking" | split "\n" -}}
+{{ range $service := executeTemplate "proxying" | split "\n" -}}
 {{- $allocID := env "NOMAD_ALLOC_ID" -}}
 {{- $upstream := nomadService 1 $allocID $service }}
   - name: {{ $service }}
-    !!merge <<: *defaults
-    group: Networking
+    !!merge <<: *services
+    group: 04. Proxying
 {{- if $upstream -}}
 {{- range $upstream }}
     url: tcp://{{ .Address }}:{{ .Port }}{{ end }}
@@ -112,11 +190,12 @@ wizarr
 {{- end }}
 {{ end }}
 
-{{ range $service := executeTemplate "services" | split "\n" -}}
+{{ range $service := executeTemplate "communication" | split "\n" -}}
 {{- $allocID := env "NOMAD_ALLOC_ID" -}}
 {{- $upstream := nomadService 1 $allocID $service }}
   - name: {{ $service }}
-    !!merge <<: *defaults
+    !!merge <<: *services
+    group: 05. Communication
 {{- if $upstream -}}
 {{- range $upstream }}
     url: tcp://{{ .Address }}:{{ .Port }}{{ end }}
@@ -124,27 +203,59 @@ wizarr
     url: tcp://localhost:1111
 {{- end }}
 {{ end }}
-  # - name: Apex
-  #   !!merge <<: *defaults
-  #   group: Nomad nodes
-  #   url: icmp://10.10.10.10
 
-  # - name: Home
-  #   !!merge <<: *defaults
-  #   group: Nomad nodes
-  #   url: icmp://10.10.10.11
+{{ range $service := executeTemplate "personal" | split "\n" -}}
+{{- $allocID := env "NOMAD_ALLOC_ID" -}}
+{{- $upstream := nomadService 1 $allocID $service }}
+  - name: {{ $service }}
+    !!merge <<: *services
+    group: 06. Personal
+{{- if $upstream -}}
+{{- range $upstream }}
+    url: tcp://{{ .Address }}:{{ .Port }}{{ end }}
+{{- else }}
+    url: tcp://localhost:1111
+{{- end }}
+{{ end }}
 
-  # - name: VPS
-  #   !!merge <<: *defaults
-  #   group: Nomad nodes
-  #   url: icmp://10.10.10.12
+{{ range $service := executeTemplate "collaboration" | split "\n" -}}
+{{- $allocID := env "NOMAD_ALLOC_ID" -}}
+{{- $upstream := nomadService 1 $allocID $service }}
+  - name: {{ $service }}
+    !!merge <<: *services
+    group: 07. Collaboration
+{{- if $upstream -}}
+{{- range $upstream }}
+    url: tcp://{{ .Address }}:{{ .Port }}{{ end }}
+{{- else }}
+    url: tcp://localhost:1111
+{{- end }}
+{{ end }}
 
-  # - name: Green
-  #   !!merge <<: *defaults
-  #   group: Nomad nodes
-  #   url: icmp://10.10.10.13
+{{ range $service := executeTemplate "entertainment" | split "\n" -}}
+{{- $allocID := env "NOMAD_ALLOC_ID" -}}
+{{- $upstream := nomadService 1 $allocID $service }}
+  - name: {{ $service }}
+    !!merge <<: *services
+    group: 08. Entertainment
+{{- if $upstream -}}
+{{- range $upstream }}
+    url: tcp://{{ .Address }}:{{ .Port }}{{ end }}
+{{- else }}
+    url: tcp://localhost:1111
+{{- end }}
+{{ end }}
 
-  # - name: ARM
-  #   !!merge <<: *defaults
-  #   group: Nomad nodes
-  #   url: icmp://10.10.10.14
+{{ range $service := executeTemplate "curation" | split "\n" -}}
+{{- $allocID := env "NOMAD_ALLOC_ID" -}}
+{{- $upstream := nomadService 1 $allocID $service }}
+  - name: {{ $service }}
+    !!merge <<: *services
+    group: 09. Curation
+{{- if $upstream -}}
+{{- range $upstream }}
+    url: tcp://{{ .Address }}:{{ .Port }}{{ end }}
+{{- else }}
+    url: tcp://localhost:1111
+{{- end }}
+{{ end }}

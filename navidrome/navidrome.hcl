@@ -1,17 +1,11 @@
 locals {
-  strg      = pathexpand("~/cld/navidrome")
-  cloud_vol = "navidrome"
+  strg    = "/mnt/jfs/navidrome"
+  music   = "/mnt/jfs/music"
+  version = "0.53.3"
 }
 
 job "navidrome" {
-  constraint {
-    attribute = "${meta.performance}"
-    value     = "high"
-  }
-
   group "navidrome" {
-    count = 1
-
     network {
       port "http" {
         to           = 4533
@@ -19,37 +13,19 @@ job "navidrome" {
       }
     }
 
-    ephemeral_disk {
-      migrate = true
-    }
-
-    task "cleanup" {
-      driver = "raw_exec"
-
-      lifecycle {
-        hook    = "poststop"
-        sidecar = false
-      }
-
-      config {
-        command = "docker"
-        args    = ["volume", "rm", "${local.cloud_vol}"]
-      }
-    }
-
     task "navidrome" {
-      driver = "docker"
-      user   = "1000:1000"
+      driver = "podman"
 
       resources {
         memory_max = 2048
       }
 
       service {
-        name     = "navidrome"
-        port     = "http"
-        provider = "nomad"
-        tags     = ["local"]
+        name         = "navidrome"
+        port         = "http"
+        provider     = "nomad"
+        address_mode = "host"
+        tags         = ["public"]
       }
 
       template {
@@ -59,68 +35,19 @@ job "navidrome" {
       }
 
       config {
-        image = "deluan/navidrome:latest"
+        image = "ghcr.io/navidrome/navidrome:${local.version}"
         ports = ["http"]
 
-        mount {
-          type   = "bind"
-          source = "local"
-          target = "/data"
+        logging = {
+          driver = "journald"
         }
 
-        mount {
-          type     = "volume"
-          source   = "${local.cloud_vol}"
-          target   = "/music"
-          readonly = true
-          volume_options {
-            driver_config {
-              name = "rclone"
-              options {
-                remote = "crypt:media/music"
-                uid    = "1000"
-                gid    = "1000"
-              }
-            }
-          }
-        }
-      }
-    }
+        volumes = [
+          "${local.music}:/music",
+          "${local.strg}/db:/data"
+        ]
 
-    task "beets" {
-      driver = "docker"
-
-      env {
-        PUID = "1000"
-        PGID = "1000"
-        TZ   = "Europe/Stockholm"
-      }
-
-      config {
-        image = "lscr.io/linuxserver/beets:latest"
-
-        mount {
-          type   = "bind"
-          source = "${local.strg}/config"
-          target = "/config"
-        }
-
-        mount {
-          type     = "volume"
-          source   = "navidrome"
-          target   = "/music"
-          readonly = true
-          volume_options {
-            driver_config {
-              name = "rclone"
-              options {
-                remote = "crypt:media/music"
-                uid    = "1000"
-                gid    = "1000"
-              }
-            }
-          }
-        }
+        tmpfs = ["/data/cache"]
       }
     }
   }

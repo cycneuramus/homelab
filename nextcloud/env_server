@@ -1,6 +1,0 @@
-POSTGRES_HOST={{ env "attr.unique.network.ip-address" }}:15432
-POSTGRES_DB=
-POSTGRES_USER=
-POSTGRES_PASSWORD=
-REDIS_HOST=/tmp/sock/redis.sock
-REDIS_HOST_PORT=0

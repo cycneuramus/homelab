@@ -1,16 +1,10 @@
 locals {
-  strg = pathexpand("~/cld/wizarr")
+  strg    = "/mnt/jfs/wizarr"
+  version = "4.2.0"
 }
 
 job "wizarr" {
-  constraint {
-    attribute = "${meta.performance}"
-    value     = "high"
-  }
-
   group "wizarr" {
-    count = 1
-
     network {
       port "http" {
         to           = 5690
@@ -19,14 +13,14 @@ job "wizarr" {
     }
 
     task "wizarr" {
-      driver = "docker"
-      user   = "1000:1000"
+      driver = "podman"
 
       service {
-        name     = "wizarr"
-        port     = "http"
-        provider = "nomad"
-        tags     = ["public"]
+        name         = "wizarr"
+        port         = "http"
+        provider     = "nomad"
+        address_mode = "host"
+        tags         = ["public"]
       }
 
       template {
@@ -36,14 +30,16 @@ job "wizarr" {
       }
 
       config {
-        image = "ghcr.io/wizarrrr/wizarr"
+        image = "ghcr.io/wizarrrr/wizarr:${local.version}"
         ports = ["http"]
 
-        mount {
-          type   = "bind"
-          source = "${local.strg}/data"
-          target = "/data/database"
+        logging = {
+          driver = "journald"
         }
+
+        volumes = [
+          "${local.strg}/data:/data/database"
+        ]
       }
     }
   }

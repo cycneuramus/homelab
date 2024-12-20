@@ -1,17 +1,10 @@
 locals {
-  cloud_vol = "transfer"
-  strg      = pathexpand("~/cld/transfer")
+  strg    = "/mnt/jfs/transfer"
+  version = "v1.6.1"
 }
 
 job "transfer" {
-  constraint {
-    attribute = "${meta.performance}"
-    value     = "high"
-  }
-
   group "transfer" {
-    count = 1
-
     network {
       port "http" {
         to           = 8080
@@ -19,29 +12,16 @@ job "transfer" {
       }
     }
 
-    task "cleanup" {
-      driver = "raw_exec"
-
-      lifecycle {
-        hook    = "poststop"
-        sidecar = false
-      }
-
-      config {
-        command = "docker"
-        args    = ["volume", "rm", "${local.cloud_vol}"]
-      }
-    }
-
     task "transfer" {
-      driver = "docker"
+      driver = "podman"
       user   = "1000:1000"
 
       service {
-        name     = "transfer"
-        port     = "http"
-        provider = "nomad"
-        tags     = ["private"]
+        name         = "transfer"
+        port         = "http"
+        provider     = "nomad"
+        address_mode = "host"
+        tags         = ["private"]
       }
 
       template {
@@ -51,25 +31,18 @@ job "transfer" {
       }
 
       config {
-        image = "dutchcoders/transfer.sh:latest"
+        image = "dutchcoders/transfer.sh:${local.version}"
         ports = ["http"]
 
-        mount {
-          type     = "volume"
-          source   = "${local.cloud_vol}"
-          target   = "/data"
-          readonly = true
-          volume_options {
-            driver_config {
-              name = "rclone"
-              options {
-                remote = "crypt:cld/transfer"
-                uid    = "1000"
-                gid    = "1000"
-              }
-            }
-          }
+        userns = "keep-id"
+
+        logging = {
+          driver = "journald"
         }
+
+        volumes = [
+          "${local.strg}:/data"
+        ]
       }
     }
   }

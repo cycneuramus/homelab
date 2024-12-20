@@ -1,4 +1,0 @@
-POSTGRES_DB=gitea
-POSTGRES_USER=gitea
-POSTGRES_PASSWORD=gitea
-PG_DATA=/var/lib/postgresql/data

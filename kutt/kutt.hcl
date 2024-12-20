@@ -1,19 +1,13 @@
-locals {
-  strg = pathexpand("~/cld/kutt")
-}
-
 job "kutt" {
-  constraint {
-    attribute = "${meta.performance}"
-    value     = "high"
-  }
-
   group "kutt" {
-    count = 1
-
     network {
       port "app" {
         to           = 3000
+        host_network = "private"
+      }
+
+      port "db" {
+        to           = 5432
         host_network = "private"
       }
 
@@ -24,18 +18,19 @@ job "kutt" {
     }
 
     task "app" {
-      driver = "docker"
+      driver = "podman"
 
       service {
-        name     = "kutt"
-        port     = "app"
-        provider = "nomad"
-        tags     = ["private"]
+        name         = "kutt"
+        port         = "app"
+        provider     = "nomad"
+        address_mode = "host"
+        tags         = ["private"]
       }
 
       template {
-        data        = file("env_app")
-        destination = "env_app"
+        data        = file(".env")
+        destination = "env"
         env         = true
       }
 
@@ -43,17 +38,25 @@ job "kutt" {
         image = "kutt/kutt"
         ports = ["app"]
 
+        logging = {
+          driver = "journald"
+        }
+
         command = "./wait-for-it.sh"
         args    = ["${attr.unique.network.ip-address}:15432", "--", "npm", "start"]
       }
     }
 
     task "redis" {
-      driver = "docker"
+      driver = "podman"
 
       config {
-        image = "redis:alpine"
+        image = "valkey/valkey:7.2-alpine"
         ports = ["redis"]
+
+        logging = {
+          driver = "journald"
+        }
       }
     }
   }

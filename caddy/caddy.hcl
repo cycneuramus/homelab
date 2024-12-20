@@ -1,6 +1,11 @@
 locals {
-  strg = pathexpand("~/cld/caddy")
-  log  = pathexpand("~/log/caddy")
+  log       = pathexpand("~/log/caddy")
+  strg      = "/mnt/jfs/caddy"
+  mnt-crypt = "/mnt/crypt"
+  # versions = {
+  #   TODO: try 7.2
+  #   valkey  = "8.0-alpine"
+  # }
 }
 
 job "caddy" {
@@ -16,6 +21,10 @@ job "caddy" {
       distinct_hosts = true
     }
 
+    update {
+      max_parallel = 3
+    }
+
     network {
       port "http" {
         static       = 80
@@ -29,55 +38,66 @@ job "caddy" {
         host_network = "public"
       }
 
-      port "mail-1" {
+      port "smtp" {
         static       = 25
         to           = 25
         host_network = "public"
       }
 
-      port "mail-2" {
+      port "smtps" {
         static       = 465
         to           = 465
         host_network = "public"
       }
 
-      port "mail-3" {
+      port "imaps" {
         static       = 993
         to           = 993
         host_network = "public"
       }
 
-      port "dot" {
-        static       = 853
-        to           = 853
-        host_network = "public"
-      }
-
-      port "mc" {
-        static       = 37663
-        to           = 37663
-        host_network = "public"
-      }
-
-      port "reverse-proxy" {
-        to           = 2019
-        host_network = "private"
-      }
-
-      port "l4-proxy" {
+      port "admin" {
+        static       = 2019
         to           = 2019
         host_network = "private"
       }
     }
 
-    task "reverse-proxy" {
-      driver = "docker"
+    task "preflight" {
+      driver = "raw_exec"
+      user   = "antsva"
+
+      lifecycle {
+        hook    = "prestart"
+        sidecar = false
+      }
+
+      template {
+        data        = <<-EOF
+          #!/bin/sh
+          {{ range nomadService "caddy-redis" }}
+          until nc -z {{ .Address }} {{ .Port }}; do sleep 1; done
+          {{ end -}}
+        EOF
+        destination = "local/preflight.sh"
+        perms       = 755
+      }
+
+      config {
+        command = "local/preflight.sh"
+      }
+    }
+
+    task "caddy" {
+      driver = "podman"
+      # user   = "1000:1000"
 
       service {
-        name     = "reverse-proxy-${attr.unique.hostname}"
-        port     = "reverse-proxy"
-        provider = "nomad"
-        tags     = ["private"]
+        name         = "caddy-${attr.unique.hostname}"
+        port         = "admin"
+        provider     = "nomad"
+        address_mode = "host"
+        tags         = ["private"]
       }
 
       template {
@@ -98,58 +118,29 @@ job "caddy" {
 
       config {
         image = "ghcr.io/cycneuramus/caddy:latest"
-        ports = ["http", "https", "reverse-proxy"]
+        ports = [
+          "http",
+          "https",
+          "smtp",
+          "smtps",
+          "imaps",
+          "admin"
+        ]
+
+        network_mode = "host"
 
         entrypoint = [
           "caddy", "run", "--config", "/local/Caddyfile", "--adapter", "caddyfile"
         ]
 
-        mount {
-          type   = "bind"
-          source = "${local.strg}/GeoLite2-Country.mmdb"
-          target = "/etc/caddy/GeoLite2-Country.mmdb"
+        logging = {
+          driver = "journald"
         }
 
-        mount {
-          type   = "bind"
-          source = "${local.log}"
-          target = "/var/log"
-        }
-      }
-    }
-
-    task "l4-proxy" {
-      driver = "docker"
-
-      service {
-        name     = "l4-proxy-${attr.unique.hostname}"
-        port     = "l4-proxy"
-        provider = "nomad"
-        tags     = ["private"]
-      }
-
-      template {
-        data        = file(".env")
-        destination = "env"
-        env         = true
-      }
-
-      template {
-        data        = file("caddy.json.tpl")
-        destination = "/local/caddy.json"
-        change_mode = "script"
-        change_script {
-          command = "caddy"
-          args    = ["reload", "--config", "/local/caddy.json"]
-        }
-      }
-
-      config {
-        image = "ghcr.io/cycneuramus/caddy:latest"
-        ports = ["mail-1", "mail-2", "mail-3", "dot", "mc", "l4-proxy"]
-
-        entrypoint = [
-          "caddy", "run", "--config", "/local/caddy.json"
+        volumes = [
+          "${local.log}:/var/log",
+          "${local.strg}/data:/data/caddy",
+          "${local.strg}/config:/config/caddy"
         ]
       }
     }
@@ -157,11 +148,6 @@ job "caddy" {
 
   group "redis" {
     count = 1
-
-    constraint {
-      attribute = "${meta.performance}"
-      value     = "high"
-    }
 
     network {
       port "redis" {
@@ -171,31 +157,33 @@ job "caddy" {
     }
 
     service {
-      name     = "caddy-redis"
-      port     = "redis"
-      provider = "nomad"
-      tags     = ["private"]
+      name         = "caddy-redis"
+      port         = "redis"
+      provider     = "nomad"
+      address_mode = "host"
+      tags         = ["private"]
     }
 
     task "redis" {
-      driver = "docker"
-      user   = "1000:1000"
+      driver = "podman"
+      # user   = "1000:1000"
 
       config {
-        image = "redis:alpine"
+        # image = "valkey/valkey:${local.versions.valkey}"
+        image = "redis:7.4-alpine"
         ports = ["redis"]
 
-        command = "redis-server"
         args = [
-          "--save", "60", "1",
-          "--loglevel", "warning"
+          "--save", "60", "1"
         ]
 
-        mount {
-          type   = "bind"
-          source = "${local.strg}/redis"
-          target = "/data"
+        logging = {
+          driver = "journald"
         }
+
+        volumes = [
+          "${local.mnt-crypt}/caddy/redis:/data",
+        ]
       }
     }
   }

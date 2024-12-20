@@ -1,54 +1,55 @@
 locals {
-  strg = pathexpand("~/cld/home-assistant")
+  strg    = pathexpand("/mnt/jfs/home-assistant")
+  version = "2024.11"
 }
 
 job "home-assistant" {
   constraint {
     attribute = "${attr.unique.hostname}"
-    value     = "home"
+    value     = "apex"
   }
 
   group "home-assistant" {
-    count = 1
-
     network {
-      port "private" {
+      port "http" {
         to           = 8123
         host_network = "private"
       }
     }
 
     task "home-assistant" {
-      driver = "docker"
+      driver = "podman"
+
+      resources {
+        memory_max = 1024
+      }
 
       service {
-        name     = "hass"
-        port     = "private"
-        provider = "nomad"
-        tags     = ["local"]
+        name         = "hass"
+        port         = "http"
+        provider     = "nomad"
+        address_mode = "host"
+        tags         = ["local"]
       }
 
       env {
-        PUID = "1000"
-        PGID = "1000"
-        TZ   = "Europe/Stockholm"
+        TZ = "Europe/Stockholm"
       }
 
       config {
-        image = "lscr.io/linuxserver/homeassistant:latest"
-        ports = ["private", "public"]
+        image  = "ghcr.io/home-assistant/home-assistant:${local.version}"
+        ports  = ["http"]
+        socket = "root"
 
-        mount {
-          type   = "bind"
-          source = "${local.strg}/config"
-          target = "/config"
+        logging = {
+          driver = "journald"
         }
 
-        devices = [
-          {
-            host_path = "/dev/ttyACM0"
-          }
+        volumes = [
+          "${local.strg}/config:/config"
         ]
+
+        devices = ["/dev/ttyACM0"]
       }
     }
   }

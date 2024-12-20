@@ -1,16 +1,10 @@
 locals {
-  strg = pathexpand("~/cld/vaultwarden")
+  strg    = "/mnt/jfs/vaultwarden"
+  version = "1.32.6-alpine"
 }
 
 job "vaultwarden" {
-  constraint {
-    attribute = "${meta.performance}"
-    value     = "high"
-  }
-
   group "vaultwarden" {
-    count = 1
-
     network {
       port "app" {
         to           = 8080
@@ -18,32 +12,38 @@ job "vaultwarden" {
       }
     }
 
-    task "app" {
-      driver = "docker"
+    task "vaultwarden" {
+      driver = "podman"
       user   = "1000:1000"
 
       service {
-        name     = "vaultwarden"
-        port     = "app"
-        provider = "nomad"
-        tags     = ["public"]
+        name         = "vaultwarden"
+        port         = "app"
+        provider     = "nomad"
+        address_mode = "host"
+        tags         = ["public"]
       }
 
       template {
-        data        = file("env_app")
-        destination = "env_app"
+        data        = file(".env")
+        destination = "env"
         env         = true
       }
 
       config {
-        image = "vaultwarden/server:alpine"
+        image = "ghcr.io/dani-garcia/vaultwarden:${local.version}"
         ports = ["app"]
 
-        mount {
-          type   = "bind"
-          source = "${local.strg}/data"
-          target = "/data"
+        userns = "keep-id"
+
+        logging = {
+          driver = "journald"
         }
+
+        volumes = [
+          "${local.strg}/data:/data"
+        ]
       }
     }
+  }
 }

@@ -8,10 +8,10 @@
   <MaxMuxingQueueSize>2048</MaxMuxingQueueSize>
   <EnableThrottling>false</EnableThrottling>
   <ThrottleDelaySeconds>180</ThrottleDelaySeconds>
-  {{- if eq (env "attr.unique.hostname") "apex" }}
+  {{- if or (eq (env "attr.unique.hostname") "apex") (eq (env "attr.unique.hostname") "ambi") (eq (env "attr.unique.hostname") "horreum") }}
   <HardwareAccelerationType>vaapi</HardwareAccelerationType>
   {{- else -}}
-  <HardwareAccelerationType />
+  <HardwareAccelerationType xsi:nil="true" />
   {{ end -}}
   <EncoderAppPath>/usr/lib/jellyfin-ffmpeg/ffmpeg</EncoderAppPath>
   <EncoderAppPathDisplay>/usr/lib/jellyfin-ffmpeg/ffmpeg</EncoderAppPathDisplay>
@@ -28,15 +28,20 @@
   <VppTonemappingContrast>1.2</VppTonemappingContrast>
   <H264Crf>23</H264Crf>
   <H265Crf>28</H265Crf>
-  <EncoderPreset />
+  <EncoderPreset xsi:nil="true" />
   <DeinterlaceDoubleRate>false</DeinterlaceDoubleRate>
   <DeinterlaceMethod>yadif</DeinterlaceMethod>
   <EnableDecodingColorDepth10Hevc>true</EnableDecodingColorDepth10Hevc>
   <EnableDecodingColorDepth10Vp9>true</EnableDecodingColorDepth10Vp9>
   <EnableEnhancedNvdecDecoder>true</EnableEnhancedNvdecDecoder>
   <PreferSystemNativeHwDecoder>true</PreferSystemNativeHwDecoder>
+  {{- if eq (env "attr.unique.hostname") "horreum" }}
+  <EnableIntelLowPowerH264HwEncoder>true</EnableIntelLowPowerH264HwEncoder>
+  <EnableIntelLowPowerHevcHwEncoder>true</EnableIntelLowPowerHevcHwEncoder>
+  {{- else -}}
   <EnableIntelLowPowerH264HwEncoder>false</EnableIntelLowPowerH264HwEncoder>
   <EnableIntelLowPowerHevcHwEncoder>false</EnableIntelLowPowerHevcHwEncoder>
+  {{ end -}}
   <EnableHardwareEncoding>true</EnableHardwareEncoding>
   <AllowHevcEncoding>false</AllowHevcEncoding>
   <EnableSubtitleExtraction>true</EnableSubtitleExtraction>

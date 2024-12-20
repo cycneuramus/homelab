@@ -1,22 +1,14 @@
 locals {
-  strg = pathexpand("~/cld/gitea")
+  strg = "/mnt/jfs/gitea"
+
+  versions = {
+    forgejo = "9-rootless"
+    valkey  = "8.0-alpine"
+  }
 }
 
 job "gitea" {
-  constraint {
-    attribute = "${meta.performance}"
-    value     = "high"
-  }
-
-  constraint {
-    attribute = "${meta.datacenter}"
-    operator  = "!="
-    value     = "ocl"
-  }
-
   group "gitea" {
-    count = 1
-
     network {
       port "http" {
         to           = 3000
@@ -30,19 +22,20 @@ job "gitea" {
     }
 
     task "gitea" {
-      driver = "docker"
+      driver = "podman"
       user   = "1000:1000"
 
       service {
-        name     = "git"
-        port     = "http"
-        provider = "nomad"
-        tags     = ["public"]
+        name         = "git"
+        port         = "http"
+        provider     = "nomad"
+        address_mode = "host"
+        tags         = ["public"]
       }
 
       template {
-        data        = file("env_app")
-        destination = "env_app"
+        data        = file(".env")
+        destination = "env"
         env         = true
       }
 
@@ -54,37 +47,45 @@ job "gitea" {
       }
 
       config {
-        image = "gitea/gitea:latest-rootless"
-        ports = ["http"]
+        image  = "codeberg.org/forgejo/forgejo:${local.versions.forgejo}"
+        ports  = ["http"]
+        userns = "keep-id"
 
-        entrypoint = ["/usr/local/bin/gitea", "-c", "/local/app.ini", "web"]
+        entrypoint = ["/usr/local/bin/forgejo", "-c", "/local/app.ini", "web"]
 
-        mount {
-          type   = "bind"
-          source = "${local.strg}/data"
-          target = "/var/lib/gitea"
+        logging {
+          driver = "journald"
         }
+
+        volumes = [
+          "${local.strg}/data:/var/lib/gitea"
+        ]
+
+        tmpfs = ["${local.strg}/data/queues/common"]
       }
     }
 
     task "redis" {
-      driver = "docker"
+      driver = "podman"
       user   = "1000:1000"
 
       config {
-        image = "redis:alpine"
-        ports = ["redis"]
+        image  = "valkey/valkey:${local.versions.valkey}"
+        ports  = ["redis"]
+        userns = "keep-id"
 
-        command = "redis-server"
+        command = "valkey-server"
         args = [
           "--save", "300", "1", "--loglevel", "warning"
         ]
 
-        mount {
-          type   = "bind"
-          source = "${local.strg}/redis"
-          target = "/data"
+        logging {
+          driver = "journald"
         }
+
+        volumes = [
+          "${local.strg}/redis:/data"
+        ]
       }
     }
   }

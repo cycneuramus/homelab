@@ -1,16 +1,19 @@
 locals {
-  strg = pathexpand("~/cld/changedetection")
+  strg = "/mnt/jfs/changedetection"
+  version = {
+    changedetection = "0.48.03"
+    browser         = "3.141.59"
+  }
 }
 
 job "changedetection" {
   constraint {
-    attribute = "${meta.performance}"
-    value     = "high"
+    attribute = "${attr.cpu.arch}"
+    operator  = "!="
+    value     = "arm64"
   }
 
   group "changedetection" {
-    count = 1
-
     network {
       port "http" {
         to           = 2426
@@ -24,37 +27,38 @@ job "changedetection" {
     }
 
     task "changedetection" {
-      driver = "docker"
+      driver = "podman"
 
       service {
-        name     = "change"
-        port     = "http"
-        provider = "nomad"
-        tags     = ["local"]
+        name         = "change"
+        port         = "http"
+        provider     = "nomad"
+        address_mode = "host"
+        tags         = ["local"]
       }
 
       env {
         PORT          = "2426"
-        PUID          = "1000"
-        PGID          = "1000"
         WEBDRIVER_URL = "${NOMAD_ADDR_browser}/wd/hub"
         HIDE_REFERRER = "true"
       }
 
       config {
-        image = "ghcr.io/dgtlmoon/changedetection.io"
+        image = "ghcr.io/dgtlmoon/changedetection.io:${local.version.changedetection}"
         ports = ["http"]
 
-        mount {
-          type   = "bind"
-          source = "${local.strg}/data"
-          target = "/datastore"
+        logging = {
+          driver = "journald"
         }
+
+        volumes = [
+          "${local.strg}/data:/datastore"
+        ]
       }
     }
 
     task "browser" {
-      driver = "docker"
+      driver = "podman"
 
       resources {
         memory_max = 2048
@@ -68,13 +72,11 @@ job "changedetection" {
       }
 
       config {
-        image = "selenium/standalone-chrome-debug:3.141.59"
+        image = "selenium/standalone-chrome-debug:${local.version.browser}"
         ports = ["browser"]
 
-        mount {
-          type   = "bind"
-          source = "${local.strg}/data"
-          target = "/datastore"
+        logging = {
+          driver = "journald"
         }
       }
     }

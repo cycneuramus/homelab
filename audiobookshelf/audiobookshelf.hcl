@@ -1,23 +1,11 @@
 locals {
-  cloud_vol = "audiobooks"
-  strg      = pathexpand("~/cld/audiobookshelf")
+  strg      = "/mnt/jfs/audiobookshelf"
+  mnt-crypt = "/mnt/crypt"
+  version   = "2.17.5"
 }
 
 job "audiobookshelf" {
-  constraint {
-    attribute = "${meta.performance}"
-    value     = "high"
-  }
-
-  constraint {
-    attribute = "${attr.cpu.arch}"
-    operator  = "!="
-    value     = "arm64"
-  }
-
   group "audiobookshelf" {
-    count = 1
-
     network {
       port "http" {
         to           = 80
@@ -25,22 +13,8 @@ job "audiobookshelf" {
       }
     }
 
-    task "cleanup" {
-      driver = "raw_exec"
-
-      lifecycle {
-        hook    = "poststop"
-        sidecar = false
-      }
-
-      config {
-        command = "docker"
-        args    = ["volume", "rm", "${local.cloud_vol}"]
-      }
-    }
-
     task "audiobookshelf" {
-      driver = "docker"
+      driver = "podman"
       user   = "1000:1000"
 
       resources {
@@ -48,44 +22,32 @@ job "audiobookshelf" {
       }
 
       service {
-        name     = "audiobooks"
-        port     = "http"
-        provider = "nomad"
-        tags     = ["public"]
+        name         = "audiobooks"
+        port         = "http"
+        provider     = "nomad"
+        address_mode = "host"
+        tags         = ["public"]
       }
 
       config {
-        image = "ghcr.io/advplyr/audiobookshelf:latest"
+        image = "ghcr.io/advplyr/audiobookshelf:${local.version}"
         ports = ["http"]
 
-        mount {
-          type   = "bind"
-          source = "${local.strg}/data/config"
-          target = "/config"
+        userns = "keep-id"
+
+        logging = {
+          driver = "journald"
         }
 
-        mount {
-          type   = "bind"
-          source = "${local.strg}/data/metadata"
-          target = "/metadata"
+        sysctl = {
+          "net.ipv4.ip_unprivileged_port_start" = "80"
         }
 
-        mount {
-          type     = "volume"
-          source   = "${local.cloud_vol}"
-          target   = "/audiobooks/kids"
-          readonly = false
-          volume_options {
-            driver_config {
-              name = "rclone"
-              options {
-                remote = "crypt:cld/audiobookshelf"
-                uid    = "1000"
-                gid    = "1000"
-              }
-            }
-          }
-        }
+        volumes = [
+          "${local.strg}/db:/config",
+          "${local.strg}/metadata:/metadata",
+          "${local.mnt-crypt}/audiobookshelf:/audiobooks/kids"
+        ]
       }
     }
   }

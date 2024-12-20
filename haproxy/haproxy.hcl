@@ -9,9 +9,9 @@ job "haproxy" {
         host_network = "private"
       }
 
-      port "s3" {
-        to           = 18333
-        static       = 18333
+      port "garage" {
+        to           = 13900
+        static       = 13900
         host_network = "private"
       }
 
@@ -22,13 +22,14 @@ job "haproxy" {
     }
 
     task "haproxy" {
-      driver = "docker"
+      driver = "podman"
 
       service {
-        name     = "haproxy"
-        port     = "stats"
-        provider = "nomad"
-        tags     = ["local", "multi"]
+        name         = "haproxy-${attr.unique.hostname}"
+        port         = "stats"
+        provider     = "nomad"
+        address_mode = "host"
+        tags         = ["local"]
       }
 
       template {
@@ -38,7 +39,11 @@ job "haproxy" {
 
       config {
         image = "haproxy:lts-alpine"
-        ports = ["patroni", "s3", "stats"]
+        ports = ["patroni", "garage", "stats"]
+
+        logging = {
+          driver = "journald"
+        }
 
         entrypoint = [
           "haproxy", "-f", "/local/haproxy.cfg"

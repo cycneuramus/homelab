@@ -1,6 +1,0 @@
-base-url: "https://ntfy.example.com"
-behind-proxy: true
-attachment-cache-dir: "/var/cache/ntfy/attachments"
-attachment-total-size-limit: "1G"
-attachment-file-size-limit: "15M"
-attachment-expiry-duration: "3h"

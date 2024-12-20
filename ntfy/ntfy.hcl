@@ -1,16 +1,5 @@
-locals {
-  strg = pathexpand("~/cld/ntfy")
-}
-
 job "ntfy" {
-  constraint {
-    attribute = "${meta.performance}"
-    value     = "high"
-  }
-
   group "ntfy" {
-    count = 1
-
     network {
       port "http" {
         to           = 80
@@ -19,19 +8,25 @@ job "ntfy" {
     }
 
     task "ntfy" {
-      driver = "docker"
-      user   = "1000:1000"
+      driver = "podman"
+      # user   = "1000:1000"
 
       service {
-        name     = "ntfy"
-        port     = "http"
-        provider = "nomad"
-        tags     = ["local"]
+        name         = "ntfy"
+        port         = "http"
+        address_mode = "host"
+        provider     = "nomad"
+        tags         = ["public"]
+        # want local here with ACL:s and:
+        # https://docs.ntfy.sh/config/#example-unifiedpush
+        # https://github.com/binwiederhier/ntfy/issues/464
       }
 
       template {
         data        = file("server.yml")
-        destination = "server.yml"
+        destination = "/local/server.yml"
+        uid         = 1000
+        gid         = 1000
       }
 
       env {
@@ -42,19 +37,14 @@ job "ntfy" {
         image = "binwiederhier/ntfy"
         ports = ["http"]
 
+        logging = {
+          driver = "journald"
+        }
+
         command = "serve"
+        args    = ["-c", "/local/server.yml"]
 
-        mount {
-          type   = "bind"
-          source = "server.yml"
-          target = "/etc/ntfy/server.yml"
-        }
-
-        mount {
-          type   = "bind"
-          source = "${local.strg}/cache"
-          target = "/var/cache/ntfy"
-        }
+        tmpfs = ["/var/cache/ntfy"]
       }
     }
   }

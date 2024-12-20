@@ -1,16 +1,12 @@
 locals {
-  strg = pathexpand("~/cld/jellyseerr")
+  strg = "/mnt/jfs/jellyseerr"
+  versions = {
+    jellyseerr = "2.1.0"
+  }
 }
 
 job "jellyseerr" {
-  constraint {
-    attribute = "${meta.performance}"
-    value     = "high"
-  }
-
   group "jellyseerr" {
-    count = 1
-
     network {
       port "http" {
         to           = 5055
@@ -19,40 +15,44 @@ job "jellyseerr" {
     }
 
     task "jellyseerr" {
-      driver = "docker"
+      driver = "podman"
 
       service {
-        name     = "jellyseerr"
-        port     = "http"
-        provider = "nomad"
-        tags     = ["public"]
+        name         = "jellyseerr"
+        port         = "http"
+        provider     = "nomad"
+        address_mode = "host"
+        tags         = ["public"]
+      }
+
+      resources {
+        memory_max = 1024
       }
 
       env {
-        LOG_LEVEL = "debug"
+        LOG_LEVEL = "info"
         TZ        = "Europe/Stockholm"
       }
 
       template {
-        data        = file("settings.json.tpl")
-        destination = "settings.json"
+        data        = file("settings.json")
+        destination = "local/settings.json"
+        uid         = "1000"
+        gid         = "1000"
       }
 
       config {
-        image = "fallenbagel/jellyseerr:latest"
+        image = "fallenbagel/jellyseerr:${local.versions.jellyseerr}"
         ports = ["http"]
 
-        mount {
-          type   = "bind"
-          source = "settings.json"
-          target = "/app/config/settings.json"
+        logging = {
+          driver = "journald"
         }
 
-        mount {
-          type   = "bind"
-          source = "${local.strg}/config"
-          target = "/app/config"
-        }
+        volumes = [
+          "local/settings.json:/app/config/settings.json",
+          "${local.strg}/db:/app/config/db"
+        ]
       }
     }
   }

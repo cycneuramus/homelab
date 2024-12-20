@@ -1,4 +1,0 @@
-POSTGRES_DB=immich
-POSTGRES_USER=
-POSTGRES_PASSWORD=
-PG_DATA=/var/lib/postgresql/data

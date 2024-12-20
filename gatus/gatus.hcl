@@ -1,11 +1,9 @@
 locals {
-  strg = pathexpand("~/cld/gatus")
+  version = "v5.14.0"
 }
 
 job "gatus" {
   group "gatus" {
-    count = 1
-
     network {
       port "gatus" {
         to           = 8080
@@ -14,18 +12,26 @@ job "gatus" {
     }
 
     task "gatus" {
-      driver = "docker"
+      driver = "podman"
 
       service {
-        name     = "status"
-        port     = "gatus"
-        provider = "nomad"
-        tags     = ["local"]
+        name         = "status"
+        port         = "gatus"
+        provider     = "nomad"
+        address_mode = "host"
+        tags         = ["public"]
+      }
+
+      template {
+        data        = file(".env")
+        destination = "env"
+        env         = true
       }
 
       template {
         data        = file("config.yml.tpl")
         destination = "/local/config.yml"
+        # change_mode = "noop"
       }
 
       env {
@@ -33,8 +39,12 @@ job "gatus" {
       }
 
       config {
-        image = "twinproduction/gatus:stable"
+        image = "ghcr.io/twin/gatus:${local.version}"
         ports = ["gatus"]
+
+        logging = {
+          driver = "journald"
+        }
       }
     }
   }

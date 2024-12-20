@@ -1,13 +1,4 @@
-locals {
-  strg = pathexpand("~/cld/terraforming-mars")
-}
-
 job "terraforming-mars" {
-  constraint {
-    attribute = "${meta.performance}"
-    value     = "high"
-  }
-
   constraint {
     attribute = "${attr.cpu.arch}"
     operator  = "!="
@@ -15,8 +6,6 @@ job "terraforming-mars" {
   }
 
   group "terraforming-mars" {
-    count = 1
-
     network {
       port "http" {
         to           = 8765
@@ -25,14 +14,15 @@ job "terraforming-mars" {
     }
 
     task "terraforming-mars" {
-      driver = "docker"
+      driver = "podman"
       user   = "1000:1000"
 
       service {
-        name     = "tm"
-        port     = "http"
-        provider = "nomad"
-        tags     = ["public"]
+        name         = "tm"
+        port         = "http"
+        provider     = "nomad"
+        address_mode = "host"
+        tags         = ["public"]
       }
 
       env {
@@ -41,14 +31,14 @@ job "terraforming-mars" {
       }
 
       config {
-        image = "ltdstudio/terraforming-mars"
+        image = "andrewsav/terraforming-mars"
         ports = ["http"]
 
-        mount {
-          type   = "bind"
-          source = "${local.strg}/db"
-          target = "/usr/src/app/db"
+        logging = {
+          driver = "journald"
         }
+
+        tmpfs = ["/usr/src/app/db"]
       }
     }
   }

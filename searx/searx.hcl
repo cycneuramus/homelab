@@ -1,22 +1,9 @@
 locals {
-  strg = pathexpand("~/cld/searx")
+  version = latest
 }
 
 job "searx" {
-  constraint {
-    attribute = "${meta.performance}"
-    value     = "high"
-  }
-
-  constraint {
-    attribute = "${meta.datacenter}"
-    operator  = "!="
-    value     = "eso"
-  }
-
   group "searx" {
-    count = 1
-
     network {
       port "app" {
         to           = 8080
@@ -30,51 +17,59 @@ job "searx" {
     }
 
     task "app" {
-      driver = "docker"
+      driver = "podman"
 
       resources {
         memory_max = 2048
       }
 
       service {
-        name     = "searx"
-        port     = "app"
-        provider = "nomad"
-        tags     = ["local"]
+        name         = "searx"
+        port         = "app"
+        provider     = "nomad"
+        address_mode = "host"
+        tags         = ["local"]
       }
 
       template {
-        source      = "${local.strg}/.env"
+        data        = file(".env")
         destination = "env"
         env         = true
       }
 
       template {
-        source      = "${local.strg}/settings.yml.tpl"
+        data        = file("settings.yml.tpl")
         destination = "settings.yml"
+        uid         = 1000
+        gid         = 1000
       }
 
       config {
-        image = "searxng/searxng:latest"
+        image = "searxng/searxng:${local.version}"
         ports = ["app"]
 
-        mount {
-          type   = "bind"
-          source = "settings.yml"
-          target = "/etc/searxng/settings.yml"
+        logging = {
+          driver = "journald"
         }
+
+        volumes = [
+          "settings.yml:/etc/searxng/settings.yml"
+        ]
       }
     }
 
     task "redis" {
-      driver = "docker"
+      driver = "podman"
 
       config {
-        image = "redis:alpine"
+        image = "valkey/valkey:7.2-alpine"
         ports = ["redis"]
 
-        command = "redis-server"
-        args    = ["--save", "", "--appendonly", "no"]
+        logging = {
+          driver = "journald"
+        }
+
+        args = ["--save", "", "--appendonly", "no"]
       }
     }
   }

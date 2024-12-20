@@ -1,16 +1,60 @@
 locals {
-  strg = pathexpand("~/wip/patroni")
-
-  etcd_nodes = [
-    "etcd-apex=http://10.10.10.10:2380",
-    "etcd-vps=http://10.10.10.12:2380",
-    "etcd-green=http://10.10.10.13:2380"
-  ]
-
-  etcd_peers = join(",", "${local.etcd_nodes}")
+  strg = pathexpand("~/.local/share/patroni")
 }
 
 job "patroni" {
+  group "etcd" {
+    count = 1
+
+    network {
+      port "etcd-peer" {
+        to           = 2380
+        host_network = "private"
+      }
+
+      port "etcd-client" {
+        to           = 2379
+        host_network = "private"
+      }
+    }
+
+    task "etcd" {
+      driver = "podman"
+
+      service {
+        name         = "etcd"
+        port         = "etcd-client"
+        provider     = "nomad"
+        address_mode = "host"
+        tags         = ["private"]
+      }
+
+      template {
+        data        = <<-EOF
+          ALLOW_NONE_AUTHENTICATION=yes
+          ETCD_ADVERTISE_CLIENT_URLS=http://{{ env "NOMAD_ADDR_etcd_client"}}
+          ETCD_DATA_DIR=/etcd-data
+          ETCD_INITIAL_ADVERTISE_PEER_URLS=http://{{ env "NOMAD_ADDR_etcd_peer" }}
+          ETCD_INITIAL_CLUSTER=etcd=http://{{ env "NOMAD_ADDR_etcd_peer" }}
+          ETCD_LISTEN_CLIENT_URLS=http://0.0.0.0:{{ env "NOMAD_PORT_etcd_client" }}
+          ETCD_LISTEN_PEER_URLS=http://0.0.0.0:{{ env "NOMAD_PORT_etcd_peer" }}
+          ETCD_NAME=etcd
+        EOF
+        destination = "env"
+        env         = true
+      }
+
+      config {
+        image = "gcr.io/etcd-development/etcd:v3.5.13"
+        ports = ["etcd-peer", "etcd-client"]
+
+        logging = {
+          driver = "journald"
+        }
+      }
+    }
+  }
+
   group "patroni" {
     count = 3
 
@@ -21,22 +65,14 @@ job "patroni" {
     constraint {
       attribute = "${attr.unique.hostname}"
       operator  = "set_contains_any"
-      value     = "apex,vps,green"
+      value     = "apex,ambi,horreum"
+    }
+
+    update {
+      max_parallel = 1
     }
 
     network {
-      port "etcd-peer" {
-        to           = 2380
-        static       = 2380
-        host_network = "private"
-      }
-
-      port "etcd-client" {
-        to           = 2379
-        static       = 2379
-        host_network = "private"
-      }
-
       port "patroni" {
         to           = 8008
         static       = 8008
@@ -49,42 +85,34 @@ job "patroni" {
       }
     }
 
-    task "etcd" {
-      driver = "docker"
-
-      constraint {
-        attribute = "${attr.cpu.arch}"
-        operator  = "!="
-        value     = "arm64"
-      }
+    task "preflight" {
+      driver = "raw_exec"
+      user   = "antsva"
 
       lifecycle {
         hook    = "prestart"
-        sidecar = true
+        sidecar = false
       }
 
       template {
         data        = <<-EOF
-          ETCD_ADVERTISE_CLIENT_URLS=http://{{ env "NOMAD_ADDR_etcd_client"}}
-          ETCD_INITIAL_ADVERTISE_PEER_URLS=http://{{ env "NOMAD_ADDR_etcd_peer" }}
-          ETCD_INITIAL_CLUSTER=${local.etcd_peers}
-          ETCD_INITIAL_CLUSTER_STATE=new
-          ETCD_LISTEN_CLIENT_URLS=http://0.0.0.0:2379
-          ETCD_LISTEN_PEER_URLS=http://0.0.0.0:2380
-          ETCD_NAME=etcd-{{ env "attr.unique.hostname" }}
+          #!/bin/sh
+          mkdir -p ${local.strg}/data
+          {{ range nomadService "etcd" }}
+          until nc -z {{ .Address }} {{ .Port }}; do sleep 1; done
+          {{ end -}}
         EOF
-        destination = "env"
-        env         = true
+        destination = "local/preflight.sh"
+        perms       = 755
       }
 
       config {
-        image = "quay.io/coreos/etcd"
-        ports = ["etcd-peer", "etcd-client"]
+        command = "local/preflight.sh"
       }
     }
 
     task "patroni" {
-      driver       = "docker"
+      driver       = "podman"
       kill_timeout = "30s"
 
       resources {
@@ -93,34 +121,50 @@ job "patroni" {
       }
 
       service {
-        name     = "postgres-${attr.unique.hostname}"
-        port     = "postgres"
-        provider = "nomad"
-        tags     = ["private"]
+        name         = "postgres-${attr.unique.hostname}"
+        port         = "postgres"
+        provider     = "nomad"
+        address_mode = "host"
+        tags         = ["private"]
       }
+
+      # template {
+      #   data        = <<-EOF
+      #     #!/bin/sh
+      #
+      #     data_dir=/home/patroni/data
+      #     mkdir -p "$data_dir"
+      #     wal-g --config /local/wal-g.yml backup-fetch "$data_dir" LATEST
+      #    EOF
+      #   destination = "local/wal_restore.sh"
+      # }
+      #
+      # template {
+      #   data        = file("wal-g.yml")
+      #   destination = "local/wal-g.yml"
+      # }
 
       template {
         data        = file("cfg-patroni.yml")
         destination = "local/patroni.yml"
+        uid         = 1000
+        gid         = 1000
       }
 
       config {
-        image = "ghcr.io/cycneuramus/patroni-docker:latest"
-        ports = ["postgres", "patroni"]
-
+        image   = "ghcr.io/cycneuramus/patroni-docker:latest"
+        ports   = ["postgres", "patroni"]
         command = "/local/patroni.yml"
 
-        mount {
-          type   = "bind"
-          source = "${local.strg}/import"
-          target = "/home/patroni/import"
+        userns = "keep-id"
+
+        logging = {
+          driver = "journald"
         }
 
-        mount {
-          type   = "bind"
-          source = "${local.strg}/data"
-          target = "/home/patroni/data"
-        }
+        volumes = [
+          "${local.strg}/data:/home/patroni/data"
+        ]
       }
     }
   }
