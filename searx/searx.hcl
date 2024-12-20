@@ -1,5 +1,8 @@
 locals {
-  version = latest
+  version = {
+    searx  = "latest"
+    valkey = "7.2-alpine"
+  }
 }
 
 job "searx" {
@@ -45,7 +48,7 @@ job "searx" {
       }
 
       config {
-        image = "searxng/searxng:${local.version}"
+        image = "searxng/searxng:${local.version.searx}"
         ports = ["app"]
 
         logging = {
@@ -62,7 +65,7 @@ job "searx" {
       driver = "podman"
 
       config {
-        image = "valkey/valkey:7.2-alpine"
+        image = "valkey/valkey:${local.version.valkey}"
         ports = ["redis"]
 
         logging = {

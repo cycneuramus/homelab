@@ -1,6 +1,6 @@
 locals {
   strg = "/mnt/jfs/jellyseerr"
-  versions = {
+  version = {
     jellyseerr = "2.1.0"
   }
 }
@@ -42,7 +42,7 @@ job "jellyseerr" {
       }
 
       config {
-        image = "fallenbagel/jellyseerr:${local.versions.jellyseerr}"
+        image = "fallenbagel/jellyseerr:${local.version.jellyseerr}"
         ports = ["http"]
 
         logging = {

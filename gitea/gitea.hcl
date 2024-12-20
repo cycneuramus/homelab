@@ -1,7 +1,7 @@
 locals {
   strg = "/mnt/jfs/gitea"
 
-  versions = {
+  version = {
     forgejo = "9-rootless"
     valkey  = "8.0-alpine"
   }
@@ -47,7 +47,7 @@ job "gitea" {
       }
 
       config {
-        image  = "codeberg.org/forgejo/forgejo:${local.versions.forgejo}"
+        image  = "codeberg.org/forgejo/forgejo:${local.version.forgejo}"
         ports  = ["http"]
         userns = "keep-id"
 
@@ -70,7 +70,7 @@ job "gitea" {
       user   = "1000:1000"
 
       config {
-        image  = "valkey/valkey:${local.versions.valkey}"
+        image  = "valkey/valkey:${local.version.valkey}"
         ports  = ["redis"]
         userns = "keep-id"
 

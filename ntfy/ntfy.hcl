@@ -1,3 +1,7 @@
+locals {
+  version = "v2.11.0"
+}
+
 job "ntfy" {
   group "ntfy" {
     network {
@@ -34,7 +38,7 @@ job "ntfy" {
       }
 
       config {
-        image = "binwiederhier/ntfy"
+        image = "binwiederhier/ntfy:${local.version}"
         ports = ["http"]
 
         logging = {

@@ -1,7 +1,8 @@
 locals {
-  versions = {
+  version = {
     nextcloud = "30.0.3-apache"
     collabora = "24.04.10.2.1"
+    valkey    = "7.2-alpine"
   }
 
   strg      = "/mnt/jfs/nextcloud"
@@ -71,7 +72,7 @@ job "nextcloud" {
       }
 
       config {
-        image  = "nextcloud:${local.versions.nextcloud}"
+        image  = "nextcloud:${local.version.nextcloud}"
         ports  = ["server"]
         userns = "keep-id"
 
@@ -129,7 +130,7 @@ job "nextcloud" {
       }
 
       config {
-        image      = "nextcloud:${local.versions.nextcloud}"
+        image      = "nextcloud:${local.version.nextcloud}"
         entrypoint = ["/local/cron.sh"]
         userns     = "keep-id"
 
@@ -162,7 +163,7 @@ job "nextcloud" {
       }
 
       config {
-        image  = "valkey/valkey:7.2-alpine"
+        image  = "valkey/valkey:${local.version.valkey}"
         userns = "keep-id"
         args = [
           "/local/redis.conf"
@@ -202,7 +203,7 @@ job "nextcloud" {
       }
 
       config {
-        image  = "nextcloud:${local.versions.nextcloud}"
+        image  = "nextcloud:${local.version.nextcloud}"
         ports  = ["push"]
         userns = "keep-id"
 
@@ -243,7 +244,7 @@ job "nextcloud" {
       }
 
       config {
-        image = "collabora/code:${local.versions.collabora}"
+        image = "collabora/code:${local.version.collabora}"
         ports = ["collabora"]
 
         logging = {
