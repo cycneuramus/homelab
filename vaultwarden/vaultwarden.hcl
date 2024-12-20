@@ -1,6 +1,6 @@
 locals {
   strg    = "/mnt/jfs/vaultwarden"
-  version = "1.32.6-alpine"
+  version = "1.32.7-alpine"
 }
 
 job "vaultwarden" {
