@@ -1,7 +1,7 @@
 locals {
   strg = "/mnt/jfs/sigurd"
   version = {
-    signal-cli-rest-api = "0.89"
+    signal-cli-rest-api = "0.90"
   }
 }
 
@@ -22,6 +22,7 @@ job "sigurd" {
 
     task "signal-cli-rest-api" {
       driver = "podman"
+      user   = "0:0"
 
       lifecycle {
         hook    = "prestart"
@@ -37,16 +38,27 @@ job "sigurd" {
       }
 
       env {
-        MODE           = "json-rpc"
-        SIGNAL_CLI_UID = 1000
-        SIGNAL_CLI_GID = 1000
+        MODE                  = "json-rpc"
+        SIGNAL_CLI_CONFIG_DIR = "/data"
+        SIGNAL_CLI_GID        = "1000"
+        SIGNAL_CLI_UID        = "1000"
+      }
+
+      template {
+        data        = file("signal-api-entrypoint.sh")
+        destination = "/local/entrypoint.sh"
+        perms       = 755
       }
 
       config {
         image = "docker.io/bbernhard/signal-cli-rest-api:${local.version.signal-cli-rest-api}"
         ports = ["signal-cli-rest-api"]
 
-        socket = "root"
+        userns = "keep-id"
+
+        entrypoint = [
+          "/local/entrypoint.sh"
+        ]
 
         logging = {
           driver = "journald"
@@ -55,7 +67,7 @@ job "sigurd" {
         volumes = [
           "${local.strg}/music:/music",
           "${local.strg}/bot:/home/sigurd/bot",
-          "${local.strg}/signal-cli-rest-api:/home/.local/share/signal-cli",
+          "${local.strg}/signal-cli-rest-api:/data",
         ]
       }
     }
