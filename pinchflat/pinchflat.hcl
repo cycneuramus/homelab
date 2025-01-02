@@ -1,7 +1,7 @@
 locals {
   media   = "/mnt/nas/media/tv/yt"
   strg    = "/mnt/jfs/pinchflat"
-  version = "v2024.11.27"
+  version = "v2024.12.31"
 }
 
 job "pinchflat" {

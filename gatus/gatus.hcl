@@ -1,5 +1,5 @@
 locals {
-  version = "v5.14.0"
+  version = "v5.15.0"
 }
 
 job "gatus" {

@@ -1,24 +1,25 @@
 locals {
-  strg    = "/mnt/jfs/jellystat"
-  version = "1.1.2"
+  strg    = "/mnt/jfs/ocis"
+  data    = "/mnt/nas/ocis"
+  version = "7.0.0"
 }
 
-job "jellystat" {
-  group "jellystat" {
+job "ocis" {
+  group "ocis" {
     network {
-      port "app" {
-        to           = 3000
+      port "http" {
+        to           = 9200
         host_network = "private"
       }
     }
 
-    task "jellystat" {
+    task "ocis" {
       driver = "podman"
-      # user   = "1000:1000"
+      user   = "1000:1000"
 
       service {
-        name         = "jellystat"
-        port         = "app"
+        name         = "ocis"
+        port         = "http"
         provider     = "nomad"
         address_mode = "host"
         tags         = ["local"]
@@ -31,15 +32,18 @@ job "jellystat" {
       }
 
       config {
-        image = "cyfershepard/jellystat:${local.version}"
-        ports = ["app"]
+        image = "docker.io/owncloud/ocis:${local.version}"
+        ports = ["http"]
+
+        userns = "keep-id"
 
         logging = {
           driver = "journald"
         }
 
         volumes = [
-          "${local.strg}/backup-data:/app/backend/backup-data"
+          "${local.strg}/config:/etc/ocis",
+          "${local.data}:/var/lib/ocis"
         ]
       }
     }

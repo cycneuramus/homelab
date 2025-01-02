@@ -1,7 +1,7 @@
 locals {
-  sock      = pathexpand("~/cld/immich/sock")
-  strg      = "/mnt/jfs/immich"
-  mnt-crypt = "/mnt/crypt"
+  sock  = pathexpand("~/cld/immich/sock")
+  strg  = "/mnt/jfs/immich"
+  crypt = "/mnt/crypt"
 
   version = {
     immich = "v1.123.0"
@@ -89,13 +89,13 @@ job "immich" {
         volumes = [
           "${local.sock}:/tmp/sock",
           "${local.strg}/thumbs:/usr/src/app/upload/thumbs",
-          "${local.mnt-crypt}/immich/upload:/usr/src/app/upload/upload",
-          "${local.mnt-crypt}/immich/profile:/usr/src/app/upload/profile",
-          "${local.mnt-crypt}/immich/library:/usr/src/app/upload/library",
-          "${local.mnt-crypt}/immich/backups:/usr/src/app/upload/backups",
-          "${local.mnt-crypt}/immich/encoded-video:/usr/src/app/upload/encoded-video",
-          "${local.mnt-crypt}/nextcloud/antsva/files/Bilder:/libraries/user-1:ro",
-          "${local.mnt-crypt}/gollery:/libraries/user-3:ro",
+          "${local.crypt}/immich/upload:/usr/src/app/upload/upload",
+          "${local.crypt}/immich/profile:/usr/src/app/upload/profile",
+          "${local.crypt}/immich/library:/usr/src/app/upload/library",
+          "${local.crypt}/immich/backups:/usr/src/app/upload/backups",
+          "${local.crypt}/immich/encoded-video:/usr/src/app/upload/encoded-video",
+          "${local.crypt}/nextcloud/antsva/files/Bilder:/libraries/user-1:ro",
+          "${local.crypt}/gollery:/libraries/user-3:ro",
         ]
       }
     }

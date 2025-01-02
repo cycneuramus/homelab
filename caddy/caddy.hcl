@@ -1,7 +1,7 @@
 locals {
-  log       = pathexpand("~/log/caddy")
-  strg      = "/mnt/jfs/caddy"
-  mnt-crypt = "/mnt/crypt"
+  log   = pathexpand("~/log/caddy")
+  strg  = "/mnt/jfs/caddy"
+  crypt = "/mnt/crypt"
   # version = {
   #   TODO: try 7.2
   #   valkey  = "8.0-alpine"
@@ -182,7 +182,7 @@ job "caddy" {
         }
 
         volumes = [
-          "${local.mnt-crypt}/caddy/redis:/data",
+          "${local.crypt}/caddy/redis:/data",
         ]
       }
     }

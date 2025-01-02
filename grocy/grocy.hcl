@@ -1,6 +1,6 @@
 locals {
   strg    = "/mnt/jfs/grocy"
-  version = "4.2"
+  version = "4.3"
 }
 
 job "grocy" {

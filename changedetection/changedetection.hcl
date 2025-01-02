@@ -1,7 +1,7 @@
 locals {
   strg = "/mnt/jfs/changedetection"
   version = {
-    changedetection = "0.48.03"
+    changedetection = "0.48.05"
     browser         = "3.141.59"
   }
 }

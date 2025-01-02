@@ -1,5 +1,5 @@
 locals {
-  mnt-crypt = "/mnt/crypt"
+  crypt = "/mnt/crypt"
 }
 
 job "gollery" {
@@ -54,8 +54,8 @@ job "gollery" {
         }
 
         volumes = [
-          "${local.mnt-crypt}/nextcloud/antsva/files/Bilder:/home/extractor/src",
-          "${local.mnt-crypt}/gollery:/home/extractor/data"
+          "${local.crypt}/nextcloud/antsva/files/Bilder:/home/extractor/src",
+          "${local.crypt}/gollery:/home/extractor/data"
         ]
       }
     }

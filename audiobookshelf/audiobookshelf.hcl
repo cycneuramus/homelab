@@ -1,7 +1,7 @@
 locals {
-  strg      = "/mnt/jfs/audiobookshelf"
-  mnt-crypt = "/mnt/crypt"
-  version   = "2.17.5"
+  strg    = "/mnt/jfs/audiobookshelf"
+  crypt   = "/mnt/crypt"
+  version = "2.17.7"
 }
 
 job "audiobookshelf" {
@@ -46,7 +46,7 @@ job "audiobookshelf" {
         volumes = [
           "${local.strg}/db:/config",
           "${local.strg}/metadata:/metadata",
-          "${local.mnt-crypt}/audiobookshelf:/audiobooks/kids"
+          "${local.crypt}/audiobookshelf:/audiobooks/kids"
         ]
       }
     }

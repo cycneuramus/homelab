@@ -5,9 +5,9 @@ locals {
     valkey    = "7.2-alpine"
   }
 
-  strg      = "/mnt/jfs/nextcloud"
-  mnt-crypt = "/mnt/crypt"
-  sock      = pathexpand("~/cld/nextcloud/sock")
+  strg  = "/mnt/jfs/nextcloud"
+  crypt = "/mnt/crypt"
+  sock  = pathexpand("~/cld/nextcloud/sock")
 }
 
 job "nextcloud" {
@@ -92,9 +92,9 @@ job "nextcloud" {
           "${local.strg}/config/redis-session.ini:/usr/local/etc/php/conf.d/redis-session.ini",
           "${local.strg}/data:/var/www/html",
           "${local.sock}:/tmp/sock",
-          "${local.mnt-crypt}/nextcloud/antsva:/var/www/html/data/antsva",
-          "${local.mnt-crypt}/nextcloud/amabilis:/var/www/html/data/amabilis",
-          "${local.mnt-crypt}/nextcloud/jowl:/var/www/html/data/jowl",
+          "${local.crypt}/nextcloud/antsva:/var/www/html/data/antsva",
+          "${local.crypt}/nextcloud/amabilis:/var/www/html/data/amabilis",
+          "${local.crypt}/nextcloud/jowl:/var/www/html/data/jowl",
         ]
       }
     }

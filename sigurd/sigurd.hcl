@@ -24,11 +24,6 @@ job "sigurd" {
       driver = "podman"
       user   = "0:0"
 
-      lifecycle {
-        hook    = "prestart"
-        sidecar = true
-      }
-
       service {
         name         = "signal-cli-rest-api"
         port         = "signal-cli-rest-api"

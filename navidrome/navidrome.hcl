@@ -1,7 +1,7 @@
 locals {
   strg    = "/mnt/jfs/navidrome"
   music   = "/mnt/jfs/music"
-  version = "0.53.3"
+  version = "0.54.3"
 }
 
 job "navidrome" {
