@@ -41,7 +41,7 @@ job "unmanic" {
       }
 
       config {
-        image = "josh5/unmanic:0.2.8"
+        image = "josh5/unmanic:0.2.7"
         ports = ["http"]
 
         userns = "keep-id"
