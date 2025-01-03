@@ -2,10 +2,9 @@ locals {
   log   = pathexpand("~/log/caddy")
   strg  = "/mnt/jfs/caddy"
   crypt = "/mnt/crypt"
-  # version = {
-  #   TODO: try 7.2
-  #   valkey  = "8.0-alpine"
-  # }
+  version = {
+    valkey = "8-alpine"
+  }
 }
 
 job "caddy" {
@@ -166,12 +165,13 @@ job "caddy" {
 
     task "redis" {
       driver = "podman"
-      # user   = "1000:1000"
+      user   = "1000:1000"
 
       config {
-        # image = "valkey/valkey:${local.version.valkey}"
-        image = "redis:7.4-alpine"
+        image = "valkey/valkey:${local.version.valkey}"
         ports = ["redis"]
+
+        userns = "keep-id"
 
         args = [
           "--save", "60", "1"

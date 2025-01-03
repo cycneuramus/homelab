@@ -1,8 +1,13 @@
 {
-	email {$EMAIL}
 	skip_install_trust
 
-	acme_dns cloudflare {$CLOUDFLARE_TOKEN}
+	cert_issuer acme {
+		email {$EMAIL}
+		dns cloudflare {$CLOUDFLARE_TOKEN}
+		resolvers 1.1.1.1
+		propagation_delay 10s
+		propagation_timeout -1
+	}
 
 	log {
 		# level debug

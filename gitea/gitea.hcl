@@ -1,8 +1,7 @@
 locals {
   strg = "/mnt/jfs/gitea"
-
   version = {
-    forgejo = "9-rootless"
+    forgejo = "9.0.3-rootless"
     valkey  = "8.0-alpine"
   }
 }
