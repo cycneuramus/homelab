@@ -51,7 +51,7 @@ job "kutt" {
       driver = "podman"
 
       config {
-        image = "valkey/valkey:7.2-alpine"
+        image = "valkey/valkey:8.0-alpine"
         ports = ["redis"]
 
         logging = {

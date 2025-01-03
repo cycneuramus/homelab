@@ -66,7 +66,7 @@ job "nextcloud" {
       }
 
       config {
-        image  = "nextcloud:30.0.3-apache"
+        image  = "nextcloud:30.0.4-apache"
         ports  = ["server"]
         userns = "keep-id"
 
@@ -124,7 +124,7 @@ job "nextcloud" {
       }
 
       config {
-        image      = "nextcloud:30.0.3-apache"
+        image      = "nextcloud:30.0.4-apache"
         entrypoint = ["/local/cron.sh"]
         userns     = "keep-id"
 
@@ -157,7 +157,7 @@ job "nextcloud" {
       }
 
       config {
-        image  = "valkey/valkey:7.2-alpine"
+        image  = "valkey/valkey:8.0-alpine"
         userns = "keep-id"
         args = [
           "/local/redis.conf"
@@ -197,7 +197,7 @@ job "nextcloud" {
       }
 
       config {
-        image  = "nextcloud:30.0.3-apache"
+        image  = "nextcloud:30.0.4-apache"
         ports  = ["push"]
         userns = "keep-id"
 
@@ -238,7 +238,7 @@ job "nextcloud" {
       }
 
       config {
-        image = "collabora/code:24.04.10.2.1"
+        image = "collabora/code:24.04.11.1.1"
         ports = ["collabora"]
 
         logging = {

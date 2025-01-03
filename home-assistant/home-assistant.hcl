@@ -36,7 +36,7 @@ job "home-assistant" {
       }
 
       config {
-        image  = "ghcr.io/home-assistant/home-assistant:2024.11"
+        image  = "ghcr.io/home-assistant/home-assistant:2024.12"
         ports  = ["http"]
         socket = "root"
 

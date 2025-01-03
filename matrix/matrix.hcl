@@ -74,7 +74,7 @@ job "matrix" {
       }
 
       config {
-        image = "dock.mau.dev/mautrix/signal:v0.7.3"
+        image = "dock.mau.dev/mautrix/signal:v0.7.4"
         ports = ["signal-bridge"]
 
         # userns = "keep-id"

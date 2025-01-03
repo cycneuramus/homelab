@@ -42,7 +42,7 @@ job "wordpress" {
       }
 
       config {
-        image = "mariadb:11.2.5-jammy"
+        image = "mariadb:11.3.2-jammy"
         ports = ["db"]
 
         userns = "keep-id"
@@ -84,7 +84,7 @@ job "wordpress" {
       }
 
       config {
-        image = "wordpress:6.6.2-php8.3-apache"
+        image = "wordpress:6.7.1-php8.3-apache"
         ports = ["http"]
 
         userns = "keep-id"
