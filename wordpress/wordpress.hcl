@@ -1,11 +1,6 @@
 locals {
   strg = "/mnt/jfs/wordpress"
   db   = pathexpand("~/.local/share/wpdb")
-
-  version = {
-    mariadb   = "11.2.5-jammy"
-    wordpress = "6.6.2-php8.3-apache"
-  }
 }
 
 job "wordpress" {
@@ -47,7 +42,7 @@ job "wordpress" {
       }
 
       config {
-        image = "mariadb:${local.version.mariadb}"
+        image = "mariadb:11.2.5-jammy"
         ports = ["db"]
 
         userns = "keep-id"
@@ -89,7 +84,7 @@ job "wordpress" {
       }
 
       config {
-        image = "wordpress:${local.version.wordpress}"
+        image = "wordpress:6.6.2-php8.3-apache"
         ports = ["http"]
 
         userns = "keep-id"

@@ -1,7 +1,3 @@
-locals {
-  version = "3.8"
-}
-
 job "rallly" {
   constraint {
     attribute = "${attr.cpu.arch}"
@@ -36,7 +32,7 @@ job "rallly" {
       }
 
       config {
-        image = "lukevella/rallly:${local.version}"
+        image = "lukevella/rallly:3.8"
         ports = ["app"]
 
         logging = {

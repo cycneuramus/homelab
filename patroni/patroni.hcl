@@ -1,9 +1,5 @@
 locals {
   strg = pathexpand("~/.local/share/patroni")
-  version = {
-    etcd    = "v3.5.13"
-    patroni = "latest"
-  }
 }
 
 job "patroni" {
@@ -49,7 +45,7 @@ job "patroni" {
       }
 
       config {
-        image = "gcr.io/etcd-development/etcd:${local.version.etcd}"
+        image = "gcr.io/etcd-development/etcd:v3.5.13"
         ports = ["etcd-peer", "etcd-client"]
 
         logging = {
@@ -156,7 +152,7 @@ job "patroni" {
       }
 
       config {
-        image   = "ghcr.io/cycneuramus/patroni-docker:${local.version.patroni}"
+        image   = "ghcr.io/cycneuramus/patroni-docker:latest"
         ports   = ["postgres", "patroni"]
         command = "/local/patroni.yml"
 

@@ -1,9 +1,5 @@
 locals {
   strg = "/mnt/jfs/matrix"
-  version = {
-    matrix        = "latest"
-    signal-bridge = "v0.7.3"
-  }
 }
 
 job "matrix" {
@@ -46,7 +42,7 @@ job "matrix" {
       }
 
       config {
-        image = "ghcr.io/girlbossceo/conduwuit:${local.version.matrix}"
+        image = "ghcr.io/girlbossceo/conduwuit:main"
         ports = ["http"]
 
         userns = "keep-id"
@@ -78,7 +74,7 @@ job "matrix" {
       }
 
       config {
-        image = "dock.mau.dev/mautrix/signal:${local.version.signal-bridge}"
+        image = "dock.mau.dev/mautrix/signal:v0.7.3"
         ports = ["signal-bridge"]
 
         # userns = "keep-id"

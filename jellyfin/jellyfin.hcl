@@ -1,7 +1,6 @@
 locals {
-  strg    = "/mnt/jfs/jellyfin"
-  media   = "/mnt/nas/media"
-  version = "10.10.1"
+  strg  = "/mnt/jfs/jellyfin"
+  media = "/mnt/nas/media"
 }
 
 job "jellyfin" {
@@ -42,7 +41,7 @@ job "jellyfin" {
       }
 
       config {
-        image = "lscr.io/linuxserver/jellyfin:${local.version}"
+        image = "ghcr.io/linuxserver/jellyfin:10.10.1"
         ports = ["http"]
 
         socket = "root"

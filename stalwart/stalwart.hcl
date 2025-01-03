@@ -1,6 +1,5 @@
 locals {
-  strg    = "/mnt/jfs/stalwart"
-  version = "v0.10.7"
+  strg = "/mnt/jfs/stalwart"
 }
 
 job "stalwart" {
@@ -75,7 +74,7 @@ job "stalwart" {
       }
 
       config {
-        image = "docker.io/stalwartlabs/mail-server:${local.version}"
+        image = "docker.io/stalwartlabs/mail-server:v0.10.7"
         ports = ["smtp", "smtps", "imaps", "http"]
 
         userns = "keep-id"

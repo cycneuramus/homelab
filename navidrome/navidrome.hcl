@@ -1,7 +1,6 @@
 locals {
-  strg    = "/mnt/jfs/navidrome"
-  music   = "/mnt/jfs/music"
-  version = "0.54.3"
+  strg  = "/mnt/jfs/navidrome"
+  music = "/mnt/jfs/music"
 }
 
 job "navidrome" {
@@ -35,7 +34,7 @@ job "navidrome" {
       }
 
       config {
-        image = "ghcr.io/navidrome/navidrome:${local.version}"
+        image = "ghcr.io/navidrome/navidrome:0.54.3"
         ports = ["http"]
 
         logging = {

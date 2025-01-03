@@ -1,10 +1,3 @@
-locals {
-  version = {
-    kutt   = "v2.7.4"
-    valkey = "7.2-alpine"
-  }
-}
-
 job "kutt" {
   group "kutt" {
     network {
@@ -42,7 +35,7 @@ job "kutt" {
       }
 
       config {
-        image = "kutt/kutt:${local.version.kutt}"
+        image = "kutt/kutt:v2.7.4"
         ports = ["app"]
 
         logging = {
@@ -58,7 +51,7 @@ job "kutt" {
       driver = "podman"
 
       config {
-        image = "valkey/valkey:${local.version.valkey}"
+        image = "valkey/valkey:7.2-alpine"
         ports = ["redis"]
 
         logging = {

@@ -1,6 +1,5 @@
 locals {
-  strg    = "/mnt/jfs/jellystat"
-  version = "1.1.2"
+  strg = "/mnt/jfs/jellystat"
 }
 
 job "jellystat" {
@@ -31,7 +30,7 @@ job "jellystat" {
       }
 
       config {
-        image = "cyfershepard/jellystat:${local.version}"
+        image = "cyfershepard/jellystat:1.1.2"
         ports = ["app"]
 
         logging = {

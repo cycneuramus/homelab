@@ -1,6 +1,5 @@
 locals {
-  strg    = "/mnt/jfs/fmd"
-  version = "v0.8.0"
+  strg = "/mnt/jfs/fmd"
 }
 
 job "fmd" {
@@ -32,7 +31,7 @@ job "fmd" {
       }
 
       config {
-        image = "registry.gitlab.com/nulide/findmydeviceserver:${local.version}"
+        image = "registry.gitlab.com/nulide/findmydeviceserver:v0.8.0"
         ports = ["http"]
 
         userns = "keep-id"

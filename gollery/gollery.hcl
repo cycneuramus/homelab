@@ -37,7 +37,7 @@ job "gollery" {
 
     task "extractor" {
       driver = "podman"
-      # user   = "1000:1000"
+      user   = "1000:1000"
 
       template {
         data        = file(".env")
@@ -48,6 +48,8 @@ job "gollery" {
       config {
         image   = "ghcr.io/cycneuramus/ifexifextract:latest"
         command = "extract"
+
+        userns = "keep-id"
 
         logging = {
           driver = "journald"

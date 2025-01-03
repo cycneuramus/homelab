@@ -1,9 +1,5 @@
 locals {
   strg = "/mnt/jfs/changedetection"
-  version = {
-    changedetection = "0.48.05"
-    browser         = "3.141.59"
-  }
 }
 
 job "changedetection" {
@@ -44,7 +40,7 @@ job "changedetection" {
       }
 
       config {
-        image = "ghcr.io/dgtlmoon/changedetection.io:${local.version.changedetection}"
+        image = "ghcr.io/dgtlmoon/changedetection.io:0.48.05"
         ports = ["http"]
 
         logging = {
@@ -72,7 +68,7 @@ job "changedetection" {
       }
 
       config {
-        image = "selenium/standalone-chrome-debug:${local.version.browser}"
+        image = "selenium/standalone-chrome-debug:3.141.59"
         ports = ["browser"]
 
         logging = {

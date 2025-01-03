@@ -1,6 +1,5 @@
 locals {
-  strg    = "/mnt/jfs/emulatorjs"
-  version = "latest"
+  strg = "/mnt/jfs/emulatorjs"
 }
 
 job "emulatorjs" {
@@ -49,7 +48,7 @@ job "emulatorjs" {
       }
 
       config {
-        image = "lscr.io/linuxserver/emulatorjs:${local.version}"
+        image = "ghcr.io/linuxserver/emulatorjs:1.9.2"
         ports = ["http", "admin"]
 
         userns = "keep-id"

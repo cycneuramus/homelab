@@ -2,9 +2,6 @@ locals {
   log   = pathexpand("~/log/caddy")
   strg  = "/mnt/jfs/caddy"
   crypt = "/mnt/crypt"
-  version = {
-    valkey = "8-alpine"
-  }
 }
 
 job "caddy" {
@@ -168,7 +165,7 @@ job "caddy" {
       user   = "1000:1000"
 
       config {
-        image = "valkey/valkey:${local.version.valkey}"
+        image = "valkey/valkey:8-alpine"
         ports = ["redis"]
 
         userns = "keep-id"

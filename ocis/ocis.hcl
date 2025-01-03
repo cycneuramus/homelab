@@ -1,7 +1,6 @@
 locals {
-  strg    = "/mnt/jfs/ocis"
-  data    = "/mnt/nas/ocis"
-  version = "7.0.0"
+  strg = "/mnt/jfs/ocis"
+  data = "/mnt/nas/ocis"
 }
 
 job "ocis" {
@@ -32,7 +31,7 @@ job "ocis" {
       }
 
       config {
-        image = "docker.io/owncloud/ocis:${local.version}"
+        image = "docker.io/owncloud/ocis:7.0.0"
         ports = ["http"]
 
         userns = "keep-id"

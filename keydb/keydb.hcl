@@ -1,7 +1,6 @@
 locals {
-  strg    = pathexpand("~/.local/share/keydb")
-  sock    = pathexpand("~/cld/keydb/sock")
-  version = "alpine_x86_64_v6.3.3"
+  strg = pathexpand("~/.local/share/keydb")
+  sock = pathexpand("~/cld/keydb/sock")
 }
 
 job "keydb" {
@@ -53,7 +52,7 @@ job "keydb" {
       }
 
       config {
-        image = "eqalpha/keydb:${local.version}"
+        image = "eqalpha/keydb:alpine_x86_64_v6.3.3"
         ports = ["keydb"]
 
         command = "keydb-server"

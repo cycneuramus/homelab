@@ -1,7 +1,6 @@
 locals {
-  version = "0.2.7"
-  strg    = "/mnt/jfs/unmanic"
-  media   = "/mnt/nas/media"
+  strg  = "/mnt/jfs/unmanic"
+  media = "/mnt/nas/media"
 }
 
 job "unmanic" {
@@ -42,7 +41,7 @@ job "unmanic" {
       }
 
       config {
-        image = "josh5/unmanic:${local.version}"
+        image = "josh5/unmanic:0.2.7"
         ports = ["http"]
 
         userns = "keep-id"

@@ -1,7 +1,3 @@
-locals {
-  version = "latest"
-}
-
 job "terraforming-mars" {
   constraint {
     attribute = "${attr.cpu.arch}"
@@ -35,7 +31,7 @@ job "terraforming-mars" {
       }
 
       config {
-        image = "andrewsav/terraforming-mars:${local.version}"
+        image = "andrewsav/terraforming-mars:latest"
         ports = ["http"]
 
         logging = {

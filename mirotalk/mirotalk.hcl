@@ -1,7 +1,3 @@
-locals {
-  version = "latest"
-}
-
 job "mirotalk" {
   group "mirotalk" {
     network {
@@ -44,7 +40,7 @@ job "mirotalk" {
       }
 
       config {
-        image      = "docker.io/mirotalk/p2p:${local.version}"
+        image      = "docker.io/mirotalk/p2p:latest"
         ports      = ["http"]
         force_pull = true
 

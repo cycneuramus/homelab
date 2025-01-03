@@ -1,6 +1,5 @@
 locals {
-  strg    = pathexpand("~/.local/share/patroni")
-  version = "15-alpine"
+  strg = pathexpand("~/.local/share/patroni")
 }
 
 job "patroni-cron" {
@@ -45,7 +44,7 @@ job "patroni-cron" {
       }
 
       config {
-        image      = "postgres:${local.version}"
+        image      = "postgres:15-alpine"
         entrypoint = ["/local/pg_backup.sh"]
 
         userns = "keep-id"

@@ -1,7 +1,3 @@
-locals {
-  version = "lts-alpine"
-}
-
 job "haproxy" {
   type = "system"
 
@@ -42,7 +38,7 @@ job "haproxy" {
       }
 
       config {
-        image = "haproxy:${local.version}"
+        image = "haproxy:lts-alpine"
         ports = ["patroni", "garage", "stats"]
 
         logging = {

@@ -1,6 +1,5 @@
 locals {
-  strg    = "/mnt/jfs/opengist"
-  version = "1.8.1"
+  strg = "/mnt/jfs/opengist"
 }
 
 job "opengist" {
@@ -31,7 +30,7 @@ job "opengist" {
       }
 
       config {
-        image = "ghcr.io/thomiceli/opengist:${local.version}"
+        image = "ghcr.io/thomiceli/opengist:1.8.1"
         ports = ["http"]
 
         entrypoint = ["./opengist", "--config", "/local/config.yml"]

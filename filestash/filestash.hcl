@@ -1,7 +1,6 @@
 locals {
-  strg    = "/mnt/jfs/filestash"
-  crypt   = "/mnt/crypt/filestash"
-  version = "latest"
+  strg  = "/mnt/jfs/filestash"
+  crypt = "/mnt/crypt/filestash"
 }
 
 job "filestash" {
@@ -26,7 +25,7 @@ job "filestash" {
       }
 
       config {
-        image = "docker.io/machines/filestash:${local.version}"
+        image = "docker.io/machines/filestash:latest"
         ports = ["http"]
 
         userns = "keep-id"

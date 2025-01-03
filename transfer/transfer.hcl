@@ -1,6 +1,5 @@
 locals {
-  strg    = "/mnt/jfs/transfer"
-  version = "v1.6.1"
+  strg = "/mnt/jfs/transfer"
 }
 
 job "transfer" {
@@ -31,7 +30,7 @@ job "transfer" {
       }
 
       config {
-        image = "dutchcoders/transfer.sh:${local.version}"
+        image = "dutchcoders/transfer.sh:v1.6.1"
         ports = ["http"]
 
         userns = "keep-id"

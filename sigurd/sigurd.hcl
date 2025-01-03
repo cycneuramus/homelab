@@ -1,8 +1,5 @@
 locals {
   strg = "/mnt/jfs/sigurd"
-  version = {
-    signal-cli-rest-api = "0.90"
-  }
 }
 
 job "sigurd" {
@@ -46,7 +43,7 @@ job "sigurd" {
       }
 
       config {
-        image = "docker.io/bbernhard/signal-cli-rest-api:${local.version.signal-cli-rest-api}"
+        image = "docker.io/bbernhard/signal-cli-rest-api:0.90"
         ports = ["signal-cli-rest-api"]
 
         userns = "keep-id"

@@ -2,11 +2,6 @@ locals {
   sock  = pathexpand("~/cld/immich/sock")
   strg  = "/mnt/jfs/immich"
   crypt = "/mnt/crypt"
-
-  version = {
-    immich = "v1.123.0"
-    valkey = "7.2-alpine"
-  }
 }
 
 job "immich" {
@@ -79,7 +74,7 @@ job "immich" {
       }
 
       config {
-        image = "ghcr.io/immich-app/immich-server:${local.version.immich}"
+        image = "ghcr.io/immich-app/immich-server:v1.123.0"
         ports = ["server"]
 
         logging = {
@@ -114,7 +109,7 @@ job "immich" {
       }
 
       config {
-        image = "ghcr.io/immich-app/immich-machine-learning:${local.version.immich}"
+        image = "ghcr.io/immich-app/immich-machine-learning:v1.123.0"
         ports = ["machinelearning"]
 
         logging = {
@@ -144,7 +139,7 @@ job "immich" {
       }
 
       config {
-        image  = "valkey/valkey:${local.version.valkey}"
+        image  = "valkey/valkey:7.2-alpine"
         userns = "keep-id"
         args = [
           "/local/redis.conf"

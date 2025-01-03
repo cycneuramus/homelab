@@ -1,7 +1,3 @@
-locals {
-  version = latest
-}
-
 job "libreddit" {
   group "libreddit" {
     network {
@@ -30,7 +26,7 @@ job "libreddit" {
       }
 
       config {
-        image = "quay.io/redlib/redlib:${local.version}"
+        image = "quay.io/redlib/redlib:latest"
         ports = ["http"]
 
         logging = {

@@ -1,7 +1,6 @@
 locals {
-  media   = "/mnt/nas/media/tv/yt"
-  strg    = "/mnt/jfs/pinchflat"
-  version = "v2024.12.31"
+  media = "/mnt/nas/media/tv/yt"
+  strg  = "/mnt/jfs/pinchflat"
 }
 
 job "pinchflat" {
@@ -34,7 +33,7 @@ job "pinchflat" {
       }
 
       config {
-        image = "ghcr.io/kieraneglin/pinchflat:${local.version}"
+        image = "ghcr.io/kieraneglin/pinchflat:v2024.12.31"
         ports = ["http"]
 
         logging = {
