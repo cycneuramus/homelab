@@ -30,7 +30,7 @@ job "opengist" {
       }
 
       config {
-        image = "ghcr.io/thomiceli/opengist:1.8.1"
+        image = "ghcr.io/thomiceli/opengist:1.8.4"
         ports = ["http"]
 
         entrypoint = ["./opengist", "--config", "/local/config.yml"]

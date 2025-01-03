@@ -45,7 +45,7 @@ job "patroni" {
       }
 
       config {
-        image = "gcr.io/etcd-development/etcd:v3.5.13"
+        image = "gcr.io/etcd-development/etcd:v3.5.17"
         ports = ["etcd-peer", "etcd-client"]
 
         logging = {

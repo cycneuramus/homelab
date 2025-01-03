@@ -139,7 +139,7 @@ job "immich" {
       }
 
       config {
-        image  = "valkey/valkey:7.2-alpine"
+        image  = "valkey/valkey:8.0-alpine"
         userns = "keep-id"
         args = [
           "/local/redis.conf"

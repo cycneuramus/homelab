@@ -41,7 +41,7 @@ job "jellyfin" {
       }
 
       config {
-        image = "ghcr.io/linuxserver/jellyfin:10.10.1"
+        image = "ghcr.io/linuxserver/jellyfin:10.10.3"
         ports = ["http"]
 
         socket = "root"

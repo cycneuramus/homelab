@@ -32,7 +32,7 @@ job "rallly" {
       }
 
       config {
-        image = "lukevella/rallly:3.8"
+        image = "lukevella/rallly:3.11"
         ports = ["app"]
 
         logging = {
