@@ -152,7 +152,7 @@ job "patroni" {
       }
 
       config {
-        image   = "ghcr.io/cycneuramus/patroni-docker:latest"
+        image   = "ghcr.io/cycneuramus/containers:patroni"
         ports   = ["postgres", "patroni"]
         command = "/local/patroni.yml"
 

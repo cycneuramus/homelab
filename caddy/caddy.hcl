@@ -113,7 +113,7 @@ job "caddy" {
       }
 
       config {
-        image = "ghcr.io/cycneuramus/caddy:latest"
+        image = "ghcr.io/cycneuramus/containers:caddy"
         ports = [
           "http",
           "https",

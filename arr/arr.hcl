@@ -111,7 +111,7 @@ job "arr" {
       }
 
       config {
-        image = "ghcr.io/linuxserver/sonarr:5.16.3"
+        image = "ghcr.io/linuxserver/radarr:5.16.3"
         ports = ["radarr"]
 
         userns = "keep-id"
