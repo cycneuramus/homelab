@@ -54,7 +54,7 @@ job "renovate" {
       }
 
       config {
-        image  = "ghcr.io/renovatebot/renovate:39.90.5"
+        image  = "ghcr.io/renovatebot/renovate:39.91.0"
         userns = "keep-id"
 
         logging = {

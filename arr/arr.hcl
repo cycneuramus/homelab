@@ -111,7 +111,7 @@ job "arr" {
       }
 
       config {
-        image = "ghcr.io/linuxserver/radarr:5.16.3"
+        image = "ghcr.io/linuxserver/radarr:5.17.2"
         ports = ["radarr"]
 
         userns = "keep-id"
@@ -203,7 +203,7 @@ job "arr" {
       }
 
       config {
-        image = "ghcr.io/linuxserver/prowlarr:1.28.2"
+        image = "ghcr.io/linuxserver/prowlarr:1.29.2"
         ports = ["prowlarr"]
 
         userns = "keep-id"
