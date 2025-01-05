@@ -38,7 +38,7 @@ job "haproxy" {
       }
 
       config {
-        image = "haproxy:lts-alpine"
+        image = "haproxy:3.1-alpine"
         ports = ["patroni", "garage", "stats"]
 
         logging = {
