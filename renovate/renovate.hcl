@@ -23,7 +23,7 @@ job "renovate" {
       template {
         data        = <<-EOF
           #!/bin/bash
-          rm ${local.strg}/renovate.log
+          : > ${local.strg}/renovate.log
         EOF
         destination = "local/preflight.sh"
         perms       = 755
@@ -49,8 +49,10 @@ job "renovate" {
       }
 
       template {
-        data        = file("config.js")
-        destination = "/local/config.js"
+        data            = file("config.js")
+        destination     = "/local/config.js"
+        left_delimiter  = "[["
+        right_delimiter = "]]"
       }
 
       config {
@@ -61,7 +63,9 @@ job "renovate" {
           driver = "journald"
         }
 
-        volumes = ["${local.strg}:/var/log/renovate"]
+        volumes = [
+          "${local.strg}:/var/log/renovate"
+        ]
       }
     }
   }
