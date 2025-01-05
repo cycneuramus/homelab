@@ -39,7 +39,7 @@ job "jellyseerr" {
       }
 
       config {
-        image = "fallenbagel/jellyseerr:2.1.0"
+        image = "fallenbagel/jellyseerr:2.2.3"
         ports = ["http"]
 
         logging = {

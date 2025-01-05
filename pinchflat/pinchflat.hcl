@@ -33,7 +33,7 @@ job "pinchflat" {
       }
 
       config {
-        image = "ghcr.io/kieraneglin/pinchflat:v2024.12.31"
+        image = "ghcr.io/kieraneglin/pinchflat:v2025.1.3"
         ports = ["http"]
 
         logging = {

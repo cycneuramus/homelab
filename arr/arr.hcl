@@ -241,7 +241,7 @@ job "arr" {
       }
 
       config {
-        image = "ghcr.io/rogerfar/rdtclient:2.0.92"
+        image = "ghcr.io/rogerfar/rdtclient:2.0.93"
         ports = ["rdt"]
 
         logging = {
