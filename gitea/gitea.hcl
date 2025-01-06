@@ -1,5 +1,10 @@
 locals {
   strg = "/mnt/jfs/gitea"
+
+  image = {
+    gitea  = "codeberg.org/forgejo/forgejo:9.0.3-rootless"
+    valkey = "docker.io/valkey/valkey:8.0-alpine"
+  }
 }
 
 job "gitea" {
@@ -42,7 +47,7 @@ job "gitea" {
       }
 
       config {
-        image  = "codeberg.org/forgejo/forgejo:9.0.3-rootless"
+        image  = "${local.image.gitea}"
         ports  = ["http"]
         userns = "keep-id"
 
@@ -65,7 +70,7 @@ job "gitea" {
       user   = "1000:1000"
 
       config {
-        image  = "valkey/valkey:8.0-alpine"
+        image  = "${local.image.valkey}"
         ports  = ["redis"]
         userns = "keep-id"
 

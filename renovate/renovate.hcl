@@ -1,5 +1,6 @@
 locals {
-  strg = "/mnt/jfs/renovate"
+  strg  = "/mnt/jfs/renovate"
+  image = "ghcr.io/renovatebot/renovate:39"
 }
 
 job "renovate" {
@@ -56,7 +57,7 @@ job "renovate" {
       }
 
       config {
-        image  = "ghcr.io/renovatebot/renovate:39"
+        image  = "${local.image}"
         userns = "keep-id"
 
         logging = {

@@ -1,6 +1,7 @@
 locals {
   strg  = "/mnt/jfs/unmanic"
   media = "/mnt/nas/media"
+  image = "docker.io/josh5/unmanic:0.2.7"
 }
 
 job "unmanic" {
@@ -41,7 +42,7 @@ job "unmanic" {
       }
 
       config {
-        image = "josh5/unmanic:0.2.7"
+        image = "${local.image}"
         ports = ["http"]
 
         userns = "keep-id"

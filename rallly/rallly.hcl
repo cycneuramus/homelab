@@ -1,3 +1,7 @@
+locals {
+  image = "docker.io/lukevella/rallly:3.11"
+}
+
 job "rallly" {
   constraint {
     attribute = "${attr.cpu.arch}"
@@ -15,7 +19,7 @@ job "rallly" {
 
     task "rallly" {
       driver = "podman"
-      # user   = "1000:1000"
+      user   = "1000:1000"
 
       service {
         name         = "rallly"
@@ -32,8 +36,10 @@ job "rallly" {
       }
 
       config {
-        image = "lukevella/rallly:3.11"
+        image = "${local.image}"
         ports = ["app"]
+
+        userns = "keep-id"
 
         logging = {
           driver = "journald"

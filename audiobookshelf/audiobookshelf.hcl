@@ -1,6 +1,7 @@
 locals {
   strg  = "/mnt/jfs/audiobookshelf"
   crypt = "/mnt/crypt"
+  image = "ghcr.io/advplyr/audiobookshelf:2.17.7"
 }
 
 job "audiobookshelf" {
@@ -29,7 +30,7 @@ job "audiobookshelf" {
       }
 
       config {
-        image = "ghcr.io/advplyr/audiobookshelf:2.17.7"
+        image = "${local.image}"
         ports = ["http"]
 
         userns = "keep-id"

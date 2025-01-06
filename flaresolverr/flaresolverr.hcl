@@ -1,3 +1,7 @@
+local {
+  image = "ghcr.io/flaresolverr/flaresolverr:v3.3.21"
+}
+
 job "flaresolverr" {
   group "flaresolverr" {
     network {
@@ -20,7 +24,7 @@ job "flaresolverr" {
       }
 
       config {
-        image = "ghcr.io/flaresolverr/flaresolverr:v3.3.21"
+        image = "${local.image}"
         ports = ["http"]
 
         logging = {

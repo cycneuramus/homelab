@@ -1,3 +1,7 @@
+locals {
+  image = "docker.io/binwiederhier/ntfy:v2.11.0"
+}
+
 job "ntfy" {
   group "ntfy" {
     network {
@@ -9,7 +13,7 @@ job "ntfy" {
 
     task "ntfy" {
       driver = "podman"
-      # user   = "1000:1000"
+      user   = "1000:1000"
 
       service {
         name         = "ntfy"
@@ -34,8 +38,10 @@ job "ntfy" {
       }
 
       config {
-        image = "binwiederhier/ntfy:v2.11.0"
+        image = "${local.image}"
         ports = ["http"]
+
+        userns = "keep-id"
 
         logging = {
           driver = "journald"

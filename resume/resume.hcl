@@ -1,5 +1,10 @@
 locals {
   strg = "/mnt/jfs/resume"
+
+  image = {
+    frontend = "docker.io/amruthpillai/reactive-resume:client-latest"
+    backend  = "docker.io/amruthpillai/reactive-resume:server-latest"
+  }
 }
 
 job "resume" {
@@ -44,7 +49,7 @@ job "resume" {
       }
 
       config {
-        image = "amruthpillai/reactive-resume:client-latest"
+        image = "${local.image.frontend}"
         ports = ["frontend"]
 
         logging = {
@@ -75,7 +80,7 @@ job "resume" {
       }
 
       config {
-        image = "amruthpillai/reactive-resume:server-latest"
+        image = "${local.image.backend}"
         ports = ["backend"]
 
         logging = {

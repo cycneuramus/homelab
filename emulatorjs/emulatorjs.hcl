@@ -1,5 +1,6 @@
 locals {
-  strg = "/mnt/jfs/emulatorjs"
+  strg  = "/mnt/jfs/emulatorjs"
+  image = "ghcr.io/linuxserver/emulatorjs:1.9.2"
 }
 
 job "emulatorjs" {
@@ -48,7 +49,7 @@ job "emulatorjs" {
       }
 
       config {
-        image = "ghcr.io/linuxserver/emulatorjs:1.9.2"
+        image = "${local.image}"
         ports = ["http", "admin"]
 
         userns = "keep-id"

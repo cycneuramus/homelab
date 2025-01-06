@@ -1,3 +1,7 @@
+locals {
+  image = "docker.io/haproxy:3.1-alpine"
+}
+
 job "haproxy" {
   type = "system"
 
@@ -38,7 +42,7 @@ job "haproxy" {
       }
 
       config {
-        image = "haproxy:3.1-alpine"
+        image = "${local.image}"
         ports = ["patroni", "garage", "stats"]
 
         logging = {

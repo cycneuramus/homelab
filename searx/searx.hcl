@@ -1,3 +1,10 @@
+locals {
+  image = {
+    searx  = "docker.io/searxng/searxng:latest"
+    valkey = "docker.io/valkey/valkey:8.0-alpine"
+  }
+}
+
 job "searx" {
   group "searx" {
     network {
@@ -41,7 +48,7 @@ job "searx" {
       }
 
       config {
-        image = "searxng/searxng:latest"
+        image = "${local.image.searx}"
         ports = ["app"]
 
         logging = {
@@ -58,7 +65,7 @@ job "searx" {
       driver = "podman"
 
       config {
-        image = "valkey/valkey:8.0-alpine"
+        image = "${local.image.valkey}"
         ports = ["redis"]
 
         logging = {

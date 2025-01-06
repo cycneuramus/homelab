@@ -1,5 +1,6 @@
 locals {
-  strg = "/mnt/jfs/jellystat"
+  strg  = "/mnt/jfs/jellystat"
+  image = "docker.io/cyfershepard/jellystat:1.1.2"
 }
 
 job "jellystat" {
@@ -30,7 +31,7 @@ job "jellystat" {
       }
 
       config {
-        image = "cyfershepard/jellystat:1.1.2"
+        image = "${local.image}"
         ports = ["app"]
 
         logging = {

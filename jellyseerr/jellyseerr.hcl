@@ -1,5 +1,6 @@
 locals {
-  strg = "/mnt/jfs/jellyseerr"
+  strg  = "/mnt/jfs/jellyseerr"
+  image = "docker.io/fallenbagel/jellyseerr:2.2.3"
 }
 
 job "jellyseerr" {
@@ -39,7 +40,7 @@ job "jellyseerr" {
       }
 
       config {
-        image = "fallenbagel/jellyseerr:2.2.3"
+        image = "${local.image}"
         ports = ["http"]
 
         logging = {

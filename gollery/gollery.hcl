@@ -1,5 +1,6 @@
 locals {
   crypt = "/mnt/crypt"
+  image = "ghcr.io/cycneuramus/ifexifextract:latest"
 }
 
 job "gollery" {
@@ -46,7 +47,7 @@ job "gollery" {
       }
 
       config {
-        image   = "ghcr.io/cycneuramus/ifexifextract:latest"
+        image   = "${local.image}"
         command = "extract"
 
         userns = "keep-id"

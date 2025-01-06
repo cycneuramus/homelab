@@ -1,5 +1,6 @@
 locals {
-  strg = "/mnt/jfs/wizarr"
+  strg  = "/mnt/jfs/wizarr"
+  image = "ghcr.io/wizarrrr/wizarr:4.2.0"
 }
 
 job "wizarr" {
@@ -29,7 +30,7 @@ job "wizarr" {
       }
 
       config {
-        image = "ghcr.io/wizarrrr/wizarr:4.2.0"
+        image = "${local.image}"
         ports = ["http"]
 
         logging = {

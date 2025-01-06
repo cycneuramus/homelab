@@ -2,6 +2,11 @@ locals {
   log   = pathexpand("~/log/caddy")
   strg  = "/mnt/jfs/caddy"
   crypt = "/mnt/crypt"
+
+  image = {
+    caddy  = "ghcr.io/cycneuramus/containers:caddy"
+    valkey = "docker.io/valkey/valkey:8.0-alpine"
+  }
 }
 
 job "caddy" {
@@ -113,7 +118,7 @@ job "caddy" {
       }
 
       config {
-        image = "ghcr.io/cycneuramus/containers:caddy"
+        image = "${local.image.caddy}"
         ports = [
           "http",
           "https",
@@ -165,7 +170,7 @@ job "caddy" {
       user   = "1000:1000"
 
       config {
-        image = "valkey/valkey:8-alpine"
+        image = "${local.image.valkey}"
         ports = ["redis"]
 
         userns = "keep-id"

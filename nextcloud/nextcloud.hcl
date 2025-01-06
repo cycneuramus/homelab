@@ -2,6 +2,12 @@ locals {
   strg  = "/mnt/jfs/nextcloud"
   crypt = "/mnt/crypt"
   sock  = pathexpand("~/cld/nextcloud/sock")
+
+  image = {
+    nextcloud = "docker.io/nextcloud:30.0.4-apache"
+    collabora = "docker.io/collabora/code:24.04.11.1.1"
+    valkey    = "docker.io/valkey/valkey:8.0-alpine"
+  }
 }
 
 job "nextcloud" {
@@ -66,7 +72,7 @@ job "nextcloud" {
       }
 
       config {
-        image  = "nextcloud:30.0.4-apache"
+        image  = "${local.image.nextcloud}"
         ports  = ["server"]
         userns = "keep-id"
 
@@ -124,7 +130,7 @@ job "nextcloud" {
       }
 
       config {
-        image      = "nextcloud:30.0.4-apache"
+        image      = "${local.image.nextcloud}"
         entrypoint = ["/local/cron.sh"]
         userns     = "keep-id"
 
@@ -157,7 +163,7 @@ job "nextcloud" {
       }
 
       config {
-        image  = "valkey/valkey:8.0-alpine"
+        image  = "${local.image.valkey}"
         userns = "keep-id"
         args = [
           "/local/redis.conf"
@@ -197,7 +203,7 @@ job "nextcloud" {
       }
 
       config {
-        image  = "nextcloud:30.0.4-apache"
+        image  = "${local.image.nextcloud}"
         ports  = ["push"]
         userns = "keep-id"
 
@@ -238,7 +244,7 @@ job "nextcloud" {
       }
 
       config {
-        image = "collabora/code:24.04.11.1.1"
+        image = "${local.image.collabora}"
         ports = ["collabora"]
 
         logging = {

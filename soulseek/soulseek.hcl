@@ -4,6 +4,11 @@ locals {
     betanin = "/mnt/jfs/betanin"
     music   = "/mnt/jfs/music"
   }
+
+  image = {
+    slskd   = "ghcr.io/slskd/slskd:0.22.1"
+    betanin = "docker.io/sentriz/betanin:v0.5.6"
+  }
 }
 
 job "soulseek" {
@@ -50,7 +55,7 @@ job "soulseek" {
       }
 
       config {
-        image = "ghcr.io/slskd/slskd:0.22.1"
+        image = "${local.image.slskd}"
         ports = ["slskd"]
 
         userns = "keep-id"
@@ -83,7 +88,7 @@ job "soulseek" {
       }
 
       config {
-        image = "docker.io/sentriz/betanin:v0.5.6"
+        image = "${local.image.betanin}"
         ports = ["betanin"]
 
         logging = {

@@ -1,5 +1,10 @@
 locals {
   strg = "/mnt/jfs/changedetection"
+
+  image = {
+    changedetection = "ghcr.io/dgtlmoon/changedetection.io:0.48.05"
+    browser         = "docker.io/selenium/standalone-chrome-debug:3.141.59"
+  }
 }
 
 job "changedetection" {
@@ -40,7 +45,7 @@ job "changedetection" {
       }
 
       config {
-        image = "ghcr.io/dgtlmoon/changedetection.io:0.48.05"
+        image = "${local.image.changedetection}"
         ports = ["http"]
 
         logging = {
@@ -68,7 +73,7 @@ job "changedetection" {
       }
 
       config {
-        image = "selenium/standalone-chrome-debug:3.141.59"
+        image = "${local.image.browser}"
         ports = ["browser"]
 
         logging = {

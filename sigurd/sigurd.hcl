@@ -1,5 +1,10 @@
 locals {
   strg = "/mnt/jfs/sigurd"
+
+  image = {
+    sigurd     = "ghcr.io/cycneuramus/sigurd"
+    signal-api = "docker.io/bbernhard/signal-cli-rest-api:0.90"
+  }
 }
 
 job "sigurd" {
@@ -11,19 +16,19 @@ job "sigurd" {
 
   group "sigurd" {
     network {
-      port "signal-cli-rest-api" {
+      port "signal-api" {
         to           = 8080
         host_network = "private"
       }
     }
 
-    task "signal-cli-rest-api" {
+    task "signal-api" {
       driver = "podman"
       user   = "0:0"
 
       service {
-        name         = "signal-cli-rest-api"
-        port         = "signal-cli-rest-api"
+        name         = "signal-api"
+        port         = "signal-api"
         provider     = "nomad"
         address_mode = "host"
         tags         = ["private"]
@@ -43,8 +48,8 @@ job "sigurd" {
       }
 
       config {
-        image = "docker.io/bbernhard/signal-cli-rest-api:0.90"
-        ports = ["signal-cli-rest-api"]
+        image = "${local.image.signal-api}"
+        ports = ["signal-api"]
 
         userns = "keep-id"
 
@@ -79,7 +84,7 @@ job "sigurd" {
       }
 
       config {
-        image   = "ghcr.io/cycneuramus/sigurd:latest"
+        image   = "${local.image.sigurd}"
         command = "bot"
 
         userns = "keep-id"
@@ -107,7 +112,7 @@ job "sigurd" {
       }
 
       config {
-        image   = "ghcr.io/cycneuramus/sigurd"
+        image   = "${local.image.sigurd}"
         command = "cron"
 
         userns = "keep-id"

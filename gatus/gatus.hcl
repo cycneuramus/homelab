@@ -1,3 +1,7 @@
+locals {
+  image = "ghcr.io/twin/gatus:v5.15.0"
+}
+
 job "gatus" {
   group "gatus" {
     network {
@@ -35,7 +39,7 @@ job "gatus" {
       }
 
       config {
-        image = "ghcr.io/twin/gatus:v5.15.0"
+        image = "${local.image}"
         ports = ["gatus"]
 
         logging = {

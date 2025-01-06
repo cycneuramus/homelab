@@ -1,5 +1,6 @@
 locals {
-  strg = "/mnt/jfs/vaultwarden"
+  strg  = "/mnt/jfs/vaultwarden"
+  image = "ghcr.io/dani-garcia/vaultwarden:1.32.7-alpine"
 }
 
 job "vaultwarden" {
@@ -30,7 +31,7 @@ job "vaultwarden" {
       }
 
       config {
-        image = "ghcr.io/dani-garcia/vaultwarden:1.32.7-alpine"
+        image = "${local.image}"
         ports = ["app"]
 
         userns = "keep-id"

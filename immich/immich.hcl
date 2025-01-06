@@ -2,6 +2,12 @@ locals {
   sock  = pathexpand("~/cld/immich/sock")
   strg  = "/mnt/jfs/immich"
   crypt = "/mnt/crypt"
+
+  image = {
+    immich           = "ghcr.io/immich-app/immich-server:v1.123.0"
+    machine-learning = "ghcr.io/immich-app/immich-machine-learning:v1.123.0"
+    valkey           = "docker.io/valkey/valkey:8.0-alpine"
+  }
 }
 
 job "immich" {
@@ -74,7 +80,7 @@ job "immich" {
       }
 
       config {
-        image = "ghcr.io/immich-app/immich-server:v1.123.0"
+        image = "${local.image.immich}"
         ports = ["server"]
 
         logging = {
@@ -109,7 +115,7 @@ job "immich" {
       }
 
       config {
-        image = "ghcr.io/immich-app/immich-machine-learning:v1.123.0"
+        image = "${local.image.machine-learning}"
         ports = ["machinelearning"]
 
         logging = {
@@ -139,7 +145,7 @@ job "immich" {
       }
 
       config {
-        image  = "valkey/valkey:8.0-alpine"
+        image  = "${local.image.valkey}"
         userns = "keep-id"
         args = [
           "/local/redis.conf"
@@ -183,7 +189,7 @@ job "immich" {
     #   }
     #
     #   config {
-    #     image = "tensorchord/pgvecto-rs:pg15-v0.2.0"
+    #     image = "docker.io/tensorchord/pgvecto-rs:pg15-v0.2.0"
     #     ports = ["db"]
     #
     #     userns = "keep-id"

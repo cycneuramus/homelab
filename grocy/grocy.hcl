@@ -1,5 +1,6 @@
 locals {
-  strg = "/mnt/jfs/grocy"
+  strg  = "/mnt/jfs/grocy"
+  image = "ghcr.io/bbx0/grocy:4.3"
 }
 
 job "grocy" {
@@ -24,7 +25,7 @@ job "grocy" {
       }
 
       config {
-        image  = "ghcr.io/bbx0/grocy:4.3"
+        image  = "${local.image}"
         ports  = ["http"]
         userns = "keep-id"
 

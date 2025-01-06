@@ -1,5 +1,6 @@
 locals {
-  strg = "/mnt/jfs/transfer"
+  strg  = "/mnt/jfs/transfer"
+  image = "docker.io/dutchcoders/transfer.sh:v1.6.1"
 }
 
 job "transfer" {
@@ -30,7 +31,7 @@ job "transfer" {
       }
 
       config {
-        image = "dutchcoders/transfer.sh:v1.6.1"
+        image = "${local.image}"
         ports = ["http"]
 
         userns = "keep-id"

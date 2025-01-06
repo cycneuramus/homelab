@@ -1,6 +1,7 @@
 locals {
-  strg = pathexpand("~/.local/share/keydb")
-  sock = pathexpand("~/cld/keydb/sock")
+  strg  = pathexpand("~/.local/share/keydb")
+  sock  = pathexpand("~/cld/keydb/sock")
+  image = "docker.io/eqalpha/keydb:alpine_x86_64_v6.3.3"
 }
 
 job "keydb" {
@@ -52,7 +53,7 @@ job "keydb" {
       }
 
       config {
-        image = "eqalpha/keydb:alpine_x86_64_v6.3.3"
+        image = "${local.image}"
         ports = ["keydb"]
 
         command = "keydb-server"

@@ -1,3 +1,7 @@
+locals {
+  image = "docker.io/andrewsav/terraforming-mars:latest"
+}
+
 job "terraforming-mars" {
   constraint {
     attribute = "${attr.cpu.arch}"
@@ -31,7 +35,7 @@ job "terraforming-mars" {
       }
 
       config {
-        image = "andrewsav/terraforming-mars:latest"
+        image = "${local.image}"
         ports = ["http"]
 
         logging = {

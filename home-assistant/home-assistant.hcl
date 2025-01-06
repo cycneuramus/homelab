@@ -1,5 +1,6 @@
 locals {
-  strg = pathexpand("/mnt/jfs/home-assistant")
+  strg  = pathexpand("/mnt/jfs/home-assistant")
+  image = "ghcr.io/home-assistant/home-assistant:2025.1"
 }
 
 job "home-assistant" {
@@ -36,7 +37,7 @@ job "home-assistant" {
       }
 
       config {
-        image  = "ghcr.io/home-assistant/home-assistant:2025.1"
+        image  = "${local.image}"
         ports  = ["http"]
         socket = "root"
 

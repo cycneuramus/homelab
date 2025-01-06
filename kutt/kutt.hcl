@@ -1,3 +1,10 @@
+locals {
+  image = {
+    kutt   = "docker.io/kutt/kutt:v2.7.4"
+    valkey = "docker.io/valkey/valkey:8.0-alpine"
+  }
+}
+
 job "kutt" {
   group "kutt" {
     network {
@@ -17,7 +24,7 @@ job "kutt" {
       }
     }
 
-    task "app" {
+    task "kutt" {
       driver = "podman"
 
       service {
@@ -35,7 +42,7 @@ job "kutt" {
       }
 
       config {
-        image = "kutt/kutt:v2.7.4"
+        image = "${local.image.kutt}"
         ports = ["app"]
 
         logging = {
@@ -51,7 +58,7 @@ job "kutt" {
       driver = "podman"
 
       config {
-        image = "valkey/valkey:8.0-alpine"
+        image = "${local.image.valkey}"
         ports = ["redis"]
 
         logging = {

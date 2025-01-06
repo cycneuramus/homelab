@@ -2,6 +2,14 @@ locals {
   strg  = "/mnt/jfs/arr"
   media = "/mnt/nas/media"
   dl    = pathexpand("~/dl")
+
+  image = {
+    sonarr   = "ghcr.io/linuxserver/sonarr:4.0.11"
+    radarr   = "ghcr.io/linuxserver/radarr:5.17.2"
+    bazarr   = "ghcr.io/linuxserver/bazarr:1.5.1"
+    prowlarr = "ghcr.io/linuxserver/prowlarr:1.29.2"
+    rdt      = "ghcr.io/rogerfar/rdtclient:2.0.93"
+  }
 }
 
 job "arr" {
@@ -63,7 +71,7 @@ job "arr" {
       }
 
       config {
-        image = "ghcr.io/linuxserver/sonarr:4.0.11"
+        image = "${local.image.sonarr}"
         ports = ["sonarr"]
 
         userns = "keep-id"
@@ -111,7 +119,7 @@ job "arr" {
       }
 
       config {
-        image = "ghcr.io/linuxserver/radarr:5.17.2"
+        image = "${local.image.radarr}"
         ports = ["radarr"]
 
         userns = "keep-id"
@@ -158,7 +166,7 @@ job "arr" {
       }
 
       config {
-        image = "ghcr.io/linuxserver/bazarr:1.5.1"
+        image = "${local.image.bazarr}"
         ports = ["bazarr"]
 
         logging = {
@@ -203,7 +211,7 @@ job "arr" {
       }
 
       config {
-        image = "ghcr.io/linuxserver/prowlarr:1.29.2"
+        image = "${local.image.prowlarr}"
         ports = ["prowlarr"]
 
         userns = "keep-id"
@@ -241,7 +249,7 @@ job "arr" {
       }
 
       config {
-        image = "ghcr.io/rogerfar/rdtclient:2.0.93"
+        image = "${local.image.rdt}"
         ports = ["rdt"]
 
         logging = {

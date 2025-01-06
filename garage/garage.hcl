@@ -1,5 +1,6 @@
 locals {
-  strg = pathexpand("~/.local/share/s3")
+  strg  = pathexpand("~/.local/share/s3")
+  image = "docker.io/dxflrs/garage:v1.0.1"
 }
 
 job "garage" {
@@ -97,7 +98,7 @@ job "garage" {
       }
 
       config {
-        image = "docker.io/dxflrs/garage:v1.0.1"
+        image = "${local.image}"
         ports = ["admin", "rpc", "s3"]
 
         logging = {
