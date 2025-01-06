@@ -63,7 +63,7 @@ job "arr" {
       }
 
       config {
-        image = "ghcr.io/linuxserver/sonarr:4.0.11"
+        image = "ghcr.io/linuxserver/sonarr:4.0.12"
         ports = ["sonarr"]
 
         userns = "keep-id"
@@ -241,7 +241,7 @@ job "arr" {
       }
 
       config {
-        image = "ghcr.io/rogerfar/rdtclient:2.0.93"
+        image = "ghcr.io/rogerfar/rdtclient:2.0.94"
         ports = ["rdt"]
 
         logging = {
