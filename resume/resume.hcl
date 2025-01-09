@@ -2,8 +2,8 @@ locals {
   strg = "/mnt/jfs/resume"
 
   image = {
-    frontend = "docker.io/amruthpillai/reactive-resume:client-latest"
-    backend  = "docker.io/amruthpillai/reactive-resume:server-latest"
+    frontend = "docker.io/amruthpillai/reactive-resume:client-3.8.4"
+    backend  = "docker.io/amruthpillai/reactive-resume:server-3.8.4"
   }
 }
 

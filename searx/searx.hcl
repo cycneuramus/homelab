@@ -19,7 +19,7 @@ job "searx" {
       }
     }
 
-    task "app" {
+    task "searx" {
       driver = "podman"
 
       resources {

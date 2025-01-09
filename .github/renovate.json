@@ -4,22 +4,32 @@
 		"docker:enableMajor",
 		"group:all"
 	],
+	"commitMessageAction": "Update",
 	"commitMessageTopic": "dependencies",
 	"commitMessageExtra": "",
 	"commitMessageSuffix": "",
 	"customManagers": [
 		{
+			"description": "Match container images defined as local variables in Nomad job files",
 			"customType": "regex",
 			"datasourceTemplate": "docker",
 			"fileMatch": [
 				"\\.hcl$"
 			],
 			"matchStrings": [
-				"[\\w-]+\\s*=\\s*\\\"(?<depName>.*\/.*):(?<currentValue>.*?)\\\""
+				"[\\w-]+\\s*=\\s*\\\"(?<depName>.*\/.*?)(?::(?<currentValue>[^\\\"@]+))?(?:@(?<currentDigest>sha256:[a-f0-9]+))?\\\""
 			]
 		}
 	],
 	"packageRules": [
+		{
+			"description": "Parse malformed tags (e.g. client-3.8.4, alpine_x86_64_v6.3.3) as semver",
+			"matchDepNames": [
+				"docker.io/eqalpha/keydb",
+				"docker.io/amruthpillai/reactive-resume"
+			],
+			"versioning": "regex:^(?<prefix>.*(-|_v))?(?<major>\\d+)(\\.(?<minor>\\d+))(\\.(?<patch>\\d+))?$"
+		},
 		{
 			"description": "Pin postgres version",
 			"matchDepNames": [
@@ -29,17 +39,24 @@
 		},
 		{
 			"description": "Workaround for Renovate picking up old image tag",
-			"matchPackageNames": [
+			"matchDepNames": [
 				"ghcr.io/linuxserver/jellyfin"
 			],
 			"allowedVersions": "!/^2021\\./"
 		},
 		{
 			"description": "Ignore broken version of Unmanic",
-			"matchPackageNames": [
+			"matchDepNames": [
 				"docker.io/josh5/unmanic"
 			],
 			"allowedVersions": "!/0.2.8/"
+		},
+		{
+			"description": "Ignore broken version of KeyDB",
+			"matchDepNames": [
+				"docker.io/eqalpha/keydb"
+			],
+			"allowedVersions": "!/6.3.4/"
 		}
 	]
 }
