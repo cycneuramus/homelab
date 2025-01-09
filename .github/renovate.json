@@ -1,3 +1,45 @@
 {
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json"
+	"$schema": "https://docs.renovatebot.com/renovate-schema.json",
+	"extends": [
+		"docker:enableMajor",
+		"group:all"
+	],
+	"commitMessageTopic": "dependencies",
+	"commitMessageExtra": "",
+	"commitMessageSuffix": "",
+	"customManagers": [
+		{
+			"customType": "regex",
+			"datasourceTemplate": "docker",
+			"fileMatch": [
+				"\\.hcl$"
+			],
+			"matchStrings": [
+				"[\\w-]+\\s*=\\s*\\\"(?<depName>.*\/.*):(?<currentValue>.*?)\\\""
+			]
+		}
+	],
+	"packageRules": [
+		{
+			"description": "Pin postgres version",
+			"matchDepNames": [
+				"docker.io/postgres"
+			],
+			"allowedVersions": "<=15"
+		},
+		{
+			"description": "Workaround for Renovate picking up old image tag",
+			"matchPackageNames": [
+				"ghcr.io/linuxserver/jellyfin"
+			],
+			"allowedVersions": "!/^2021\\./"
+		},
+		{
+			"description": "Ignore broken version of Unmanic",
+			"matchPackageNames": [
+				"docker.io/josh5/unmanic"
+			],
+			"allowedVersions": "!/0.2.8/"
+		}
+	]
 }
