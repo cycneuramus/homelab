@@ -1,5 +1,5 @@
 locals {
-  image = "quay.io/redlib/redlib:latest"
+  image = "quay.io/redlib/redlib@sha256:d04e722091fe17424425499882a548507a70654f37aaf8cbc71081ef29b7b341"
 }
 
 job "libreddit" {
@@ -13,7 +13,7 @@ job "libreddit" {
 
     task "libreddit" {
       driver = "podman"
-      # user   = "1000:1000"
+      user   = "1000:1000"
 
       service {
         name         = "libreddit"
@@ -32,6 +32,8 @@ job "libreddit" {
       config {
         image = "${local.image}"
         ports = ["http"]
+
+        userns = "keep-id"
 
         logging = {
           driver = "journald"
