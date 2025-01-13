@@ -48,9 +48,6 @@ job "kutt" {
         logging = {
           driver = "journald"
         }
-
-        command = "./wait-for-it.sh"
-        args    = ["${attr.unique.network.ip-address}:15432", "--", "npm", "start"]
       }
     }
 
