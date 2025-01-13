@@ -31,7 +31,6 @@ job "gatus" {
       template {
         data        = file("config.yml.tpl")
         destination = "/local/config.yml"
-        # change_mode = "noop"
       }
 
       env {

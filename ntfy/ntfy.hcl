@@ -6,7 +6,7 @@ job "ntfy" {
   group "ntfy" {
     network {
       port "http" {
-        to           = 80
+        to           = 8080
         host_network = "private"
       }
     }

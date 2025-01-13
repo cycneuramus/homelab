@@ -1,6 +1,5 @@
 locals {
   log   = pathexpand("~/log/caddy")
-  strg  = "/mnt/jfs/caddy"
   crypt = "/mnt/crypt"
 
   image = {
@@ -139,9 +138,7 @@ job "caddy" {
         }
 
         volumes = [
-          "${local.log}:/var/log",
-          "${local.strg}/data:/data/caddy",
-          "${local.strg}/config:/config/caddy"
+          "${local.log}:/var/log"
         ]
       }
     }
