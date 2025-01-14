@@ -8,6 +8,8 @@
 	"commitMessageTopic": "dependencies",
 	"commitMessageExtra": "",
 	"commitMessageSuffix": "",
+	"semanticCommits": "disabled",
+	"dependencyDashboard": true,
 	"customManagers": [
 		{
 			"description": "Match container images defined as local variables in Nomad job files",
