@@ -38,6 +38,8 @@ job "terraforming-mars" {
         image = "${local.image}"
         ports = ["http"]
 
+        force_pull = true
+
         logging = {
           driver = "journald"
         }

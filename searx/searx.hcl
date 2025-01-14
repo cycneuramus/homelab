@@ -51,6 +51,8 @@ job "searx" {
         image = "${local.image.searx}"
         ports = ["app"]
 
+        force_pull = true
+
         logging = {
           driver = "journald"
         }

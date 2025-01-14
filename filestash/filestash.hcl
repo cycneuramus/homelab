@@ -29,6 +29,8 @@ job "filestash" {
         image = "${local.image}"
         ports = ["http"]
 
+        force_pull = true
+
         userns = "keep-id"
 
         logging = {
