@@ -36,7 +36,7 @@ job "sigurd" {
 
       env {
         MODE                  = "json-rpc"
-        SIGNAL_CLI_CONFIG_DIR = "/data"
+        SIGNAL_CLI_CONFIG_DIR = "/signal-cli"
         SIGNAL_CLI_GID        = "1000"
         SIGNAL_CLI_UID        = "1000"
       }
@@ -64,7 +64,7 @@ job "sigurd" {
         volumes = [
           "${local.strg}/music:/music",
           "${local.strg}/bot:/home/sigurd/bot",
-          "${local.strg}/signal-cli-rest-api:/data",
+          "${local.strg}/signal-cli-rest-api:/signal-cli", # watch out for silent permissions issues here
         ]
       }
     }
@@ -96,7 +96,7 @@ job "sigurd" {
         volumes = [
           "${local.strg}/music:/music",
           "${local.strg}/bot:/home/sigurd/bot",
-          "${local.strg}/signald:/signald",
+          # "${local.strg}/signald:/signald",
         ]
       }
     }
