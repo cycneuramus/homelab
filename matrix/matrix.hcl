@@ -2,7 +2,7 @@ locals {
   strg = "/mnt/jfs/matrix"
 
   image = {
-    matrix        = "ghcr.io/girlbossceo/conduwuit:main"
+    matrix        = "ghcr.io/girlbossceo/conduwuit:v0.5.0-rc2-e5049cae4a3890dc5f61ead53281f23b36bf4c97"
     signal-bridge = "dock.mau.dev/mautrix/signal:v0.7.4"
   }
 }
@@ -34,7 +34,7 @@ job "matrix" {
         port         = "http"
         provider     = "nomad"
         address_mode = "host"
-        tags         = ["local"]
+        tags         = ["public"]
       }
 
       template {
