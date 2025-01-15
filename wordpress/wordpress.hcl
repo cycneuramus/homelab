@@ -1,19 +1,13 @@
 locals {
   strg = "/mnt/jfs/wordpress"
-  db   = pathexpand("~/.local/share/wpdb")
 
   image = {
-    mariadb   = "docker.io/mariadb:11.3.2-jammy"
+    mariadb   = "docker.io/mariadb:11.6.2-ubi9"
     wordpress = "docker.io/wordpress:6.7.1-php8.3-apache"
   }
 }
 
 job "wordpress" {
-  constraint {
-    attribute = "${attr.unique.hostname}"
-    value     = "apex"
-  }
-
   group "wordpress" {
     network {
       port "db" {
@@ -57,7 +51,7 @@ job "wordpress" {
         }
 
         volumes = [
-          "${local.db}:/var/lib/mysql"
+          "${local.strg}/db:/var/lib/mysql"
         ]
       }
     }
