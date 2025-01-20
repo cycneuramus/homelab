@@ -1,6 +1,6 @@
 locals {
   strg  = "/mnt/jfs/jellyseerr"
-  image = "docker.io/fallenbagel/jellyseerr:2.2.3"
+  image = "docker.io/fallenbagel/jellyseerr:2.3.0"
 }
 
 job "jellyseerr" {

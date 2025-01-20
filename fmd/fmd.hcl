@@ -1,6 +1,6 @@
 locals {
   strg  = "/mnt/jfs/fmd"
-  image = "registry.gitlab.com/nulide/findmydeviceserver:v0.8.0"
+  image = "registry.gitlab.com/nulide/findmydeviceserver:v0.9.0"
 }
 
 job "fmd" {
