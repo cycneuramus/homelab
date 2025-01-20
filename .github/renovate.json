@@ -59,6 +59,30 @@
 				"docker.io/eqalpha/keydb"
 			],
 			"allowedVersions": "!/6.3.4/"
+		},
+		{
+			"matchDepNames": "docker.io/nextcloud",
+			"changelogUrl": "https://github.com/nextcloud/server/releases"
+		},
+		{
+			"matchDepNames": "docker.io/kutt/kutt",
+			"changelogUrl": "https://github.com/thedevs-network/kutt/releases"
+		},
+		{
+			"matchDepNames": "docker.io/bbernhard/signal-cli-rest-api",
+			"changelogUrl": "https://github.com/bbernhard/signal-cli-rest-api/releases"
+		},
+		{
+			"matchDepNames": "dock.mau.dev/mautrix/signal",
+			"changelogUrl": "https://github.com/mautrix/signal/releases"
+		},
+		{
+			"matchDepNames": "docker.io/collabora/code",
+			"changelogUrl": "https://github.com/CollaboraOnline/richdocumentscode/releases/"
+		},
+		{
+			"matchDepNames": "registry.gitlab.com/nulide/findmydeviceserver",
+			"changelogUrl": "https://gitlab.com/Nulide/findmydeviceserver/-/releases"
 		}
 	]
 }
