@@ -239,7 +239,7 @@ job "nextcloud" {
 
       template {
         data        = file(".env-collabora")
-        destination = ".env-collaboa"
+        destination = ".env-collabora"
         env         = true
       }
 

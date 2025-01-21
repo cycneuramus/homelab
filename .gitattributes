@@ -1,0 +1,9 @@
+.env* filter=crypt
+app.ini* filter=crypt
+cfg-patroni.* filter=crypt
+config.y* filter=crypt
+credentials* filter=crypt
+env_* filter=crypt
+secrets* filter=crypt
+server.y* filter=crypt
+settings.y* filter=crypt
