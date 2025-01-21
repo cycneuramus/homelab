@@ -13,4 +13,4 @@ This repository contains the skeleton files for a homelab of self-hosted service
 
 ### NOTE
 
-The Nomad job definitions will contain references to various sensitive environment and configuration files which are not included in this repository.
+The Nomad job definitions will contain references to various environment and configuration files which are either not included in this repository or have had sensitive values encrypted with [sops](https://github.com/getsops/sops).

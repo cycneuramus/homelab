@@ -1,0 +1,28 @@
+listen-http: :8080
+behind-proxy: false
+attachment-cache-dir: /var/cache/ntfy/attachments
+attachment-total-size-limit: 250M
+attachment-file-size-limit: 15M
+attachment-expiry-duration: 3h
+#enc!
+base-url: ENC[AES256_GCM,data:SZiLc9mIU1hsgMTXZ/1vRyCHcBbi4gQ=,iv:QCLPUGC5D6wmaHs4mWKQXx+ZbWPKrfMYKbug5U4ctrs=,tag:wyk5N0yAMnFXqFlZJVLtpA==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age14nu42yf645xewsdgq03rwytpxw4pf6elmlwz9q3yundv32h8l3xqvq7hvn
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSArOW1MVDNDNkhnMkFpZGNS
+            Sm00a3UyWHdqemVCOGRYNmtISDlJT253L0RjClRhUStHVGZBeGJDdWRjeEV2NUJG
+            VXgvcG5NeWVwOG5yUHcwdEVOcEpPMG8KLS0tIERoSWdOL0pkekdtenZISVFOUHFL
+            Y1czQWUzNjVldFpZNi84R2gwcUUwOWMKI+uj62R8ajqzRTwKbYsQ8W4U2DiL5Org
+            i185+jdGyyvUVB6aSWsSxoMHbeuo4kkGmmwYbkXQdb17JQjmPwZ7vA==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2025-01-21T11:31:33Z"
+    mac: ENC[AES256_GCM,data:bk/7maDY7A7euD/Nq7b+cxLhzze1sdnwG+IwNuRnEWfY6U3NurqihDuCud+yF+Ne/tbQj+AKCXvxhrHkTe8lB5YYrJv9HPiFYsK+KEqdMeja3zl5gNvNym1woMm9c8ph+sR1L0kprWtjpTQ7GI+HT+HFKv6NOAMtf7muqvoy8n8=,iv:UomtKhF+mxe2F+KDv/IHYblYlT2ofPdAX3ijWVpsBx4=,tag:0CFR/TNVbjmRhT8/RujCUw==,type:str]
+    pgp: []
+    encrypted_comment_regex: enc!
+    version: 3.9.3

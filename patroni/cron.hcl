@@ -23,8 +23,8 @@ job "patroni-cron" {
       user   = "1000:1000"
 
       template {
-        data        = file("env_cron")
-        destination = "env_cron"
+        data        = file(".env-cron")
+        destination = ".env-cron"
         env         = true
       }
 

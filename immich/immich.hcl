@@ -160,52 +160,5 @@ job "immich" {
         ]
       }
     }
-
-    # task "db" {
-    #   driver = "podman"
-    #   user   = "1000:1000"
-    #
-    #   resources {
-    #     memory_max = 2048
-    #   }
-    #
-    #   lifecycle {
-    #     hook = "prestart"
-    #     sidecar = true
-    #   }
-    #
-    #   service {
-    #     name     = "immich-db"
-    #     port     = "db"
-    #     provider = "nomad"
-    #     address_mode = "host"
-    #     tags     = ["private"]
-    #   }
-    #
-    #   template {
-    #     data        = file("env_db")
-    #     destination = "env_db"
-    #     env         = true
-    #   }
-    #
-    #   config {
-    #     image = "docker.io/tensorchord/pgvecto-rs:pg15-v0.2.0"
-    #     ports = ["db"]
-    #
-    #     userns = "keep-id"
-    #
-    #     logging = {
-    #       driver = "journald"
-    #     }
-    #
-    #     # command = "postgres"
-    #     # args = [
-    #     #   "-c", "unix_socket_directories=/var/run/postgresql,/tmp/sock"
-    #     # ]
-    #
-    #     volumes = [
-    #       "${local.db}:/var/lib/postgresql/data"
-    #     ]
-    # }
   }
 }

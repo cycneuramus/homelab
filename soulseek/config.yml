@@ -1,0 +1,50 @@
+remote_configuration: false
+soulseek:
+    #enc!
+    username: ENC[AES256_GCM,data:1NBD109oE14=,iv:Nb0qGbdFaA9/CaVmOO8bP4wBnKF1HIMHBAR0m5gCJO4=,tag:SeXeYNKk5EP6+hojoQEECg==,type:str]
+    #enc!
+    password: ENC[AES256_GCM,data:zGWG/hJa39fuqUR5z8WbRx3UnZCFW3UwLnr9TjtUWduoKruh39lWPcOynhlbsjiVlj8=,iv:UP7vT7faS+CkOgl2xDDvhN7QbW0zHXx3uCslOLW4IL8=,tag:MDbytFDOLsw8YI8BQUmw6g==,type:str]
+web:
+    https:
+        disabled: true
+    authentication:
+        disabled: false
+        #enc!
+        username: ENC[AES256_GCM,data:pzTpKcO8Yu8=,iv:gUCrcIauu6Gs/AKNSrRmMBSwKDodDAVbakt3o8dbLtQ=,tag:nJrcZaMvAZIv6LoVlLlGyA==,type:str]
+        #enc!
+        password: ENC[AES256_GCM,data:/D+HqZF8IGeHD7+hSM2jWOcrDenwCIsEYSNSNghpGKO5exdonj5Pmg+HShCf8FBzoMM=,iv:EhGDjJBeRSXeT7VwCLxbN2sofvRWKehupLmdZ/WVJTE=,tag:X0Tvw+tnJhKxnnwD75k5Dg==,type:str]
+retention:
+    search: 60
+    transfers:
+        download:
+            # 1 day, in minutes
+            succeeded: 1440
+            # 2 weeks, in minutes
+            errored: 20160
+            cancelled: 5
+integration:
+    scripts:
+        auto-import:
+            "on":
+                - DownloadDirectoryComplete
+            run: /bin/sh /local/auto-import.sh '$DATA'
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age14nu42yf645xewsdgq03rwytpxw4pf6elmlwz9q3yundv32h8l3xqvq7hvn
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSB1cG9TRmJxZytxVm93K1I1
+            TzFWR3gxOFE1V2hwVlB1bDVNcXhGdzJQMlJvClVnN1dsZ0QrWENYc0Vja1FvL1ly
+            ZGg4ZEIweC80ay9UZWpFWU9ETUlJMTQKLS0tIFlTNC9MMjhKSWhGRTFxM3o4bkRQ
+            bDNpK2c2UGt0WW9oc0tYKzF5WE1BRk0KLcW39+adBXsen+z2wLlD3GSexlQpQX3Q
+            bLlL86FXeQRqAKzJb1xp8CYWbEMIV3bfpBtou2P5/40W3vLjcqgaaA==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2025-01-21T11:43:13Z"
+    mac: ENC[AES256_GCM,data:/V8MObtnDCTswTruxbsYOX/vy1Ajp6DYVy5toR5rNXkKg/YlFzOv4sLKb/ES/q9hf/Hcmo50lrFQsYkVHD/gIXvaqqg0g8Dklby75+Yx/u4KUkDGakl3scvQ5BruNXIoPc8KMGTSVqQGmeR2rY4aq+KAegAEplUeBlLXZaDvNLs=,iv:EPXMkj0QSM5ycfY7G1NmaUO6zsmwxzCScbWKyMEaoYU=,tag:0s2YHLYBoTHkDjRSa72RAQ==,type:str]
+    pgp: []
+    encrypted_comment_regex: enc!
+    version: 3.9.3

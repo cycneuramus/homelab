@@ -66,8 +66,8 @@ job "nextcloud" {
       }
 
       template {
-        data        = file("env_app")
-        destination = "env_app"
+        data        = file(".env-app")
+        destination = ".env-app"
         env         = true
       }
 
@@ -124,8 +124,8 @@ job "nextcloud" {
       }
 
       template {
-        data        = file("env_app")
-        destination = "env_app"
+        data        = file(".env-app")
+        destination = ".env-app"
         env         = true
       }
 
@@ -197,8 +197,8 @@ job "nextcloud" {
       }
 
       template {
-        data        = file("env_push")
-        destination = "env_push"
+        data        = file(".env-push")
+        destination = ".env-push"
         env         = true
       }
 
@@ -238,8 +238,8 @@ job "nextcloud" {
       }
 
       template {
-        data        = file("env_collabora")
-        destination = "env_collaboa"
+        data        = file(".env-collabora")
+        destination = ".env-collaboa"
         env         = true
       }
 

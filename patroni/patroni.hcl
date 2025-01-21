@@ -133,22 +133,6 @@ job "patroni" {
         tags         = ["private"]
       }
 
-      # template {
-      #   data        = <<-EOF
-      #     #!/bin/sh
-      #
-      #     data_dir=/home/patroni/data
-      #     mkdir -p "$data_dir"
-      #     wal-g --config /local/wal-g.yml backup-fetch "$data_dir" LATEST
-      #    EOF
-      #   destination = "local/wal_restore.sh"
-      # }
-      #
-      # template {
-      #   data        = file("wal-g.yml")
-      #   destination = "local/wal-g.yml"
-      # }
-
       template {
         data        = file("cfg-patroni.yml")
         destination = "local/patroni.yml"

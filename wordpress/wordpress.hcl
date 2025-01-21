@@ -35,8 +35,8 @@ job "wordpress" {
       }
 
       template {
-        data        = file("env_db")
-        destination = "env_db"
+        data        = file(".env-db")
+        destination = ".env-db"
         env         = true
       }
 
@@ -77,8 +77,8 @@ job "wordpress" {
       }
 
       template {
-        data        = file("env_app")
-        destination = "env_app"
+        data        = file(".env-app")
+        destination = ".env-app"
         env         = true
       }
 

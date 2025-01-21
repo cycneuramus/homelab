@@ -33,10 +33,9 @@ job "gitea" {
         tags         = ["public"]
       }
 
-      template {
-        data        = file(".env")
-        destination = "env"
-        env         = true
+      env {
+        USER_UID = 1000
+        USER_GID = 1000
       }
 
       template {
