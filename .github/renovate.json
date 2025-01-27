@@ -83,6 +83,22 @@
 		{
 			"matchDepNames": "registry.gitlab.com/nulide/findmydeviceserver",
 			"changelogUrl": "https://gitlab.com/Nulide/findmydeviceserver/-/releases"
+		},
+		{
+			"matchDepNames": "gcr.io/etcd-development/etcd",
+			"changelogUrl": "https://github.com/etcd-io/etcd/releases"
+		},
+		{
+			"matchDepNames": "ghcr.io/immich-app/immich-machine-learning",
+			"changelogUrl": "https://github.com/immich-app/immich/releases"
+		},
+		{
+			"matchDepNames": "ghcr.io/linuxserver/prowlarr",
+			"changelogUrl": "https://github.com/Prowlarr/Prowlarr/releases"
+		},
+		{
+			"matchDepNames": "ghcr.io/linuxserver/jellyfin",
+			"changelogUrl": "https://github.com/jellyfin/jellyfin/releases"
 		}
 	]
 }

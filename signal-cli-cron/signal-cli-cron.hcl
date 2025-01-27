@@ -6,7 +6,7 @@ job "signal-cli-cron" {
   type = "batch"
 
   periodic {
-    crons            = ["0 8 * * 7"]
+    crons            = ["0 7 * * 7"]
     prohibit_overlap = true
   }
 
