@@ -1,6 +1,6 @@
 locals {
   image = {
-    kutt   = "docker.io/kutt/kutt:v3.1.1"
+    kutt   = "docker.io/kutt/kutt:v3.2.2"
     valkey = "docker.io/valkey/valkey:8.0-alpine"
   }
 }
