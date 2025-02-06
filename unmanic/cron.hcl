@@ -1,4 +1,4 @@
-job "unmanic-cron" {
+job "cron-unmanic" {
   type = "batch"
 
   periodic {
@@ -6,8 +6,8 @@ job "unmanic-cron" {
     prohibit_overlap = true
   }
 
-  group "unmanic-cron" {
-    task "ummanic-cron" {
+  group "cron-unmanic" {
+    task "cron-unmanic" {
       driver = "raw_exec"
       user   = "antsva"
 

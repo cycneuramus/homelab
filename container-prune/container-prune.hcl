@@ -16,8 +16,9 @@ job "container-prune" {
         args = [
           "system",
           "prune",
-          "--volumes",
-          "--force"
+          "--all",
+          "--force",
+          "--volumes"
         ]
       }
     }

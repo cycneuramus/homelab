@@ -99,6 +99,10 @@
 		{
 			"matchDepNames": "ghcr.io/linuxserver/jellyfin",
 			"changelogUrl": "https://github.com/jellyfin/jellyfin/releases"
+		},
+		{
+			"matchDepNames": "docker.io/cyfershepard/jellystat",
+			"changelogUrl": "https://github.com/CyferShepard/Jellystat/releases"
 		}
 	]
 }

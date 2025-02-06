@@ -3,7 +3,7 @@ locals {
   image = "docker.io/postgres:15-alpine"
 }
 
-job "patroni-cron" {
+job "cron-patroni" {
   type = "sysbatch"
 
   periodic {
@@ -17,8 +17,8 @@ job "patroni-cron" {
     value     = "apex"
   }
 
-  group "patroni-cron" {
-    task "patroni-cron" {
+  group "cron-patroni" {
+    task "cron-patroni" {
       driver = "podman"
       user   = "1000:1000"
 
@@ -79,6 +79,5 @@ job "patroni-cron" {
         ]
       }
     }
-
   }
 }

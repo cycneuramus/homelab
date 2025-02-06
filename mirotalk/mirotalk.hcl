@@ -15,11 +15,6 @@ job "mirotalk" {
       driver = "podman"
       user   = "1000:1000"
 
-      # workaround for force pulling latest
-      meta {
-        uuid = uuidv4()
-      }
-
       resources {
         memory_max = 1024
       }
@@ -44,8 +39,8 @@ job "mirotalk" {
       }
 
       config {
-        image      = "${local.image}"
-        ports      = ["http"]
+        image = "${local.image}"
+        ports = ["http"]
 
         force_pull = true
 
