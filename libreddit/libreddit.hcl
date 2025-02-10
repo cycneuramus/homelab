@@ -1,5 +1,5 @@
 locals {
-  image = "quay.io/redlib/redlib@sha256:7d5a089ec6a6672dfdf2415e4dc9e68600aab7bb9cb30ec1024c1644bce4a78e"
+  image = "quay.io/redlib/redlib@sha256:f0b96e2af116b9804562fe27bf0b8831f9cfa12d5bc19bd8d00bd2447deda54f"
 }
 
 job "libreddit" {
