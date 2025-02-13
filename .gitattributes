@@ -7,3 +7,5 @@ env_* filter=crypt
 secrets* filter=crypt
 server.y* filter=crypt
 settings.y* filter=crypt
+
+*.tpl linguist-detectable=false

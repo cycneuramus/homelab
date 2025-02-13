@@ -101,6 +101,14 @@
 			"changelogUrl": "https://github.com/jellyfin/jellyfin/releases"
 		},
 		{
+			"matchDepNames": "ghcr.io/home-assistant/home-assistant",
+			"changelogUrl": "https://github.com/home-assistant/core/releases"
+		},
+		{
+			"matchDepNames": "ghcr.io/linuxserver/radarr",
+			"changelogUrl": "https://github.com/Radarr/Radarr/releases"
+		},
+		{
 			"matchDepNames": "docker.io/cyfershepard/jellystat",
 			"changelogUrl": "https://github.com/CyferShepard/Jellystat/releases"
 		}
