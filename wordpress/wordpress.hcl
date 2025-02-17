@@ -2,8 +2,8 @@ locals {
   strg = "/mnt/jfs/wordpress"
 
   image = {
-    mariadb   = "docker.io/mariadb:11.6.2-ubi9"
-    wordpress = "docker.io/wordpress:6.7.1-php8.3-apache"
+    mariadb   = "docker.io/mariadb:11.7.2-ubi9"
+    wordpress = "docker.io/wordpress:6.7.2-php8.3-apache"
   }
 }
 

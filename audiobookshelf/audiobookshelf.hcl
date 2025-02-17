@@ -1,7 +1,7 @@
 locals {
   strg  = "/mnt/jfs/audiobookshelf"
   crypt = "/mnt/crypt"
-  image = "ghcr.io/advplyr/audiobookshelf:2.19.0"
+  image = "ghcr.io/advplyr/audiobookshelf:2.19.3"
 }
 
 job "audiobookshelf" {
