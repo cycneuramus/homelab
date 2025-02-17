@@ -57,10 +57,18 @@ job "arr" {
         tags         = ["local"]
       }
 
-      env {
-        PUID = "1000"
-        PGID = "1000"
-        TZ   = "Europe/Stockholm"
+      template {
+        data        = file(".env")
+        destination = "env"
+        env         = true
+      }
+
+      template {
+        data        = file("arr-notify.sh")
+        destination = "/local/arr-notify.sh"
+        perms       = 755
+        uid         = 1000
+        gid         = 1000
       }
 
       template {
@@ -105,12 +113,19 @@ job "arr" {
         tags         = ["local"]
       }
 
-      env {
-        PUID = "1000"
-        PGID = "1000"
-        TZ   = "Europe/Stockholm"
+      template {
+        data        = file(".env")
+        destination = "env"
+        env         = true
       }
 
+      template {
+        data        = file("arr-notify.sh")
+        destination = "/local/arr-notify.sh"
+        perms       = 755
+        uid         = 1000
+        gid         = 1000
+      }
       template {
         data        = file("config/radarr-config.xml.tpl")
         destination = "/local/radarr-config.xml"

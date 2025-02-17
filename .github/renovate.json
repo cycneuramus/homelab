@@ -109,6 +109,10 @@
 			"changelogUrl": "https://github.com/Radarr/Radarr/releases"
 		},
 		{
+			"matchDepNames": "ghcr.io/linuxserver/sonarr",
+			"changelogUrl": "https://github.com/Sonarr/Sonarr/releases"
+		},
+		{
 			"matchDepNames": "docker.io/cyfershepard/jellystat",
 			"changelogUrl": "https://github.com/CyferShepard/Jellystat/releases"
 		}
