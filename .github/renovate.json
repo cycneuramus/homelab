@@ -113,6 +113,14 @@
 			"changelogUrl": "https://github.com/Sonarr/Sonarr/releases"
 		},
 		{
+			"matchDepNames": "docker.io/valkey/valkey",
+			"changelogUrl": "https://github.com/valkey-io/valkey/releases"
+		},
+		{
+			"matchDepNames": "ghcr.io/renovatebot/renovate",
+			"changelogUrl": "https://github.com/renovatebot/renovate"
+		},
+		{
 			"matchDepNames": "docker.io/cyfershepard/jellystat",
 			"changelogUrl": "https://github.com/CyferShepard/Jellystat/releases"
 		}

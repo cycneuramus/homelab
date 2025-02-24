@@ -58,14 +58,15 @@ if [ "$isupgrade" = "True" ]; then
 fi
 
 release_size=$((release_size / 1024 / 1024))
-newline=$'\n'
+# newline=$'\n'
 
 if [ "$eventtype" = "Grab" ]; then
 	eventtype="Grabbed"
-	msg="${title}${newline}${newline}${release_title} ($release_size MB)"
+	# msg="${title}${newline}${newline}${release_title} ($release_size MB)"
+	msg="${release_title} ($release_size MB)"
 else
 	eventtype="Downloaded"
-	msg="$title"
+	msg="$release_title"
 fi
 
 push "$service – $media_type $eventtype" "$msg"
