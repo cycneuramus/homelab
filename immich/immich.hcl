@@ -6,7 +6,7 @@ locals {
   image = {
     immich           = "ghcr.io/immich-app/immich-server:v1.126.1"
     machine-learning = "ghcr.io/immich-app/immich-machine-learning:v1.126.1"
-    valkey           = "docker.io/valkey/valkey:8.0-alpine"
+    valkey           = "docker.io/valkey/valkey:8.1-alpine"
   }
 }
 

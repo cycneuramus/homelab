@@ -1,7 +1,7 @@
 locals {
   image = {
     searx  = "docker.io/searxng/searxng:latest"
-    valkey = "docker.io/valkey/valkey:8.0-alpine"
+    valkey = "docker.io/valkey/valkey:8.1-alpine"
   }
 }
 

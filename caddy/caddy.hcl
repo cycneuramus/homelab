@@ -4,7 +4,7 @@ locals {
 
   image = {
     caddy  = "ghcr.io/cycneuramus/containers:caddy"
-    valkey = "docker.io/valkey/valkey:8.0-alpine"
+    valkey = "docker.io/valkey/valkey:8.1-alpine"
   }
 }
 
