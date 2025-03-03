@@ -22,7 +22,10 @@ job "caddy" {
     }
 
     update {
-      max_parallel = 3
+      max_parallel     = 1
+      min_healthy_time = "5s"
+      healthy_deadline = "1m"
+      auto_revert      = true
     }
 
     network {

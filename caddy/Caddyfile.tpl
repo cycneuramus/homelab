@@ -183,7 +183,6 @@
 	route @libreddit {
 		rewrite /bc {$LIBREDDIT_BC}
 		rewrite /it {$LIBREDDIT_IT}
-		rewrite /lx {$LIBREDDIT_LX}
 	}
 }
 

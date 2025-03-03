@@ -14,6 +14,12 @@ job "sigurd" {
     value     = "arm64"
   }
 
+  constraint {
+    attribute = "${attr.unique.hostname}"
+    operator  = "!="
+    value     = "ambi"
+  }
+
   group "sigurd" {
     network {
       port "signal-api" {

@@ -64,7 +64,7 @@ job "arr" {
       }
 
       template {
-        data        = file("arr-notify.sh")
+        data        = file("notifier.sh")
         destination = "/local/arr-notify.sh"
         perms       = 755
         uid         = 1000
@@ -120,7 +120,7 @@ job "arr" {
       }
 
       template {
-        data        = file("arr-notify.sh")
+        data        = file("notifier.sh")
         destination = "/local/arr-notify.sh"
         perms       = 755
         uid         = 1000
