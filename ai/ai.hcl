@@ -1,6 +1,6 @@
 locals {
-  image = "ghcr.io/open-webui/open-webui:0.5.18"
   strg  = "/mnt/jfs/ai"
+  image = "ghcr.io/open-webui/open-webui:0.5.18"
 }
 
 job "ai" {
