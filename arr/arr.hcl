@@ -8,7 +8,7 @@ locals {
     radarr   = "ghcr.io/linuxserver/radarr:5.19.3"
     bazarr   = "ghcr.io/linuxserver/bazarr:1.5.1"
     prowlarr = "ghcr.io/linuxserver/prowlarr:1.31.2"
-    rdt      = "ghcr.io/rogerfar/rdtclient:2.0.97"
+    rdt      = "ghcr.io/rogerfar/rdtclient:2.0.102"
   }
 }
 

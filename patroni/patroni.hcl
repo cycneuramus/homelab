@@ -2,7 +2,7 @@ locals {
   strg = pathexpand("~/.local/share/patroni")
 
   image = {
-    etcd    = "gcr.io/etcd-development/etcd:v3.5.18"
+    etcd    = "gcr.io/etcd-development/etcd:v3.5.19"
     patroni = "ghcr.io/cycneuramus/containers:patroni"
   }
 }
