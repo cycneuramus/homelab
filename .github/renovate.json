@@ -129,6 +129,10 @@
 		{
 			"matchDepNames": "docker.io/cyfershepard/jellystat",
 			"changelogUrl": "https://github.com/CyferShepard/Jellystat/releases"
+		},
+		{
+			"matchDepNames": "docker.io/dxflrs/garage",
+			"changelogUrl": "https://git.deuxfleurs.fr/Deuxfleurs/garage/releases"
 		}
 	]
 }
