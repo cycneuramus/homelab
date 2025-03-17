@@ -1,0 +1,51 @@
+cron: 0 5 * * *
+source:
+    github:
+        #enc!
+        - token: ENC[AES256_GCM,data:wYAcqM6gsgHURFZ0PoYzC2Mpao82B5HmDBU49dGiKBLXWj9dxbYXVw==,iv:q2tmvSEO1rSe9IUvCp9U2kS0uIbKN0bj+kmC0kf3Je0=,tag:FE+w25dMHhFkadDmmawQkA==,type:str]
+          ssh: false
+          sshkey: /path/to/key
+          wiki: true
+          starred: false
+          issues: true
+          exclude:
+            #enc!
+            - ENC[AES256_GCM,data:mmd00Tc/X+kBrQs=,iv:geY+lGehr2tWnUX16YE/TKHI/TxqG3hBlYK9bOk3rBo=,tag:xr5IIrzEnxmKKlwGo0lfkQ==,type:str]
+            #enc!
+            - ENC[AES256_GCM,data:bMlZGH08yzjO,iv:rOhACguEGGQyvTxij+gqybgqVLXQU071KoFW4ofPJYs=,tag:xGsiGRkIyUuu0doNaBaKeg==,type:str]
+destination:
+    gitea:
+        #enc!
+        - token: ENC[AES256_GCM,data:eXzftNDutjI3mRPbbD0nAQWYWYiGz3SCCKzJnLIaJs1Hgs98RPfvkQ==,iv:KiyGZilqwdTaIfsZMyQDQGB2FwQBqtOC5IWWl0irIbY=,tag:0rf+Pk2kVOtuVdj+0n2Rvg==,type:str]
+          user: a
+          #enc!
+          url: ENC[AES256_GCM,data:i06VMDNDpMtOpfxpndn8ylus3xUHKg==,iv:npGjVCwFYW8BST5NbJO+HoxkPZzw8iWQ2e/XVvAPyI4=,tag:iNGrrOwa9LD/FDozMmnibw==,type:str]
+          createorg: false
+          lfs: false
+          mirror:
+            mirrorinterval: 8h
+            enabled: false
+          visibility:
+            repositories: public
+            organizations: private
+          force: true
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age14nu42yf645xewsdgq03rwytpxw4pf6elmlwz9q3yundv32h8l3xqvq7hvn
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSAxeHMxeUR4UThGOUkraWts
+            dnpIeXFaOStMcmZqM3lpNHpCSGs5dCtDblFJCkhaZTRWTDNWZ0VheTVqVEpSS0Y2
+            Y1ptKzZDaTNwb0xPUEhJUDgxcnBiUkkKLS0tIDk2Rit3ZFJoMjhYSlZhRkhaUER6
+            VThxVkVESVUyMDdqYm1lcVAzbENrNkUKJW+4fRXnN/zVVMy0bN2JWkRqEh6c+gCQ
+            ZCkv0itg+vt7JQgyy0FdCeEyQQO0S5Gf2MuOHLpMNhaA1IcUN+2m+Q==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2025-03-17T12:04:07Z"
+    mac: ENC[AES256_GCM,data:ViInX5TeU2NMNwM6mMr1eQ+iE2fggUkGvIlnHDfu94GGi/h4nyXGDqni65FdXa0Kfdfya9V26xOo1vaW3a+gNEhHnD01vkGDuRgeYiB+5mMobgNi5jOPuYHtRnJ78hkrS/6X0udpLJ1/bnx0Y/cd7vXiaHuvmM3wDVR/5IE0d0o=,iv:4254/UnxpGxh3l6l06d0vEmWebErBrzPD91HwMtblYY=,tag:9N0qbARnb5cWvKZ1FQM7lg==,type:str]
+    pgp: []
+    encrypted_comment_regex: enc!
+    version: 3.9.3
