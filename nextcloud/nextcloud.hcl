@@ -4,8 +4,8 @@ locals {
   sock  = pathexpand("~/cld/nextcloud/sock")
 
   image = {
-    nextcloud = "docker.io/nextcloud:30.0.6-apache"
-    collabora = "docker.io/collabora/code:24.04.13.1.1"
+    nextcloud = "docker.io/nextcloud:31.0.1-apache"
+    collabora = "docker.io/collabora/code:24.04.13.2.1"
     valkey    = "docker.io/valkey/valkey:8.1-alpine"
   }
 }

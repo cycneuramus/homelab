@@ -3,7 +3,7 @@ locals {
 
   image = {
     matrix        = "ghcr.io/girlbossceo/conduwuit:v0.5.0-rc2-e5049cae4a3890dc5f61ead53281f23b36bf4c97"
-    signal-bridge = "dock.mau.dev/mautrix/signal:v0.8.0"
+    signal-bridge = "dock.mau.dev/mautrix/signal:v0.8.1"
   }
 }
 
