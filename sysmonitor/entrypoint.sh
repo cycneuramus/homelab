@@ -3,10 +3,12 @@
 set -e
 
 HOSTNAME=$(hostname)
+NAS_HOST=horreum
 
 CPU_THRESHOLD=50
 DISK_SPACE_THRESHOLD_GB=10
-TEMP_THRESHOLD=60
+NAS_SPACE_THRESHOLD_GB=5000
+TEMP_THRESHOLD=65
 HIGH_LOAD_TRIGGER_LIMIT=5
 
 TEMP_PATH=/sys/class/hwmon/hwmon2/temp1_input
@@ -80,6 +82,14 @@ disk() {
 
 	if ((free_gb < DISK_SPACE_THRESHOLD_GB)); then
 		push "Low disk space: $free_gb GB remaining"
+	fi
+
+	if [[ "$HOSTNAME" == "$NAS_HOST" ]]; then
+		free_gb=$(df --output=avail -BG /mnt/nas | tail -1 | tr -dc '0-9')
+
+		if ((free_gb < NAS_SPACE_THRESHOLD_GB)); then
+			push "Low nas space: $free_gb GB remaining"
+		fi
 	fi
 }
 
