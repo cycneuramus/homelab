@@ -1,5 +1,5 @@
 locals {
-  image = "ghcr.io/cooperspencer/gickup:0.10.36"
+  image = "ghcr.io/cooperspencer/gickup:0.10.38"
 }
 
 job "gickup" {

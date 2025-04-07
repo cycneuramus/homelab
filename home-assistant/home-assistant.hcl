@@ -1,6 +1,6 @@
 locals {
   strg  = pathexpand("/mnt/jfs/home-assistant")
-  image = "ghcr.io/home-assistant/home-assistant:2025.3"
+  image = "ghcr.io/home-assistant/home-assistant:2025.4"
 }
 
 job "home-assistant" {

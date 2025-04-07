@@ -1,7 +1,7 @@
 locals {
   strg  = "/mnt/jfs/filestash"
   crypt = "/mnt/crypt/filestash"
-  image = "docker.io/machines/filestash@sha256:f538ec70bfb8ec3cdbc3953c626d9ef933f93085aeb02fb0940d8cef27a17fa1"
+  image = "docker.io/machines/filestash@sha256:488c634b92c43ba6aaee4f69049d5cc3019553bd7142d0cecc17cbfbca89d360"
 }
 
 job "filestash" {
