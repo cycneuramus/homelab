@@ -1,6 +1,6 @@
 locals {
   strg  = "/mnt/jfs/shiori"
-  image = "ghcr.io/go-shiori/shiori:alpine-v1.7.3"
+  image = "ghcr.io/go-shiori/shiori:alpine-v1.7.4"
 }
 
 job "shiori" {
