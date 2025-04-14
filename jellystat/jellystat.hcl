@@ -1,6 +1,6 @@
 locals {
   strg  = "/mnt/jfs/jellystat"
-  image = "docker.io/cyfershepard/jellystat:1.1.4"
+  image = "docker.io/cyfershepard/jellystat:1.1.5"
 }
 
 job "jellystat" {
