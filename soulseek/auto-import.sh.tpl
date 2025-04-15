@@ -1,6 +1,6 @@
 #!/bin/sh
 
-name=$(echo "$1" | sed 's/.*"localDirectoryName":"\/app\/downloads\/\([^"]*\)".*/\1/')
+name=$(echo "$SLSKD_SCRIPT_DATA" | sed 's/.*"localDirectoryName":"\/app\/downloads\/\([^"]*\)".*/\1/')
 
 wget -q -O/dev/null \
 	--post-data "name=$name&path=/downloads" \
