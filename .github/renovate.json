@@ -41,6 +41,13 @@
             "allowedVersions": "<=15"
         },
         {
+            "description": "Pin meilisearch version",
+            "matchDepNames": [
+                "docker.io/getmeili/meilisearch"
+            ],
+            "allowedVersions": "<=1.13"
+        },
+        {
             "description": "Workaround for Renovate picking up old image tag",
             "matchDepNames": [
                 "ghcr.io/linuxserver/jellyfin"

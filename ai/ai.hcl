@@ -50,6 +50,10 @@ job "ai" {
         entrypoint = [
           "python", "-m", "g4f.cli", "api", "--gui", "--debug"
         ]
+
+        volumes = [
+          "${local.strg}/api/auth:/app/har_and_cookies"
+        ]
       }
     }
 
@@ -86,7 +90,7 @@ job "ai" {
         }
 
         volumes = [
-          "${local.strg}:/app/backend/data"
+          "${local.strg}/ui:/app/backend/data"
         ]
       }
     }
