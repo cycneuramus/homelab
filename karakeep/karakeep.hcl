@@ -2,8 +2,8 @@ locals {
   strg = "/mnt/jfs/karakeep"
   image = {
     karakeep    = "ghcr.io/karakeep-app/karakeep:0.23.2"
-    meilisearch = "docker.io/getmeili/meilisearch:v1.13.3"
-    chrome      = "gcr.io/zenika-hub/alpine-chrome:123"
+    meilisearch = "docker.io/getmeili/meilisearch:v1.14.0"
+    chrome      = "gcr.io/zenika-hub/alpine-chrome:124"
   }
 }
 
