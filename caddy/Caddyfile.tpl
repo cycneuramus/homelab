@@ -30,11 +30,11 @@
     }
 
     servers {
-        metrics
         trusted_proxies static private_ranges
     }
 
     admin :2019
+    metrics
 
     layer4 {
         :25 {
@@ -150,11 +150,6 @@
     @{args[0]} expression `{labels.2} == "{args[0]}"`
     route @{args[0]} {
         reverse_proxy {args[1:]} {
-            transport http {
-                dial_timeout 3s
-                response_header_timeout 5s
-            }
-
             # lb_policy first
             lb_policy client_ip_hash
             lb_try_duration 10s
@@ -176,6 +171,21 @@
             X-XSS-Protection "1; mode=block"
             Referrer-Policy "no-referrer-when-downgrade"
         }
+    }
+}
+
+(transport-core-dns) {
+	transport http {
+		resolvers {{ env "attr.unique.network.ip-address" }}:1053
+		dial_timeout            3s
+		response_header_timeout 5s
+	}
+}
+
+(honeypot-quirks) {
+    @honeypot expression `{labels.2} == "honeypot"`
+    handle @honeypot {
+        reverse_proxy {{ env "attr.unique.network.ip-address" }}:9000
     }
 }
 
@@ -212,16 +222,31 @@
 
         handle /push/* {
             uri strip_prefix /push
-            {{ $upstream := nomadService "nextcloud-push" -}}
-            {{- if $upstream -}}
-            {{- range $upstream }}
-            reverse_proxy {{ .Address }}:{{ .Port }}{{ end }} {
-            {{- else }}
-            reverse_proxy localhost:1111 {
-            {{- end }}
+            reverse_proxy {
+                dynamic srv nextcloud-push.default.service.nomad {
+                    refresh 15s
+                    resolvers {{ env "attr.unique.network.ip-address" }}:1053
+                }
+                import transport-core-dns
                 trusted_proxies private_ranges
             }
+            # {{ $upstream := nomadService "nextcloud-push" -}}
+            # {{- if $upstream -}}
+            # {{- range $upstream }}
+            # reverse_proxy {{ .Address }}:{{ .Port }}{{ end }} {
+            # {{- else }}
+            # reverse_proxy localhost:1111 {
+            # {{- end }}
+            #     trusted_proxies private_ranges
+            # }
         }
+    }
+}
+
+(nomad-quirks) {
+    @nomad expression `{labels.2} == "nomad"`
+    handle @nomad {
+        reverse_proxy 192.168.1.200:4646
     }
 }
 
@@ -229,13 +254,6 @@
     @s3 expression `{labels.2} == "s3"`
     handle @s3 {
         reverse_proxy {{ env "attr.unique.network.ip-address" }}:13900
-    }
-}
-
-(honeypot-quirks) {
-    @honeypot expression `{labels.2} == "honeypot"`
-    handle @honeypot {
-        reverse_proxy {{ env "attr.unique.network.ip-address" }}:9000
     }
 }
 
@@ -256,14 +274,15 @@
         {{ $skip := parseJSON `["private"]` -}}
         {{- range nomadServices -}}
         {{- if containsNone $skip .Tags -}}
-        {{- $allocID := env "NOMAD_ALLOC_ID" -}}
-        {{- range nomadService 1 $allocID .Name -}}
-        {{ .Name | toLower }} {{ .Address }}:{{ .Port }} {{- if .Tags | contains "public" }} public {{- end }}
+        {{- $tag := "local" -}}
+        {{- if (.Tags | contains "public") -}}
+        {{- $tag = "public" -}}
+        {{- end -}}
+        {{ printf "%s %s.default.service.nomad %s" (.Name) (.Name) $tag }}
         {{ end -}}
         {{- end -}}
-        {{- end -}}
 
-        nomad 192.168.1.200:4646
+        nomad quirk local
         s3 quirk public
         stfn quirk public
 
@@ -284,23 +303,28 @@
     import libreddit-quirks
     import matrix-quirks
     import nextcloud-quirks
+    import nomad-quirks
     import s3-quirks
     import stfn-quirks
 
-    {{ range nomadServices -}}
-    {{- if and (.Tags | contains "multi") (.Tags | contains "private" | not) -}}
-    import loadbalance {{ .Name }} {{ range nomadService .Name }}{{ .Address }}:{{ .Port}} {{ end }}
-    {{ end -}}
-    {{- end }}
-    reverse_proxy {upstream}
+    reverse_proxy {
+        dynamic srv {upstream} {
+            refresh 15s     # > CoreDNS TTL 10 s
+            resolvers {{ env "attr.unique.network.ip-address" }}:1053
+        }
+
+        import transport-core-dns
+
+        lb_policy client_ip_hash
+        lb_try_duration 10s
+        fail_duration 30s
+    }
 }
 
 *.{$ALT_DOMAIN} {
     map {labels.2} {upstream} {access} {
-        f {{ range nomadService "transfer" }}{{ .Address }}:{{ .Port }}{{ end }}
-        r {{ range nomadService "libreddit" }}{{ .Address }}:{{ .Port }}{{ end }}
-
-        default unknown public
+        f transfer.default.service.nomad public
+        r libreddit.default.service.nomad public
     }
 
     encode zstd gzip
@@ -311,7 +335,18 @@
 
     import libreddit-quirks
 
-    reverse_proxy {upstream}
+    reverse_proxy {
+        dynamic srv {upstream} {
+            refresh 15s     # > CoreDNS TTL 10 s
+            resolvers {{ env "attr.unique.network.ip-address" }}:1053
+        }
+
+        import transport-core-dns
+
+        lb_policy client_ip_hash
+        lb_try_duration 10s
+        fail_duration 30s
+    }
 }
 
 {$DOMAIN}, {$ALT_DOMAIN} {
@@ -327,5 +362,16 @@
     import access-control
     import security
 
-    reverse_proxy {{ range nomadService "kutt" }}{{ .Address }}:{{ .Port }}{{ end }}
+    reverse_proxy {
+        dynamic srv kutt.default.service.nomad {
+            refresh 15s     # > CoreDNS TTL 10 s
+            resolvers {{ env "attr.unique.network.ip-address" }}:1053
+        }
+
+        import transport-core-dns
+
+        lb_policy client_ip_hash
+        lb_try_duration 10s
+        fail_duration 30s
+    }
 }
