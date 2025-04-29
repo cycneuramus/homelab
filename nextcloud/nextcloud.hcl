@@ -193,7 +193,7 @@ job "nextcloud" {
         port         = "push"
         provider     = "nomad"
         address_mode = "host"
-        tags         = ["private"]
+        tags         = ["local"]
       }
 
       template {
