@@ -46,6 +46,11 @@ job "deceptifeed" {
       driver = "podman"
       user   = "1000:1000"
 
+      resources {
+        cpu        = 100
+        memory_max = 512
+      }
+
       service {
         name         = "honeypot"
         port         = "admin"
@@ -88,12 +93,13 @@ job "deceptifeed" {
       # }
 
       config {
-        image = "${local.image}"
-        ports = ["ssh", "http", "https", "admin"]
-
+        image        = "${local.image}"
+        ports        = ["ssh", "http", "https", "admin"]
         network_mode = "host"
 
         userns = "keep-id"
+
+        cpu_hard_limit = true
 
         entrypoint = "/deceptifeed"
         args       = ["-config", "/local/config.xml"]
