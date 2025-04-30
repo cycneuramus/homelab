@@ -100,7 +100,6 @@
     @ai-crawlers {
         header_regexp User-Agent "(?i)(Bytespider|CCBot|Diffbot|FacebookBot|Google-Extended|GPTBot|omgili|anthropic-ai|Claude-Web|ClaudeBot|cohere-ai)"
     }
-
     handle @ai-crawlers {
         abort
     }
@@ -109,7 +108,6 @@
         expression `{access} == "local"`
         not remote_ip {$IP_SELF}
     }
-
     handle @local-only {
         respond @local-only "Forbidden" 403 {
             close
@@ -174,12 +172,24 @@
     }
 }
 
-(transport-core-dns) {
-	transport http {
-		resolvers {{ env "attr.unique.network.ip-address" }}:1053
-		dial_timeout            3s
-		response_header_timeout 5s
-	}
+(dynamic_srv) {
+    reverse_proxy {
+        dynamic srv {args[0]} {
+            refresh 15s     # > CoreDNS TTL 10 s
+            resolvers {{ env "attr.unique.network.ip-address" }}:1053
+        }
+
+        transport http {
+            resolvers {{ env "attr.unique.network.ip-address" }}:1053
+            dial_timeout            3s
+            response_header_timeout 5s
+        }
+
+        lb_policy client_ip_hash
+        lb_try_duration 10s
+        fail_duration 30s
+    }
+
 }
 
 (honeypot-quirks) {
@@ -222,23 +232,7 @@
 
         handle /push/* {
             uri strip_prefix /push
-            reverse_proxy {
-                dynamic srv nextcloud-push.default.service.nomad {
-                    refresh 15s
-                    resolvers {{ env "attr.unique.network.ip-address" }}:1053
-                }
-                import transport-core-dns
-                trusted_proxies private_ranges
-            }
-            # {{ $upstream := nomadService "nextcloud-push" -}}
-            # {{- if $upstream -}}
-            # {{- range $upstream }}
-            # reverse_proxy {{ .Address }}:{{ .Port }}{{ end }} {
-            # {{- else }}
-            # reverse_proxy localhost:1111 {
-            # {{- end }}
-            #     trusted_proxies private_ranges
-            # }
+            import dynamic_srv nextcloud-push.default.service.nomad 
         }
     }
 }
@@ -307,24 +301,15 @@
     import s3-quirks
     import stfn-quirks
 
-    reverse_proxy {
-        dynamic srv {upstream} {
-            refresh 15s     # > CoreDNS TTL 10 s
-            resolvers {{ env "attr.unique.network.ip-address" }}:1053
-        }
-
-        import transport-core-dns
-
-        lb_policy client_ip_hash
-        lb_try_duration 10s
-        fail_duration 30s
-    }
+    import dynamic_srv {upstream}
 }
 
 *.{$ALT_DOMAIN} {
     map {labels.2} {upstream} {access} {
         f transfer.default.service.nomad public
         r libreddit.default.service.nomad public
+
+        default unknown local
     }
 
     encode zstd gzip
@@ -335,21 +320,14 @@
 
     import libreddit-quirks
 
-    reverse_proxy {
-        dynamic srv {upstream} {
-            refresh 15s     # > CoreDNS TTL 10 s
-            resolvers {{ env "attr.unique.network.ip-address" }}:1053
-        }
-
-        import transport-core-dns
-
-        lb_policy client_ip_hash
-        lb_try_duration 10s
-        fail_duration 30s
-    }
+    import dynamic_srv {upstream}
 }
 
 {$DOMAIN}, {$ALT_DOMAIN} {
+    # Enforce correct matching and access-control for www-requests
+    @www host www.{$DOMAIN} www.{$ALT_DOMAIN}
+    redir @www https://{host[1]}{uri} permanent
+
     map {path} {access} {
         / local
 
@@ -362,16 +340,5 @@
     import access-control
     import security
 
-    reverse_proxy {
-        dynamic srv kutt.default.service.nomad {
-            refresh 15s     # > CoreDNS TTL 10 s
-            resolvers {{ env "attr.unique.network.ip-address" }}:1053
-        }
-
-        import transport-core-dns
-
-        lb_policy client_ip_hash
-        lb_try_duration 10s
-        fail_duration 30s
-    }
+    import dynamic_srv {upstream}
 }
