@@ -104,8 +104,6 @@ job "deceptifeed" {
         entrypoint = "/deceptifeed"
         args       = ["-config", "/local/config.xml"]
 
-        # entrypoint = "/local/entrypoint.sh"
-
         logging = {
           driver = "journald"
         }
@@ -113,6 +111,31 @@ job "deceptifeed" {
         volumes = [
           "${local.strg}:/data"
         ]
+      }
+    }
+
+    task "deceptimeed" {
+      driver = "raw_exec"
+
+      lifecycle {
+        hook    = "poststart"
+        sidecar = true
+      }
+
+      template {
+        data        = file(".env")
+        destination = "env"
+        env         = true
+      }
+
+      template {
+        data        = file("entrypoint.sh")
+        destination = "local/entrypoint.sh"
+        perms       = 755
+      }
+
+      config {
+        command = "/local/entrypoint.sh"
       }
     }
   }
