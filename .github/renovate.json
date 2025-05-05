@@ -145,6 +145,10 @@
         {
             "matchDepNames": "ghcr.io/go-shiori/shiori",
             "changelogUrl": "https://github.com/go-shiori/shiori/releases"
+        },
+        {
+            "matchDepNames": "ghcr.io/karakeep-app/karakeep",
+            "changelogUrl": "https://github.com/karakeep-app/karakeep/releases"
         }
-    ]
-}
+      ]
+  }
