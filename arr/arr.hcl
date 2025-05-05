@@ -30,15 +30,25 @@ job "arr" {
         host_network = "private"
       }
 
+      # port "hydra" {
+      #   to           = 5076
+      #   host_network = "private"
+      # }
+
       port "prowlarr" {
         to           = 9696
         host_network = "private"
       }
 
-      port "rdt" {
-        to           = 6500
+      port "sabnzbd" {
+        to           = 8080
         host_network = "private"
       }
+
+      # port "rdt" {
+      #   to           = 6500
+      #   host_network = "private"
+      # }
     }
 
     task "sonarr" {
@@ -242,40 +252,114 @@ job "arr" {
       }
     }
 
-    task "rdt" {
+    # task "hydra" {
+    #   driver = "podman"
+    #
+    #   resources {
+    #     memory_max = 1024
+    #   }
+    #
+    #   service {
+    #     name         = "hydra"
+    #     port         = "hydra"
+    #     provider     = "nomad"
+    #     address_mode = "host"
+    #     tags         = ["local"]
+    #   }
+    #
+    #   env {
+    #     PUID = "0"
+    #     GUID = "0"
+    #     TZ   = "Europe/Stockholm"
+    #   }
+    #
+    #   config {
+    #     image = "${local.image.hydra}"
+    #     ports = ["hydra"]
+    #
+    #     logging = {
+    #       driver = "journald"
+    #     }
+    #
+    #     volumes = [
+    #       "${local.strg}/hydra:/config",
+    #     ]
+    #   }
+    # }
+
+    task "sabnzbd" {
       driver = "podman"
+      user   = "0:0"
 
       resources {
-        memory_max = 2048
+        memory_max = 1024
       }
 
       service {
-        name         = "rdt"
-        port         = "rdt"
+        name         = "sabnzbd"
+        port         = "sabnzbd"
         provider     = "nomad"
         address_mode = "host"
         tags         = ["local"]
       }
 
       env {
-        PUID = "0"
-        PGID = "0"
+        PUID = "1000"
+        PGID = "1000"
         TZ   = "Europe/Stockholm"
       }
 
       config {
-        image = "${local.image.rdt}"
-        ports = ["rdt"]
+        image = "${local.image.sabnzbd}"
+        ports = ["sabnzbd"]
+
+        userns = "keep-id"
 
         logging = {
           driver = "journald"
         }
 
         volumes = [
-          "${local.strg}/rdt:/data/db",
-          "${local.dl}:/data/downloads"
+          "${local.strg}/sabnzbd:/config",
+          "${local.dl}:/downloads",
         ]
       }
     }
+
+    # task "rdt" {
+    #   driver = "podman"
+    #
+    #   resources {
+    #     memory_max = 2048
+    #   }
+    #
+    #   service {
+    #     name         = "rdt"
+    #     port         = "rdt"
+    #     provider     = "nomad"
+    #     address_mode = "host"
+    #     tags         = ["local"]
+    #   }
+    #
+    #   env {
+    #     PUID = "0"
+    #     PGID = "0"
+    #     TZ   = "Europe/Stockholm"
+    #   }
+    #
+    #   config {
+    #     image = "${local.image.rdt}"
+    #     ports = ["rdt"]
+    #
+    #     logging = {
+    #       driver = "journald"
+    #     }
+    #
+    #     volumes = [
+    #       "${local.strg}/rdt:/data/db",
+    #       "${local.dl}:/data/downloads"
+    #     ]
+    #   }
+    # }
   }
 }
