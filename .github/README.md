@@ -16,6 +16,7 @@ ______________________________________________________________________
   - Private [Wireguard](wireguard.com) mesh for all inter-service communication
   - [Caddy](https://caddyserver.com) as [L4](https://github.com/mholt/caddy-l4) and L7 reverse proxy
   - [HAProxy](https://www.haproxy.org/) for [internal load balancing](https://github.com/cycneuramus/homelab/blob/master/haproxy/cfg-haproxy.cfg) of infrastructure services
+  - SSH, HTTP, and HTTPS [honeypots](https://github.com/cycneuramus/homelab/blob/master/deceptifeed) for threat intelligence and blocking
 
 - **Storage**:
 
@@ -39,6 +40,7 @@ ______________________________________________________________________
   - Container isolation with rootless execution where possible
   - Zero public exposure - all services communicate via Wireguard
   - [SOPS](https://github.com/getsops/sops)-encrypted secrets with [Git integration](https://github.com/cycneuramus/git-sops)
+  - Automated low-level blocking of honeypot IPs using [`deceptimeed`](https://github.com/cycneuramus/deceptimeed/)
 
 - **Automation**:
 
