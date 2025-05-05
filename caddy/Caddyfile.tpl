@@ -175,19 +175,17 @@
 (dynamic_srv) {
     reverse_proxy {
         dynamic srv {args[0]} {
-            refresh 15s     # > CoreDNS TTL 10 s
+            refresh 15s     # CoreDNS TTL / 2
             resolvers {{ env "attr.unique.network.ip-address" }}:1053
         }
 
         transport http {
             resolvers {{ env "attr.unique.network.ip-address" }}:1053
-            dial_timeout            3s
-            response_header_timeout 5s
         }
 
         lb_policy client_ip_hash
         lb_try_duration 10s
-        fail_duration 30s
+        fail_duration 10s
     }
 
 }

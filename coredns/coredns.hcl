@@ -19,7 +19,9 @@ job "coredns" {
 
     network {
       port "dns" {
-        static = 1053
+        to           = 1053
+        static       = 1053
+        host_network = "private"
       }
     }
 
@@ -41,7 +43,7 @@ job "coredns" {
       }
 
       service {
-        name         = "hostmaster"
+        name         = "coredns-${attr.unique.hostname}"
         provider     = "nomad"
         port         = "dns"
         address_mode = "host"

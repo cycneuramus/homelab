@@ -10,7 +10,7 @@ service.nomad. {
     nomad {
         zone service.nomad
         address http://{{ env "attr.unique.network.ip-address" }}:4646
-        ttl 10
+        ttl 30
     }
     cache 30
 }
