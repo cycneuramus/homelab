@@ -1,16 +1,10 @@
 #!/bin/bash
 
-log() {
-	local this_log="[$1]: $2"
+echo "Waiting for IP feed to come online..."
 
-	if [[ "$this_log" != "$latest_log" ]]; then
-		echo "$(date +"[%Y-%m-%d %H:%M:%S]"): $this_log"
-		latest_log=$this_log
-	fi
-}
-
-log "INFO" "Starting deceptimeed loop"
-
-while sleep 10m; do
-	log "INFO" "$(deceptimeed "$IP_FEED" 2>&1)"
+until curl -Is --output /dev/null --fail "$IP_FEED"; do
+	sleep 5
 done
+
+echo "IP feed online: starting \`deceptimeed\` loop"
+deceptimeed -i 10 "$IP_FEED"
