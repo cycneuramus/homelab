@@ -130,6 +130,8 @@ job "caddy" {
           "admin"
         ]
 
+        force_pull = true
+
         network_mode = "host"
 
         entrypoint = [

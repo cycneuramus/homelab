@@ -34,7 +34,8 @@ job "ntfy" {
       }
 
       env {
-        TZ = "Europe/Stockholm"
+        TZ            = "Europe/Stockholm"
+        NTFY_WEB_ROOT = "disable"
       }
 
       config {

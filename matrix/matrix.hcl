@@ -2,7 +2,7 @@ locals {
   strg = "/mnt/jfs/matrix"
 
   image = {
-    matrix        = "ghcr.io/girlbossceo/conduwuit:v0.5.0-rc2-e5049cae4a3890dc5f61ead53281f23b36bf4c97"
+    matrix        = "ghcr.io/matrix-construct/tuwunel@sha256:8a63366757fb093a7bfad1c7334d906d79156092572e63b2df3ae8a98f360b60"
     signal-bridge = "dock.mau.dev/mautrix/signal:v0.8.2"
   }
 }
@@ -43,7 +43,7 @@ job "matrix" {
       }
 
       env {
-        CONDUWUIT_CONFIG = "/local/config.toml"
+        TUWUNEL_CONFIG = "/local/config.toml"
       }
 
       config {
@@ -57,7 +57,7 @@ job "matrix" {
         }
 
         volumes = [
-          "${local.strg}/db:/var/lib/conduwuit"
+          "${local.strg}/db:/var/lib/tuwunel"
         ]
       }
     }
