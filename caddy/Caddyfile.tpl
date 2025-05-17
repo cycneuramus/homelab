@@ -37,6 +37,21 @@
     metrics
 
     layer4 {
+        :22 {
+            route {
+                proxy {
+                    proxy_protocol v2
+                    {{- $upstream := nomadService "honeypot-ssh" -}}
+                    {{- if $upstream -}}
+                    {{- range $upstream }}
+                    upstream {{ .Address }}:{{ .Port }}{{ end }}
+                    {{- else }}
+                    upstream localhost:1111
+                    {{- end }}
+                }
+            }
+        }
+
         :25 {
             route {
                 proxy {
@@ -190,13 +205,6 @@
 
 }
 
-(honeypot-quirks) {
-    @honeypot expression `{labels.2} == "honeypot"`
-    handle @honeypot {
-        reverse_proxy {{ env "attr.unique.network.ip-address" }}:9000
-    }
-}
-
 (libreddit-quirks) {
     @libreddit expression `{labels.2} == "libreddit" || {labels.2} == "r"`
     route @libreddit {
@@ -261,6 +269,14 @@
     }
 }
 
+:8080 {
+    import dynamic_srv honeypot-http.default.service.nomad
+}
+
+:8443 {
+    import dynamic_srv honeypot-https.default.service.nomad
+}
+
 *.{$DOMAIN} {
     map {labels.2} {upstream} {access} {
         {{ $skip := parseJSON `["private"]` -}}
@@ -291,7 +307,6 @@
     import basicauth hannes {$WP_USER} {$WP_PASSWORD}
     import basicauth tm {$TM_USER} {$TM_PASSWORD}
 
-    import honeypot-quirks
     import libreddit-quirks
     import matrix-quirks
     import nextcloud-quirks

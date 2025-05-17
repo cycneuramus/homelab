@@ -59,6 +59,24 @@ job "caddy" {
         host_network = "public"
       }
 
+      port "honeypot-ssh" {
+        static       = 22
+        to           = 22
+        host_network = "public"
+      }
+
+      port "honeypot-http" {
+        static       = 8080
+        to           = 8080
+        host_network = "public"
+      }
+
+      port "honeypot-https" {
+        static       = 8443
+        to           = 8443
+        host_network = "public"
+      }
+
       port "admin" {
         static       = 2019
         to           = 2019
@@ -127,6 +145,9 @@ job "caddy" {
           "smtp",
           "smtps",
           "imaps",
+          "honeypot-ssh",
+          "honeypot-http",
+          "honeypot-https",
           "admin"
         ]
 

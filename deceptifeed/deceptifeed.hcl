@@ -1,10 +1,10 @@
 locals {
   strg  = "/mnt/jfs/deceptifeed"
-  image = "docker.io/deceptifeed/server:0.64.0"
+  image = "docker.io/deceptifeed/server:0.65.0"
 }
 
 job "deceptifeed" {
-  group "deceptifeed" {
+  group "deceptimeed" {
     count = 3
 
     constraint {
@@ -16,27 +16,45 @@ job "deceptifeed" {
       distinct_hosts = true
     }
 
+    task "deceptimeed" {
+      driver = "raw_exec"
+
+      template {
+        data        = file(".env")
+        destination = "env"
+        env         = true
+      }
+
+      template {
+        data        = file("entrypoint.sh")
+        destination = "local/entrypoint.sh"
+        perms       = 755
+      }
+
+      config {
+        command = "/local/entrypoint.sh"
+      }
+    }
+  }
+
+  group "deceptifeed" {
     network {
       port "ssh" {
-        static       = 22
-        to           = 22
-        host_network = "public"
+        to           = 2222
+        host_network = "private"
       }
 
       port "http" {
-        static       = 8080
         to           = 8080
-        host_network = "public"
+        host_network = "private"
       }
 
       port "https" {
-        static       = 8443
         to           = 8443
-        host_network = "public"
+        host_network = "private"
       }
 
       port "admin" {
-        static       = 9000
         to           = 9000
         host_network = "private"
       }
@@ -49,6 +67,30 @@ job "deceptifeed" {
       resources {
         cpu        = 100
         memory_max = 512
+      }
+
+      service {
+        name         = "honeypot-ssh"
+        port         = "ssh"
+        provider     = "nomad"
+        address_mode = "host"
+        tags         = ["private"]
+      }
+
+      service {
+        name         = "honeypot-http"
+        port         = "http"
+        provider     = "nomad"
+        address_mode = "host"
+        tags         = ["private"]
+      }
+
+      service {
+        name         = "honeypot-https"
+        port         = "https"
+        provider     = "nomad"
+        address_mode = "host"
+        tags         = ["private"]
       }
 
       service {
@@ -73,33 +115,13 @@ job "deceptifeed" {
         gid         = 1000
       }
 
-      # template {
-      #   data        = <<-EOF
-      #     #!/bin/sh
-      #
-      #     vip="192.168.1.200"
-      #     iface=$(ip -o addr | awk -v vip="$vip" '$0 ~ vip {print $2; exit}')
-      #
-      #     if [ -z "$iface" ]; then
-      #       echo "Virtual IP not found on any interface. Sleeping..."
-      #       sleep infinity
-      #     else
-      #       echo "Virtual IP found on interface $iface. Starting Deceptifeed..."
-      #       exec /deceptifeed -config /local/config.xml
-      #     fi
-      #   EOF
-      #   destination = "/local/entrypoint.sh"
-      #   perms       = "755"
-      # }
-
       config {
-        image        = "${local.image}"
-        ports        = ["ssh", "http", "https", "admin"]
-        network_mode = "host"
-
-        userns = "keep-id"
+        image = "${local.image}"
+        ports = ["ssh", "http", "https", "admin"]
 
         cpu_hard_limit = true
+
+        userns = "keep-id"
 
         entrypoint = "/deceptifeed"
         args       = ["-config", "/local/config.xml"]
@@ -111,31 +133,6 @@ job "deceptifeed" {
         volumes = [
           "${local.strg}:/data"
         ]
-      }
-    }
-
-    task "deceptimeed" {
-      driver = "raw_exec"
-
-      lifecycle {
-        hook    = "poststart"
-        sidecar = true
-      }
-
-      template {
-        data        = file(".env")
-        destination = "env"
-        env         = true
-      }
-
-      template {
-        data        = file("entrypoint.sh")
-        destination = "local/entrypoint.sh"
-        perms       = 755
-      }
-
-      config {
-        command = "/local/entrypoint.sh"
       }
     }
   }

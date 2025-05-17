@@ -51,11 +51,6 @@ job "immich" {
         to           = 6379
         host_network = "private"
       }
-
-      # port "db" {
-      #   to           = 5432
-      #   host_network = "private"
-      # }
     }
 
     task "server" {
