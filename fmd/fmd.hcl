@@ -1,6 +1,6 @@
 locals {
   strg  = "/mnt/jfs/fmd"
-  image = "registry.gitlab.com/fmd-foss/fmd-server:v0.10.0"
+  image = "registry.gitlab.com/fmd-foss/fmd-server:v0.11.0"
 }
 
 job "fmd" {

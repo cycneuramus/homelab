@@ -2,8 +2,8 @@ locals {
   strg = "/mnt/jfs/matrix"
 
   image = {
-    matrix        = "ghcr.io/matrix-construct/tuwunel@sha256:8a63366757fb093a7bfad1c7334d906d79156092572e63b2df3ae8a98f360b60"
-    signal-bridge = "dock.mau.dev/mautrix/signal:v0.8.2"
+    matrix        = "ghcr.io/matrix-construct/tuwunel@sha256:c47bbd38ee464f1f433497a1eb76c2f3c7b07d21d7350ed01992fd9a8018518f"
+    signal-bridge = "dock.mau.dev/mautrix/signal:v0.8.3"
   }
 }
 
