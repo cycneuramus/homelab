@@ -1,7 +1,8 @@
 locals {
-  strg     = "/mnt/jfs/stump"
-  crypt    = "/mnt/crypt"
-  bookpath = split("=", chomp(file("bookpath.env")))[1]
+  strg      = "/mnt/jfs/stump"
+  crypt     = "/mnt/crypt"
+  user1path = split("=", chomp(file("user1path.env")))[1]
+  user2path = split("=", chomp(file("user2path.env")))[1]
 
   image = "docker.io/aaronleopold/stump:0.0.10"
 }
@@ -19,12 +20,20 @@ job "stump" {
       driver = "podman"
       user   = "0:0"
 
+      resources {
+        memory_max = 1024
+      }
+
       service {
         name         = "books"
         port         = "http"
         provider     = "nomad"
         address_mode = "host"
         tags         = ["local"]
+      }
+
+      env {
+        STUMP_ENABLE_UPLOAD = true
       }
 
       config {
@@ -39,7 +48,8 @@ job "stump" {
 
         volumes = [
           "${local.strg}:/config",
-          "${local.crypt}/${local.bookpath}:/data:ro"
+          "${local.crypt}/${local.user1path}:/user1:ro",
+          "${local.crypt}/${local.user2path}:/user2"
         ]
       }
     }
