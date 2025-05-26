@@ -1,5 +1,6 @@
 .env* filter=crypt
 app.ini* filter=crypt
+bookpath filter=crypt
 cfg-patroni.* filter=crypt
 config.y* filter=crypt
 credentials* filter=crypt
