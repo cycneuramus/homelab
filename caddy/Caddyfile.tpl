@@ -165,6 +165,7 @@
         reverse_proxy {args[1:]} {
             # lb_policy first
             lb_policy client_ip_hash
+            lb_retries 2
             lb_try_duration 10s
             fail_duration 30s
         }
