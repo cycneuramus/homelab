@@ -3,7 +3,7 @@ locals {
 
   image = {
     ui  = "ghcr.io/open-webui/open-webui:v0.6.10"
-    api = "docker.io/hlohaus789/g4f:0.5.2.8-slim"
+    api = "docker.io/hlohaus789/g4f:0.5.3.1-slim"
   }
 }
 

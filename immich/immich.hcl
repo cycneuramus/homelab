@@ -4,8 +4,8 @@ locals {
   crypt = "/mnt/crypt"
 
   image = {
-    immich           = "ghcr.io/immich-app/immich-server:v1.132.3"
-    machine-learning = "ghcr.io/immich-app/immich-machine-learning:v1.131.2"
+    immich           = "ghcr.io/immich-app/immich-server:v1.133.1"
+    machine-learning = "ghcr.io/immich-app/immich-machine-learning:v1.133.1"
     valkey           = "docker.io/valkey/valkey:8.1-alpine"
   }
 }
