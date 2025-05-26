@@ -41,10 +41,10 @@ job "fmd" {
           driver = "journald"
         }
 
-        entrypoint = ["/fmd/server", "-c", "/local/config.yml", "serve"]
+        entrypoint = ["/opt/fmd-server", "-c", "/local/config.yml", "serve"]
 
         volumes = [
-          "${local.strg}/db:/fmd/db"
+          "${local.strg}/db:/var/lib/fmd-server/db"
         ]
       }
     }

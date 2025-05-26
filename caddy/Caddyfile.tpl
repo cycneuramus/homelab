@@ -353,5 +353,5 @@
     import access-control
     import security
 
-    import dynamic_srv {upstream}
+    import dynamic_srv kutt.default.service.nomad
 }
