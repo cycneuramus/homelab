@@ -1,6 +1,6 @@
 locals {
   strg  = "/mnt/jfs/stalwart"
-  image = "docker.io/stalwartlabs/mail-server:v0.11.8"
+  image = "docker.io/stalwartlabs/stalwart:v0.12.1"
 }
 
 job "stalwart" {
@@ -88,9 +88,9 @@ job "stalwart" {
           "net.ipv4.ip_unprivileged_port_start" = "25"
         }
 
-        entrypoint = ["/usr/local/bin/stalwart-mail", "--config", "/local/config.toml"]
+        entrypoint = ["/usr/local/bin/stalwart", "--config", "/local/config.toml"]
 
-        volumes = ["${local.strg}:/opt/stalwart-mail"]
+        volumes = ["${local.strg}:/opt/stalwart"]
         tmpfs   = ["/var/log/tracer"]
       }
     }
