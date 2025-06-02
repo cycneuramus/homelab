@@ -149,6 +149,10 @@
         {
             "matchDepNames": "ghcr.io/karakeep-app/karakeep",
             "changelogUrl": "https://github.com/karakeep-app/karakeep/releases"
+        },
+        {
+            "matchDepNames": "docker.io/lukevella/rallly",
+            "changelogUrl": "https://github.com/lukevella/rallly/releases"
         }
       ]
   }
