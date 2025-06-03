@@ -33,6 +33,9 @@
         trusted_proxies static private_ranges
     }
 
+    # Ensure old connections are closed e.g. on Nomad redeploys
+    grace_period 10s
+
     admin :2019
     metrics
 

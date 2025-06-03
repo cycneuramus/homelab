@@ -32,7 +32,7 @@ job "stalwart" {
       user   = "1000:1000"
 
       resources {
-        memory_max = 2048
+        memory_max = 4096
       }
 
       service {

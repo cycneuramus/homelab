@@ -9,17 +9,15 @@ job "container-prune" {
   group "container-prune" {
     task "container-prune" {
       driver = "raw_exec"
-      user   = "antsva"
+
+      template {
+        data        = file("entrypoint.sh")
+        destination = "local/entrypoint.sh"
+        perms       = 755
+      }
 
       config {
-        command = "podman"
-        args = [
-          "system",
-          "prune",
-          "--all",
-          "--force",
-          "--volumes"
-        ]
+        command = "/local/entrypoint.sh"
       }
     }
   }

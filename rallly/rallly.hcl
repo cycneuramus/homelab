@@ -19,7 +19,7 @@ job "rallly" {
 
     task "rallly" {
       driver = "podman"
-      user   = "1000:1000"
+      # user   = "1000:1000"
 
       service {
         name         = "rallly"
@@ -39,7 +39,7 @@ job "rallly" {
         image = "${local.image}"
         ports = ["app"]
 
-        userns = "keep-id"
+        # userns = "keep-id"
 
         logging = {
           driver = "journald"
