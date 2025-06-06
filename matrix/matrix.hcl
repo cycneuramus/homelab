@@ -2,8 +2,9 @@ locals {
   strg = "/mnt/jfs/matrix"
 
   image = {
-    matrix        = "ghcr.io/matrix-construct/tuwunel@sha256:c47bbd38ee464f1f433497a1eb76c2f3c7b07d21d7350ed01992fd9a8018518f"
-    signal-bridge = "dock.mau.dev/mautrix/signal:v0.8.3"
+    matrix          = "ghcr.io/matrix-construct/tuwunel@sha256:c47bbd38ee464f1f433497a1eb76c2f3c7b07d21d7350ed01992fd9a8018518f"
+    signal-bridge   = "dock.mau.dev/mautrix/signal:v0.8.3"
+    whatsapp-bridge = "dock.mau.dev/mautrix/whatsapp:v0.12.1"
   }
 }
 
@@ -17,6 +18,11 @@ job "matrix" {
 
       port "signal-bridge" {
         to           = 29328
+        host_network = "private"
+      }
+
+      port "whatsapp-bridge" {
+        to           = 29318
         host_network = "private"
       }
     }
@@ -90,6 +96,38 @@ job "matrix" {
 
         volumes = [
           "${local.strg}/bridges/signal:/data"
+        ]
+      }
+    }
+
+    task "whatsapp-bridge" {
+      driver = "podman"
+
+      service {
+        name         = "whatsapp-bridge"
+        port         = "whatsapp-bridge"
+        provider     = "nomad"
+        address_mode = "host"
+        tags         = ["local"]
+      }
+
+      env {
+        UID = "0"
+        GID = "0"
+      }
+
+      config {
+        image = "${local.image.whatsapp-bridge}"
+        ports = ["whatsapp-bridge"]
+
+        # userns = "keep-id"
+
+        logging = {
+          driver = "journald"
+        }
+
+        volumes = [
+          "${local.strg}/bridges/whatsapp:/data"
         ]
       }
     }
