@@ -1,7 +1,7 @@
 locals {
   media = "/mnt/nas/media/tv/yt"
   strg  = "/mnt/jfs/pinchflat"
-  image = "ghcr.io/kieraneglin/pinchflat:v2025.3.17"
+  image = "ghcr.io/kieraneglin/pinchflat:v2025.6.6"
 }
 
 job "pinchflat" {
