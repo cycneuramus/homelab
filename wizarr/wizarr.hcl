@@ -14,6 +14,7 @@ job "wizarr" {
 
     task "wizarr" {
       driver = "podman"
+      user   = "1000:1000"
 
       service {
         name         = "wizarr"
@@ -32,6 +33,8 @@ job "wizarr" {
       config {
         image = "${local.image}"
         ports = ["http"]
+
+        userns = keep-id
 
         logging = {
           driver = "journald"
