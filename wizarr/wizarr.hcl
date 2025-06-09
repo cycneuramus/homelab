@@ -34,7 +34,7 @@ job "wizarr" {
         image = "${local.image}"
         ports = ["http"]
 
-        userns = keep-id
+        userns = "keep-id"
 
         logging = {
           driver = "journald"
