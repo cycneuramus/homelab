@@ -60,7 +60,7 @@ job "gitea" {
           "${local.strg}/data:/var/lib/gitea"
         ]
 
-        tmpfs = ["${local.strg}/data/queues/common"]
+        tmpfs = ["/var/lib/gitea/data/queues/common"]
       }
     }
 
