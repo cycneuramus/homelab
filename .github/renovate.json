@@ -153,6 +153,14 @@
         {
             "matchDepNames": "docker.io/lukevella/rallly",
             "changelogUrl": "https://github.com/lukevella/rallly/releases"
-        }
+        },
+        {
+            "matchDepNames": "ghcr.io/bbx0/grocy",
+            "changelogUrl": "https://github.com/grocy/grocy/releases"
+        },
+        {
+            "matchDepNames": "ghcr.io/wizarrrr/wizarr",
+            "changelogUrl": "https://github.com/wizarrrr/wizarr/releases"
+        },
       ]
   }
