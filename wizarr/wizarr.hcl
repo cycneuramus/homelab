@@ -41,7 +41,8 @@ job "wizarr" {
         }
 
         volumes = [
-          "${local.strg}/data:/data/database"
+          "${local.strg}/data:/data/database",
+          "${local.strg}/cache:/data/.cache"
         ]
       }
     }
