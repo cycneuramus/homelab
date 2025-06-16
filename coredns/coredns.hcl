@@ -1,5 +1,5 @@
 locals {
-  image = "ghcr.io/ituoga/coredns-nomad:v0.1.0"
+  image = "ghcr.io/ituoga/coredns-nomad:v0.1.1"
 }
 
 job "coredns" {
