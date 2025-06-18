@@ -1,6 +1,7 @@
 locals {
   strg  = "/mnt/jfs/jellyfin"
   media = "/mnt/nas/media"
+  music = "/mnt/nas/music"
   image = "ghcr.io/linuxserver/jellyfin:10.10.7"
 }
 
@@ -53,6 +54,7 @@ job "jellyfin" {
 
         volumes = [
           "${local.media}:/mnt/cryptnas/media",
+          "${local.music}:/mnt/music",
           "${local.strg}/config:/config",
           "local/encoding.xml:/config/encoding.xml"
         ]

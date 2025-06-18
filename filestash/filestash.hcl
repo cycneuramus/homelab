@@ -1,6 +1,6 @@
 locals {
   strg  = "/mnt/jfs/filestash"
-  crypt = "/mnt/crypt/filestash"
+  nas   = "/mnt/nas/apps"
   image = "docker.io/machines/filestash@sha256:164d2d8de0656a8d74fadc49c6df905b7e7ed3113114720b965084b178335af0"
 }
 
@@ -39,7 +39,7 @@ job "filestash" {
 
         volumes = [
           "${local.strg}:/app/data/state",
-          "${local.crypt}:/app/data/files"
+          "${local.nas}/filestash:/app/data/files"
         ]
       }
     }

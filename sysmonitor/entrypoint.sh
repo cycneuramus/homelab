@@ -94,7 +94,7 @@ disk() {
 }
 
 mounts() {
-	for mnt in crypt nas jfs; do
+	for mnt in nas jfs; do
 		mountpoint -q /mnt/"$mnt" || push "$mnt mount is unhealthy"
 	done
 }
@@ -106,7 +106,6 @@ systemd() {
 		mnt-nas
 		nomad
 		podman
-		rclone-crypt
 		ufw
 		unattended-upgrades
 	)

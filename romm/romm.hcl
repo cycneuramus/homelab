@@ -1,31 +1,31 @@
 locals {
-  strg  = "/mnt/jfs/navidrome"
-  music = "/mnt/nas/apps/music"
-  image = "ghcr.io/navidrome/navidrome:0.56.1"
+  strg  = "/mnt/jfs/romm"
+  image = "ghcr.io/rommapp/romm:3.10.2-slim"
 }
 
-job "navidrome" {
-  group "navidrome" {
+job "romm" {
+  group "romm" {
     network {
       port "http" {
-        to           = 4533
+        to           = 8080
         host_network = "private"
       }
     }
 
-    task "navidrome" {
+    task "romm" {
       driver = "podman"
+      user   = "1000:1000"
 
       resources {
-        memory_max = 2048
+        memory_max = 1024
       }
 
       service {
-        name         = "navidrome"
+        name         = "roms"
         port         = "http"
         provider     = "nomad"
         address_mode = "host"
-        tags         = ["public"]
+        tags         = ["local"]
       }
 
       template {
@@ -38,16 +38,19 @@ job "navidrome" {
         image = "${local.image}"
         ports = ["http"]
 
+        userns = "keep-id"
+
         logging = {
           driver = "journald"
         }
 
         volumes = [
-          "${local.music}:/music",
-          "${local.strg}/db:/data"
+          "${local.strg}/config:/romm/config",
+          "${local.strg}/resources:/romm/resources",
+          "${local.strg}/assets:/romm/assets",
+          "${local.strg}/redis:/redis-data",
+          "${local.strg}/roms:/romm/library/roms",
         ]
-
-        tmpfs = ["/data/cache"]
       }
     }
   }

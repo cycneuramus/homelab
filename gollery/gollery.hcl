@@ -1,5 +1,5 @@
 locals {
-  crypt = "/mnt/crypt"
+  nas   = "/mnt/nas/apps"
   image = "ghcr.io/cycneuramus/ifexifextract:latest"
 }
 
@@ -57,8 +57,8 @@ job "gollery" {
         }
 
         volumes = [
-          "${local.crypt}/nextcloud/antsva/files/Bilder:/home/extractor/src",
-          "${local.crypt}/gollery:/home/extractor/data"
+          "${local.nas}/nextcloud/antsva/files/Bilder:/home/extractor/src",
+          "${local.nas}/gollery:/home/extractor/data"
         ]
       }
     }

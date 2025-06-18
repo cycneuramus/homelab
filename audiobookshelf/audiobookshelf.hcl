@@ -1,6 +1,6 @@
 locals {
   strg  = "/mnt/jfs/audiobookshelf"
-  crypt = "/mnt/crypt"
+  nas   = "/mnt/nas/apps"
   image = "ghcr.io/advplyr/audiobookshelf:2.25.1"
 }
 
@@ -46,7 +46,7 @@ job "audiobookshelf" {
         volumes = [
           "${local.strg}/db:/config",
           "${local.strg}/metadata:/metadata",
-          "${local.crypt}/audiobookshelf:/audiobooks/kids"
+          "${local.nas}:/audiobooks/kids"
         ]
       }
     }

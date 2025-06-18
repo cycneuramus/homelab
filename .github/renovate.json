@@ -161,6 +161,6 @@
         {
             "matchDepNames": "ghcr.io/wizarrrr/wizarr",
             "changelogUrl": "https://github.com/wizarrrr/wizarr/releases"
-        },
+        }
       ]
   }

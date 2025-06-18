@@ -1,5 +1,6 @@
 locals {
   strg  = pathexpand("~/.local/share/patroni")
+  nas   = "/mnt/nas/apps"
   image = "docker.io/postgres:15-alpine"
 }
 
@@ -74,7 +75,7 @@ job "cron-patroni" {
         args = [
           "copy",
           "${local.strg}/backup.sql",
-          "crypt:cld/patroni/${attr.unique.hostname}",
+          "${local.nas}/patroni/${attr.unique.hostname}",
           "--progress"
         ]
       }

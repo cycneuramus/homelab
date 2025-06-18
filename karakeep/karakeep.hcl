@@ -37,7 +37,7 @@ job "karakeep" {
         port         = "karakeep"
         provider     = "nomad"
         address_mode = "host"
-        tags         = ["public"]
+        tags         = ["local"]
       }
 
       template {
