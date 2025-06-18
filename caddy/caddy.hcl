@@ -1,6 +1,6 @@
 locals {
   log   = pathexpand("~/log/caddy")
-  crypt = "/mnt/crypt"
+  redis = "/mnt/nas/apps/caddy"
 
   image = {
     caddy  = "ghcr.io/cycneuramus/containers:caddy"
@@ -207,7 +207,7 @@ job "caddy" {
         }
 
         volumes = [
-          "${local.crypt}/caddy/redis:/data",
+          "${local.redis}:/data",
         ]
       }
     }

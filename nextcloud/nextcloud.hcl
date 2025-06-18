@@ -1,7 +1,7 @@
 locals {
-  strg  = "/mnt/jfs/nextcloud"
-  crypt = "/mnt/crypt"
-  sock  = pathexpand("~/cld/nextcloud/sock")
+  strg = "/mnt/jfs/nextcloud"
+  nas  = "/mnt/nas/apps"
+  sock = pathexpand("~/cld/nextcloud/sock")
 
   image = {
     nextcloud = "docker.io/nextcloud:31.0.6-apache"
@@ -92,9 +92,9 @@ job "nextcloud" {
           "${local.strg}/config/redis-session.ini:/usr/local/etc/php/conf.d/redis-session.ini",
           "${local.strg}/data:/var/www/html",
           "${local.sock}:/tmp/sock",
-          "${local.crypt}/nextcloud/antsva:/var/www/html/data/antsva",
-          "${local.crypt}/nextcloud/amabilis:/var/www/html/data/amabilis",
-          "${local.crypt}/nextcloud/jowl:/var/www/html/data/jowl",
+          "${local.nas}/nextcloud/antsva:/var/www/html/data/antsva",
+          "${local.nas}/nextcloud/amabilis:/var/www/html/data/amabilis",
+          "${local.nas}/nextcloud/jowl:/var/www/html/data/jowl",
         ]
       }
     }

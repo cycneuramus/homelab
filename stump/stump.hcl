@@ -1,6 +1,6 @@
 locals {
   strg      = "/mnt/jfs/stump"
-  crypt     = "/mnt/crypt"
+  nas       = "/mnt/nas/apps"
   user1path = split("=", chomp(file("user1path.env")))[1]
   user2path = split("=", chomp(file("user2path.env")))[1]
 
@@ -48,8 +48,8 @@ job "stump" {
 
         volumes = [
           "${local.strg}:/config",
-          "${local.crypt}/${local.user1path}:/user1:ro",
-          "${local.crypt}/${local.user2path}:/user2"
+          "${local.nas}/${local.user1path}:/user1:ro",
+          "${local.nas}/${local.user2path}:/user2"
         ]
       }
     }
