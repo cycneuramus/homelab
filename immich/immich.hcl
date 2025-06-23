@@ -1,10 +1,9 @@
 locals {
   sock = pathexpand("~/cld/immich/sock")
-  strg = "/mnt/jfs/immich"
   nas  = "/mnt/nas/apps"
 
   image = {
-    immich           = "ghcr.io/immich-app/immich-server:v1.134.0"
+    immich           = "ghcr.io/immich-app/immich-server:v1.135.1"
     machine-learning = "ghcr.io/immich-app/immich-machine-learning:v1.134.0"
     valkey           = "docker.io/valkey/valkey:8.1-alpine"
   }
@@ -84,13 +83,13 @@ job "immich" {
 
         volumes = [
           "${local.sock}:/tmp/sock",
-          "${local.strg}/thumbs:/usr/src/app/upload/thumbs",
+          "${local.nas}/immich/thumbs:/usr/src/app/upload/thumbs",
           "${local.nas}/immich/upload:/usr/src/app/upload/upload",
           "${local.nas}/immich/profile:/usr/src/app/upload/profile",
           "${local.nas}/immich/library:/usr/src/app/upload/library",
           "${local.nas}/immich/backups:/usr/src/app/upload/backups",
           "${local.nas}/immich/encoded-video:/usr/src/app/upload/encoded-video",
-          "${local.nas}/nextcloud/antsva/files/Bilder:/libraries/user-1:ro",
+          "${local.nas}/nextcloud/users/antsva/files/Bilder:/libraries/user-1:ro",
           "${local.nas}/gollery:/libraries/user-3:ro",
         ]
       }
@@ -119,7 +118,7 @@ job "immich" {
 
         volumes = [
           "${local.sock}:/tmp/sock",
-          "${local.strg}/cache:/cache",
+          "${local.nas}/immich/cache:/cache",
         ]
       }
     }

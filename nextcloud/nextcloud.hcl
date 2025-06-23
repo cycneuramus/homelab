@@ -1,5 +1,4 @@
 locals {
-  strg = "/mnt/jfs/nextcloud"
   nas  = "/mnt/nas/apps"
   sock = pathexpand("~/cld/nextcloud/sock")
 
@@ -86,15 +85,15 @@ job "nextcloud" {
 
         volumes = [
           "local/database.config.php:/var/www/html/config/database.config.php",
-          "${local.strg}/config/config.php:/var/www/html/config/config.php",
-          "${local.strg}/config/www2.conf:/usr/local/etc/php-fpm.d/www2.conf",
-          "${local.strg}/config/nextcloud.ini:/usr/local/etc/php/conf.d/nextcloud.ini",
-          "${local.strg}/config/redis-session.ini:/usr/local/etc/php/conf.d/redis-session.ini",
-          "${local.strg}/data:/var/www/html",
+          "${local.nas}/nextcloud/data/config/config.php:/var/www/html/config/config.php",
+          "${local.nas}/nextcloud/data/config/www2.conf:/usr/local/etc/php-fpm.d/www2.conf",
+          "${local.nas}/nextcloud/data/config/nextcloud.ini:/usr/local/etc/php/conf.d/nextcloud.ini",
+          "${local.nas}/nextcloud/data/config/redis-session.ini:/usr/local/etc/php/conf.d/redis-session.ini",
+          "${local.nas}/nextcloud/data/data:/var/www/html",
           "${local.sock}:/tmp/sock",
-          "${local.nas}/nextcloud/antsva:/var/www/html/data/antsva",
-          "${local.nas}/nextcloud/amabilis:/var/www/html/data/amabilis",
-          "${local.nas}/nextcloud/jowl:/var/www/html/data/jowl",
+          "${local.nas}/nextcloud/users/antsva:/var/www/html/data/antsva",
+          "${local.nas}/nextcloud/users/amabilis:/var/www/html/data/amabilis",
+          "${local.nas}/nextcloud/users/jowl:/var/www/html/data/jowl",
         ]
       }
     }
@@ -140,8 +139,8 @@ job "nextcloud" {
 
         volumes = [
           "local/database.config.php:/var/www/html/config/database.config.php",
-          "${local.strg}/config/config.php:/var/www/html/config/config.php",
-          "${local.strg}/data:/var/www/html",
+          "${local.nas}/nextcloud/data/config/config.php:/var/www/html/config/config.php",
+          "${local.nas}/nextcloud/data/data:/var/www/html",
           "${local.sock}:/tmp/sock",
         ]
       }
@@ -216,7 +215,7 @@ job "nextcloud" {
         }
 
         volumes = [
-          "${local.strg}/data/custom_apps/notify_push/bin/${attr.kernel.arch}/notify_push:/local/notify_push",
+          "${local.nas}/nextcloud/data/data/custom_apps/notify_push/bin/${attr.kernel.arch}/notify_push:/local/notify_push",
           "${local.sock}:/tmp/sock",
         ]
       }

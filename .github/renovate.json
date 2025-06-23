@@ -161,6 +161,10 @@
         {
             "matchDepNames": "ghcr.io/wizarrrr/wizarr",
             "changelogUrl": "https://github.com/wizarrrr/wizarr/releases"
+        },
+        {
+            "matchDepNames": "dock.mau.dev/mautrix/whatsapp",
+            "changelogUrl": "https://github.com/mautrix/whatsapp/releases"
         }
       ]
   }

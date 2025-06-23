@@ -46,7 +46,7 @@ job "audiobookshelf" {
         volumes = [
           "${local.strg}/db:/config",
           "${local.strg}/metadata:/metadata",
-          "${local.nas}:/audiobooks/kids"
+          "${local.nas}/audiobooks:/audiobooks/kids"
         ]
       }
     }

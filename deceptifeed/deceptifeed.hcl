@@ -4,38 +4,38 @@ locals {
 }
 
 job "deceptifeed" {
-  group "deceptimeed" {
-    count = 3
-
-    constraint {
-      attribute = "${meta.ingress}"
-      value     = "true"
-    }
-
-    constraint {
-      distinct_hosts = true
-    }
-
-    task "deceptimeed" {
-      driver = "raw_exec"
-
-      template {
-        data        = file(".env")
-        destination = "env"
-        env         = true
-      }
-
-      template {
-        data        = file("entrypoint.sh")
-        destination = "local/entrypoint.sh"
-        perms       = 755
-      }
-
-      config {
-        command = "/local/entrypoint.sh"
-      }
-    }
-  }
+  # group "deceptimeed" {
+  #   count = 3
+  #
+  #   constraint {
+  #     attribute = "${meta.ingress}"
+  #     value     = "true"
+  #   }
+  #
+  #   constraint {
+  #     distinct_hosts = true
+  #   }
+  #
+  #   task "deceptimeed" {
+  #     driver = "raw_exec"
+  #
+  #     template {
+  #       data        = file(".env")
+  #       destination = "env"
+  #       env         = true
+  #     }
+  #
+  #     template {
+  #       data        = file("entrypoint.sh")
+  #       destination = "local/entrypoint.sh"
+  #       perms       = 755
+  #     }
+  #
+  #     config {
+  #       command = "/local/entrypoint.sh"
+  #     }
+  #   }
+  # }
 
   group "deceptifeed" {
     network {

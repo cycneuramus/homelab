@@ -295,7 +295,7 @@
         {{- end -}}
 
         nomad quirk local
-        s3 quirk public
+        s3 quirk local
         stfn quirk public
 
         default unknown local
