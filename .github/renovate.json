@@ -38,7 +38,7 @@
             "matchDepNames": [
                 "docker.io/postgres"
             ],
-            "allowedVersions": "<=15"
+            "allowedVersions": "<=17"
         },
         {
             "description": "Pin meilisearch version",

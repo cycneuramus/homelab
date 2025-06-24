@@ -1,7 +1,7 @@
 locals {
   strg  = pathexpand("~/.local/share/patroni")
   nas   = "/mnt/nas/apps"
-  image = "docker.io/postgres:15-alpine"
+  image = "docker.io/postgres:17-alpine"
 }
 
 job "cron-patroni" {
