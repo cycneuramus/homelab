@@ -49,7 +49,7 @@ job "home-assistant" {
           "${local.strg}/config:/config"
         ]
 
-        devices = ["/dev/ttyACM0"]
+        devices = ["/dev/serial/by-id/usb-dresden_elektronik_ingenieurtechnik_GmbH_ConBee_II_DE2139508-if00:/dev/ttyACM0"]
       }
     }
   }

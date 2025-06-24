@@ -33,7 +33,7 @@ job "gollery" {
         }
 
         volumes = [
-          "${local.nas}/nextcloud/users/antsva/files/Bilder:/home/extractor/src",
+          "${local.nas}/nextcloud/data/webroot/data/antsva/files/Bilder:/home/extractor/src",
           "${local.nas}/gollery:/home/extractor/data"
         ]
       }
