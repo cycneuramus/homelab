@@ -1,5 +1,6 @@
 locals {
-  strg = "/mnt/jfs/signal-cli"
+  strg  = "/mnt/jfs/signal-cli"
+  image = "ghcr.io/asamk/signal-cli:0.13.16-native"
 }
 
 job "signal-cli-cron" {
@@ -16,7 +17,7 @@ job "signal-cli-cron" {
       user   = "1000:1000"
 
       config {
-        image = "ghcr.io/asamk/signal-cli:latest-native"
+        image = "${local.image}"
         args  = ["receive"]
 
         userns = "keep-id"

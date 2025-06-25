@@ -2,7 +2,7 @@ locals {
   strg = "/mnt/jfs/sigurd"
 
   image = {
-    sigurd     = "ghcr.io/cycneuramus/sigurd:latest"
+    sigurd     = "ghcr.io/cycneuramus/sigurd@sha256:8740d1517bfefb54d92c28e1a69823fcf230fe76420c8f7dab2a8e43639ef985"
     signal-api = "docker.io/bbernhard/signal-cli-rest-api:0.93"
   }
 }
