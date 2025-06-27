@@ -34,7 +34,7 @@ job "keydb" {
       kill_timeout = "30s"
 
       resources {
-        memory_max = 2048
+        memory_max = 4096
       }
 
       service {
