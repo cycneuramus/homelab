@@ -140,15 +140,21 @@
     }
 }
 
-
-(basicauth) {
+(auth) {
     @auth{args[0]} {
         expression `{labels.2} == "{args[0]}"`
         not remote_ip {$IP_SELF}
     }
 
-    basic_auth @auth{args[0]} {
-        {args[1]} {args[2]}
+    route @auth{args[0]} {
+        {{- $upstream := nomadService "auth" -}}
+        {{- if $upstream -}}
+        {{- range $upstream }}
+        forward_auth {{ .Address }}:{{ .Port }}{{ end }} {
+        {{- else }}
+        forward_auth localhost:1111 { {{- end }}
+            uri /api/auth/caddy
+        }
     }
 }
 
@@ -206,7 +212,6 @@
         lb_try_duration 10s
         fail_duration 10s
     }
-
 }
 
 (libreddit-quirks) {
@@ -307,9 +312,8 @@
     import access-control
     import security
 
-    # import basicauth arcade {$TM_USER} {$TM_PASSWORD}
-    import basicauth hannes {$WP_USER} {$WP_PASSWORD}
-    import basicauth tm {$TM_USER} {$TM_PASSWORD}
+    import auth hannes
+    import auth tm
 
     import libreddit-quirks
     import matrix-quirks
