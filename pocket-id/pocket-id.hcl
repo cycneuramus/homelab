@@ -14,7 +14,7 @@ job "pocket-id" {
 
     task "pocket-id" {
       driver = "podman"
-      user   = "0:0"
+      user   = "1000:1000"
 
       service {
         name         = "oidc"
@@ -34,7 +34,9 @@ job "pocket-id" {
         image = "${local.image}"
         ports = ["http"]
 
-        # userns = "keep-id"
+        entrypoint = ["/app/pocket-id"]
+
+        userns = "keep-id"
 
         logging = {
           driver = "journald"
