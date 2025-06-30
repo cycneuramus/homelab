@@ -1,7 +1,7 @@
 locals {
   strg  = "/mnt/jfs/unmanic"
   media = "/mnt/nas/media"
-  image = "docker.io/josh5/unmanic:0.2.7"
+  image = "docker.io/josh5/unmanic:0.2.9"
 }
 
 job "unmanic" {
