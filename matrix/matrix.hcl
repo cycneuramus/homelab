@@ -2,7 +2,7 @@ locals {
   strg = "/mnt/jfs/matrix"
 
   image = {
-    matrix          = "ghcr.io/matrix-construct/tuwunel@sha256:9ff2a7cae0ebca23a6546a300b0399a843e7a214577cca60b70909202c332e8c"
+    matrix          = "ghcr.io/matrix-construct/tuwunel@sha256:fb3bb6876367d591ed7b50aedd654bd203e261bff89a5f1aaee83f3edddc0a93"
     signal-bridge   = "dock.mau.dev/mautrix/signal:v0.8.4"
     whatsapp-bridge = "dock.mau.dev/mautrix/whatsapp:v0.12.2"
   }
