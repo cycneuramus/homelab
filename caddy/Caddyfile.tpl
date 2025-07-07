@@ -313,6 +313,7 @@
     import security
 
     import auth hannes
+    import auth notes
     import auth tm
 
     import libreddit-quirks
