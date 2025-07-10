@@ -99,7 +99,7 @@ job "immich" {
       driver = "podman"
 
       resources {
-        memory_max = 4096
+        memory_max = 8092
       }
 
       template {

@@ -34,7 +34,7 @@ job "keydb" {
       kill_timeout = "30s"
 
       resources {
-        memory_max = 4096
+        memory_max = 2048
       }
 
       service {
@@ -52,12 +52,22 @@ job "keydb" {
         gid         = 1000
       }
 
+      template {
+        data        = file("entrypoint.sh")
+        destination = "/local/entrypoint.sh"
+        perms       = 755
+      }
+
       config {
         image = "${local.image}"
         ports = ["keydb"]
 
-        command = "keydb-server"
-        args    = ["/local/keydb.conf"]
+        # command = "keydb-server"
+        # args    = ["/local/keydb.conf"]
+
+        entrypoint = [
+          "/local/entrypoint.sh"
+        ]
 
         userns = "keep-id"
 

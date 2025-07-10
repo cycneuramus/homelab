@@ -2,7 +2,7 @@ locals {
   strg = "/mnt/jfs/sigurd"
 
   image = {
-    sigurd     = "ghcr.io/cycneuramus/sigurd@sha256:85f9142ff3b6922a9ba130692cef11db09d219dc281f483983b4a58fd64596d1"
+    sigurd     = "ghcr.io/cycneuramus/sigurd@sha256:a3404e6f0ab23837652a3b1ff85b9c7e46588acf8676afb275b0b63f28038019"
     signal-api = "docker.io/bbernhard/signal-cli-rest-api:0.93"
   }
 }
@@ -31,7 +31,7 @@ job "sigurd" {
         port         = "signal-api"
         provider     = "nomad"
         address_mode = "host"
-        tags         = ["private"]
+        tags         = ["local"]
       }
 
       env {

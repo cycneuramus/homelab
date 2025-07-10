@@ -17,7 +17,7 @@ job "pinchflat" {
       driver = "podman"
 
       resources {
-        memory_max = 1024
+        memory_max = 2048
       }
 
       service {
@@ -29,8 +29,8 @@ job "pinchflat" {
       }
 
       env {
-        JOURNAL_MODE = "delete"
-        TZ           = "Europe/Stockholm"
+        # JOURNAL_MODE = "delete"
+        TZ = "Europe/Stockholm"
       }
 
       config {
