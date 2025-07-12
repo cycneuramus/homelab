@@ -1,7 +1,5 @@
 locals {
   strg = "/mnt/jfs/beszel"
-  sock = pathexpand("~/cld/beszel/sock")
-
   image = {
     hub   = "ghcr.io/henrygd/beszel/beszel:0.11.1"
     agent = "ghcr.io/henrygd/beszel/beszel-agent:0.11.1"
