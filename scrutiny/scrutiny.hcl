@@ -97,12 +97,6 @@ job "scrutiny" {
       distinct_hosts = true
     }
 
-    constraint {
-      attribute = "${attr.unique.hostname}"
-      operator  = "set_contains_any"
-      value     = "apex,ambi,horreum"
-    }
-
     task "collector" {
       driver = "podman"
 

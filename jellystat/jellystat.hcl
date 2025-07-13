@@ -1,3 +1,9 @@
+# NOTE: Too many serious performance issues:
+# https://github.com/CyferShepard/Jellystat/issues/369
+# https://github.com/CyferShepard/Jellystat/issues/298
+# https://github.com/CyferShepard/Jellystat/issues/328
+
+# TODO: Re-enable monitoring
 locals {
   strg  = "/mnt/jfs/jellystat"
   image = "docker.io/cyfershepard/jellystat:1.1.6"
@@ -15,6 +21,10 @@ job "jellystat" {
     task "jellystat" {
       driver = "podman"
       # user   = "1000:1000"
+
+      resources {
+        memory_max = 1024
+      }
 
       service {
         name         = "jellystat"
