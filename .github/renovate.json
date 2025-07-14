@@ -172,6 +172,14 @@
         {
             "matchDepNames": "dock.mau.dev/mautrix/whatsapp",
             "changelogUrl": "https://github.com/mautrix/whatsapp/releases"
+        },
+        {
+            "matchDepNames": "ghcr.io/foxxmd/multi-scrobbler",
+            "changelogUrl": "https://github.com/FoxxMD/multi-scrobbler/releases"
+        },
+        {
+            "matchDepNames": "ghcr.io/lumepart/explo",
+            "changelogUrl": "https://github.com/LumePart/Explo/releases"
         }
       ]
   }
