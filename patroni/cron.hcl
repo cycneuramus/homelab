@@ -8,7 +8,7 @@ job "cron-patroni" {
   type = "sysbatch"
 
   periodic {
-    crons            = ["0 0 * * 7"]
+    crons            = ["30 4 * * *"]
     prohibit_overlap = true
   }
 
