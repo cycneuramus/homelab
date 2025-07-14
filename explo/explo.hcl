@@ -1,6 +1,6 @@
 locals {
   music = "/mnt/nas/apps/music"
-  image = "ghcr.io/lumepart/explo:v0.10.1"
+  image = "ghcr.io/lumepart/explo:v0.10.2"
 }
 
 job "explo" {
