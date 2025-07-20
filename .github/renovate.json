@@ -10,6 +10,7 @@
     "commitMessageSuffix": "",
     "semanticCommits": "disabled",
     "dependencyDashboard": true,
+    "configMigration": true,
     "customManagers": [
         {
             "description": "Match container images defined as local variables in Nomad job files",

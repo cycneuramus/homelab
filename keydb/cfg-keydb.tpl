@@ -10,11 +10,11 @@ appendfsync everysec
 
 active-replica yes
 multi-master yes
-repl-backlog-size 128mb
+repl-backlog-size 512mb
 repl-timeout 60
 
 client-output-buffer-limit normal 0 0 0
-client-output-buffer-limit replica 256mb 64mb 60
+client-output-buffer-limit replica 512mb 128mb 60
 client-output-buffer-limit pubsub 32mb 8mb 60
 
 {{- $ip_self := env "attr.unique.network.ip-address" -}}

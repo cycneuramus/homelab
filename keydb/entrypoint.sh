@@ -11,7 +11,7 @@ if [ "$NOMAD_HOST_IP_keydb" != "$apex_ip" ]; then
 	done
 
 	echo "KeyDB on apex reachable; giving it a grace period for loading state..."
-	sleep 10
+	sleep 15
 fi
 
 echo "Starting KeyDB server"
