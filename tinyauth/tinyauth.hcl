@@ -1,5 +1,5 @@
 locals {
-  image = "ghcr.io/steveiliop56/tinyauth:v3.6.1"
+  image = "ghcr.io/steveiliop56/tinyauth:v3.6.2"
 }
 
 job "tinyauth" {

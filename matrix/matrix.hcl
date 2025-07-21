@@ -3,8 +3,8 @@ locals {
 
   image = {
     matrix          = "ghcr.io/matrix-construct/tuwunel:v1.2.0-release-all-x86_64-v3-linux-gnu"
-    signal-bridge   = "dock.mau.dev/mautrix/signal:v0.8.4"
-    whatsapp-bridge = "dock.mau.dev/mautrix/whatsapp:v0.12.2"
+    signal-bridge   = "dock.mau.dev/mautrix/signal:v0.8.5"
+    whatsapp-bridge = "dock.mau.dev/mautrix/whatsapp:v0.12.3"
   }
 }
 

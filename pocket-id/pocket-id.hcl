@@ -1,6 +1,6 @@
 locals {
   strg  = "/mnt/jfs/pocket-id"
-  image = "ghcr.io/pocket-id/pocket-id:v1.6.2"
+  image = "ghcr.io/pocket-id/pocket-id:v1.6.4"
 }
 
 job "pocket-id" {

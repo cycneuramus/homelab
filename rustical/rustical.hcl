@@ -1,6 +1,6 @@
 locals {
   strg  = "/mnt/jfs/rustical"
-  image = "ghcr.io/lennart-k/rustical:0.4.13"
+  image = "ghcr.io/lennart-k/rustical:0.6.3"
 }
 
 job "rustical" {

@@ -4,7 +4,7 @@ locals {
 
   image = {
     nextcloud = "docker.io/nextcloud:31.0.7-apache"
-    collabora = "docker.io/collabora/code:25.04.3.2.1"
+    collabora = "docker.io/collabora/code:25.04.4.1.1"
     valkey    = "docker.io/valkey/valkey:8.1-alpine"
   }
 }
