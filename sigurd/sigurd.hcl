@@ -26,6 +26,10 @@ job "sigurd" {
       driver = "podman"
       user   = "0:0"
 
+      resources {
+        cpu = 1024
+      }
+
       service {
         name         = "signal-api"
         port         = "signal-api"
@@ -50,6 +54,8 @@ job "sigurd" {
       config {
         image = "${local.image.signal-api}"
         ports = ["signal-api"]
+
+        cpu_hard_limit = true
 
         userns = "keep-id"
 
