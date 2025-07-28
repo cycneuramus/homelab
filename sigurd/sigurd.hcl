@@ -39,10 +39,12 @@ job "sigurd" {
       }
 
       env {
-        MODE                  = "json-rpc"
-        SIGNAL_CLI_CONFIG_DIR = "/signal-cli"
-        SIGNAL_CLI_GID        = "1000"
-        SIGNAL_CLI_UID        = "1000"
+        MODE                        = "json-rpc"
+        SIGNAL_CLI_CONFIG_DIR       = "/signal-cli"
+        SIGNAL_CLI_GID              = "1000"
+        SIGNAL_CLI_UID              = "1000"
+        JSON_RPC_IGNORE_ATTACHMENTS = true
+        JSON_RPC_IGNORE_STORIES     = true
       }
 
       template {

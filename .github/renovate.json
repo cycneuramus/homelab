@@ -181,6 +181,14 @@
         {
             "matchDepNames": "ghcr.io/lumepart/explo",
             "changelogUrl": "https://github.com/LumePart/Explo/releases"
+        },
+        {
+            "matchDepNames": "docker.io/gabehf/koito",
+            "changelogUrl": "https://github.com/gabehf/Koito/releases"
+        },
+        {
+            "matchDepNames": "docker.io/aaronleopold/stump",
+            "changelogUrl": "https://github.com/stumpapp/stump/releases"
         }
       ]
   }
