@@ -3,7 +3,7 @@ locals {
 
   image = {
     sigurd     = "ghcr.io/cycneuramus/sigurd@sha256:665f6395cf2bad40b48f54065aea530681233d6e0aefb035a9ace933591398b0"
-    signal-api = "docker.io/bbernhard/signal-cli-rest-api:0.93"
+    signal-api = "docker.io/bbernhard/signal-cli-rest-api:0.94"
   }
 }
 

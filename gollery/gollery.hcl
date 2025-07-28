@@ -1,6 +1,6 @@
 locals {
   nas   = "/mnt/nas/apps"
-  image = "ghcr.io/cycneuramus/ifexifextract@sha256:85095cc0602048810265c4337903faa0dfb2a372c442b58d06f0307971cdd971"
+  image = "ghcr.io/cycneuramus/ifexifextract@sha256:f887aaad526d77d5c663f43cce760a04eb795ee96ae152c371ead27001eb3d3c"
 }
 
 job "gollery" {
