@@ -1,7 +1,7 @@
 locals {
   strg  = "/mnt/jfs/audiobookshelf"
   nas   = "/mnt/nas/apps"
-  image = "ghcr.io/advplyr/audiobookshelf:2.26.3"
+  image = "ghcr.io/advplyr/audiobookshelf:2.27.0"
 }
 
 job "audiobookshelf" {
