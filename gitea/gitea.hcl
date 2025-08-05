@@ -59,8 +59,6 @@ job "gitea" {
         volumes = [
           "${local.strg}/data:/var/lib/gitea"
         ]
-
-        tmpfs = ["/var/lib/gitea/data/queues/common"]
       }
     }
 

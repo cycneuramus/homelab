@@ -83,12 +83,12 @@ job "immich" {
 
         volumes = [
           "${local.sock}:/tmp/sock",
-          "${local.nas}/immich/thumbs:/usr/src/app/upload/thumbs",
-          "${local.nas}/immich/upload:/usr/src/app/upload/upload",
-          "${local.nas}/immich/profile:/usr/src/app/upload/profile",
-          "${local.nas}/immich/library:/usr/src/app/upload/library",
-          "${local.nas}/immich/backups:/usr/src/app/upload/backups",
-          "${local.nas}/immich/encoded-video:/usr/src/app/upload/encoded-video",
+          "${local.nas}/immich/thumbs:/data/thumbs",
+          "${local.nas}/immich/upload:/data/upload",
+          "${local.nas}/immich/profile:/data/profile",
+          "${local.nas}/immich/library:/data/library",
+          "${local.nas}/immich/backups:/data/backups",
+          "${local.nas}/immich/encoded-video:/data/encoded-video",
           "${local.nas}/nextcloud/data/webroot/data/antsva/files/Bilder:/libraries/user-1:ro",
           "${local.nas}/gollery:/libraries/user-3:ro",
         ]
