@@ -2,7 +2,7 @@ locals {
   strg = {
     slskd   = "/mnt/jfs/soulseek"
     betanin = "/mnt/jfs/betanin"
-    music   = "/mnt/nas/apps/music"
+    music   = "/mnt/nas/apps/navidrome/music"
   }
 
   image = {

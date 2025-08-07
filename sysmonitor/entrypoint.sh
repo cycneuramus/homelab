@@ -117,6 +117,14 @@ systemd() {
 	done
 }
 
+oom() {
+	if [[ -f ~/oom ]]; then
+		file_stat=$(stat -c '%w' ~/oom)
+		file_create_time=$(date -d "$file_stat" '+%H:%M:%S')
+		push "A container was OOM killed at $file_create_time"
+	fi
+}
+
 trap 'push "Sysmonitor job encountered an error on line $LINENO: $BASH_COMMAND"' err
 log "INFO" "Starting monitor"
 
@@ -125,4 +133,5 @@ while sleep $CHECK_INTERVAL; do
 	disk
 	mounts
 	systemd
+	oom
 done

@@ -1,5 +1,5 @@
 locals {
-  music = "/mnt/nas/apps/music/explo"
+  music = "/mnt/nas/apps/navidrome/discover/explo"
   image = "ghcr.io/lumepart/explo:v0.10.2"
 }
 

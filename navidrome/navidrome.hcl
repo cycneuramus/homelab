@@ -1,7 +1,8 @@
 locals {
-  strg  = "/mnt/jfs/navidrome"
-  music = "/mnt/nas/apps/music"
-  image = "ghcr.io/navidrome/navidrome:0.58.0"
+  strg     = "/mnt/jfs/navidrome"
+  music    = "/mnt/nas/apps/navidrome/music"
+  discover = "/mnt/nas/apps/navidrome/discover"
+  image    = "ghcr.io/navidrome/navidrome:0.58.0"
 }
 
 job "navidrome" {
@@ -44,6 +45,7 @@ job "navidrome" {
 
         volumes = [
           "${local.music}:/music",
+          "${local.discover}:/discover",
           "${local.strg}/db:/data"
         ]
 
