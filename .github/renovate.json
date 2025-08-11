@@ -189,6 +189,10 @@
         {
             "matchDepNames": "docker.io/aaronleopold/stump",
             "changelogUrl": "https://github.com/stumpapp/stump/releases"
+        },
+        {
+            "matchDepNames": "ghcr.io/matrix-construct/tuwunel",
+            "changelogUrl": "https://github.com/matrix-construct/tuwunel/releases"
         }
       ]
   }
