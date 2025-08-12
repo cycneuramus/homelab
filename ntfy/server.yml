@@ -4,25 +4,30 @@ attachment-cache-dir: /var/cache/ntfy/attachments
 attachment-total-size-limit: 250M
 attachment-file-size-limit: 15M
 attachment-expiry-duration: 3h
+auth-default-access: deny-all
+auth-file: /var/cache/ntfy/user.db
+auth-users:
+    # enc!
+    - ENC[AES256_GCM,data:m145NjRJ+yDTM8lB0AP15heRlNbp4GPYZ5sGX1DAUtpKH7Nin/h8NX3H4aAdvy0vlg3kACicwvNwzOLE+O7hpg8rNQnKB5Tj,iv:ufq4O038daMK8pCIwh2OG62Nwfp+cuXUFgLg8IQnerw=,tag:73vakb89lZYFJ7u49Av66g==,type:str]
+auth-tokens:
+    # enc!
+    - ENC[AES256_GCM,data:thkIRR9sqCPQoibuU21cJ9Ek7OU6u8wvtpagGD/00jTrhV0d/5c=,iv:28Ik93WUm7N0ZEvpdMr7HGvdI4P4pT4ATjq9evcNBWA=,tag:5LjC4N1RbR3DatVW7vgbtQ==,type:str]
+auth-access:
+    - '*:up*:wo'
 #enc!
-base-url: ENC[AES256_GCM,data:SZiLc9mIU1hsgMTXZ/1vRyCHcBbi4gQ=,iv:QCLPUGC5D6wmaHs4mWKQXx+ZbWPKrfMYKbug5U4ctrs=,tag:wyk5N0yAMnFXqFlZJVLtpA==,type:str]
+base-url: ENC[AES256_GCM,data:GyvPGjrreQ9WfwVCYbOug2QOOWC0Dss=,iv:eT7rWGMltkVTNhPqzfbKUO3Vby3B+Ndt4hBetRqZv+A=,tag:th98CKBOGFkFIX9tEpNSYw==,type:str]
 sops:
-    kms: []
-    gcp_kms: []
-    azure_kv: []
-    hc_vault: []
     age:
         - recipient: age14nu42yf645xewsdgq03rwytpxw4pf6elmlwz9q3yundv32h8l3xqvq7hvn
           enc: |
             -----BEGIN AGE ENCRYPTED FILE-----
-            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSArOW1MVDNDNkhnMkFpZGNS
-            Sm00a3UyWHdqemVCOGRYNmtISDlJT253L0RjClRhUStHVGZBeGJDdWRjeEV2NUJG
-            VXgvcG5NeWVwOG5yUHcwdEVOcEpPMG8KLS0tIERoSWdOL0pkekdtenZISVFOUHFL
-            Y1czQWUzNjVldFpZNi84R2gwcUUwOWMKI+uj62R8ajqzRTwKbYsQ8W4U2DiL5Org
-            i185+jdGyyvUVB6aSWsSxoMHbeuo4kkGmmwYbkXQdb17JQjmPwZ7vA==
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBSZ3g2TExCOXliQXpFOTNB
+            K3RSaE00R3U2QXVzbEtXMHlrRUJzMXYzckNBCmhLb1F4b3B3NFdYYXZ0cVlEbENJ
+            ZmlScTJMVjhWeS9aUE1mNEJlTDlscXcKLS0tIDJQNm5nK0tUdVR6T0tpY29jYXYx
+            MGk5ZUsvNkVCbXc5Y0J6d09IUDBZVGMKFq42YamXcpM1t4DXATjVD04atQ7ooQeY
+            CN6/ALUM2fH8aX7byWKFjLrjyOUaNbVMRSX5fGeHVNclmEusG+XqQQ==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2025-01-21T11:31:33Z"
-    mac: ENC[AES256_GCM,data:bk/7maDY7A7euD/Nq7b+cxLhzze1sdnwG+IwNuRnEWfY6U3NurqihDuCud+yF+Ne/tbQj+AKCXvxhrHkTe8lB5YYrJv9HPiFYsK+KEqdMeja3zl5gNvNym1woMm9c8ph+sR1L0kprWtjpTQ7GI+HT+HFKv6NOAMtf7muqvoy8n8=,iv:UomtKhF+mxe2F+KDv/IHYblYlT2ofPdAX3ijWVpsBx4=,tag:0CFR/TNVbjmRhT8/RujCUw==,type:str]
-    pgp: []
+    lastmodified: "2025-08-12T10:11:01Z"
+    mac: ENC[AES256_GCM,data:wjoIzSoaKR8UXBjtZdiO7PumKdBvGMEmX4wonqkAgH5O6V+KEMaLds194yDQcqurHklMTkzP8LU6GTAODgYW4feu9TWKLK6gkERZ/kg/V6z+oPkkv039SlM25z5x4VkmqcvwOu4Dnyt6FijBHmzdhOpbGqEj1PbQN7iBM6zEpZ8=,iv:kuuWYuoTrlot1bmDUTGa9rsNi79d4pbxGMZsHL9ThL8=,tag:oCh4Gqys9tqh2BtoDtk63g==,type:str]
     encrypted_comment_regex: enc!
-    version: 3.9.3
+    version: 3.10.2

@@ -6,6 +6,7 @@ push() {
 	local title="$1"
 	local message="$2"
 	curl \
+		-H "Authorization: Bearer $PUSH_TOKEN" \
 		-H "Title: $title" \
 		-H "Priority: 2" \
 		-d "$message" \

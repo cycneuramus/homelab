@@ -16,6 +16,10 @@ job "wizarr" {
       driver = "podman"
       user   = "1000:1000"
 
+      resources {
+        memory_max = 1024
+      }
+
       service {
         name         = "wizarr"
         port         = "http"

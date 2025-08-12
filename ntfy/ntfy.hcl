@@ -21,9 +21,6 @@ job "ntfy" {
         address_mode = "host"
         provider     = "nomad"
         tags         = ["public"]
-        # want local here with ACL:s and:
-        # https://docs.ntfy.sh/config/#example-unifiedpush
-        # https://github.com/binwiederhier/ntfy/issues/464
       }
 
       template {
@@ -34,8 +31,7 @@ job "ntfy" {
       }
 
       env {
-        TZ            = "Europe/Stockholm"
-        NTFY_WEB_ROOT = "disable"
+        TZ = "Europe/Stockholm"
       }
 
       config {

@@ -31,6 +31,7 @@ push() {
 	if [[ "$this_push" != "$latest_push" ]]; then
 		log "INFO" "Issue encountered; pushing notification..."
 		curl \
+			-H "Authorization: Bearer $PUSH_TOKEN" \
 			-H "Title: $HOSTNAME" \
 			-H "Priority: 2" \
 			-d "$1" \
