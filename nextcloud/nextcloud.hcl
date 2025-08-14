@@ -45,7 +45,6 @@ job "nextcloud" {
       user   = "1000:1000"
 
       resources {
-        cpu        = 2048
         memory_max = 4096
       }
 
