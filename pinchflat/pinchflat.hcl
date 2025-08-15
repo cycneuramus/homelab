@@ -30,7 +30,7 @@ job "pinchflat" {
 
       env {
         # JOURNAL_MODE = "delete"
-        LOG_LEVEL = "info"
+        LOG_LEVEL = "warning"
         TZ        = "Europe/Stockholm"
       }
 

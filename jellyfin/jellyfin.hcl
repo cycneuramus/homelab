@@ -32,6 +32,8 @@ job "jellyfin" {
         PUID = "1000"
         PGID = "1000"
         TZ   = "Europe/Stockholm"
+        # Has no effect on lsio image
+        # JELLYFIN_LOG_DIR = "/tmp/logs"
       }
 
       template {
@@ -56,6 +58,8 @@ job "jellyfin" {
           "${local.strg}/config:/config",
           "local/encoding.xml:/config/encoding.xml"
         ]
+
+        # tmpfs = ["/tmp/logs:size=1000k"]
 
         devices = ["/dev/dri"]
       }
