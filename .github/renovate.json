@@ -16,11 +16,11 @@
             "description": "Match container images defined as local variables in Nomad job files",
             "customType": "regex",
             "datasourceTemplate": "docker",
-            "fileMatch": [
-                "\\.hcl$"
+            "managerFilePatterns": [
+                "/\\.hcl$/"
             ],
             "matchStrings": [
-                "[\\w-]+\\s*=\\s*\\\"(?<depName>.*\/.*?)(?::(?<currentValue>[^\\\"@]+))?(?:@(?<currentDigest>sha256:[a-f0-9]+))?\\\""
+                "[\\w-]+\\s*=\\s*\\\"(?<depName>.*/.*?)(?::(?<currentValue>[^\\\"@]+))?(?:@(?<currentDigest>sha256:[a-f0-9]+))?\\\""
             ]
         }
     ],
@@ -194,5 +194,5 @@
             "matchDepNames": "ghcr.io/matrix-construct/tuwunel",
             "changelogUrl": "https://github.com/matrix-construct/tuwunel/releases"
         }
-      ]
-  }
+    ]
+}
