@@ -3,9 +3,9 @@ locals {
   nas  = "/mnt/nas/apps"
 
   image = {
-    immich           = "ghcr.io/immich-app/immich-server:v1.137.3"
-    machine-learning = "ghcr.io/immich-app/immich-machine-learning:v1.137.3"
-    valkey           = "docker.io/valkey/valkey:8.1-alpine"
+    immich           = "ghcr.io/immich-app/immich-server:v1.138.0"
+    machine-learning = "ghcr.io/immich-app/immich-machine-learning:v1.138.0"
+    valkey           = "docker.io/valkey/valkey:9.0-alpine"
   }
 }
 
