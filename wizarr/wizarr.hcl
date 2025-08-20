@@ -14,7 +14,7 @@ job "wizarr" {
 
     task "wizarr" {
       driver = "podman"
-      user   = "1000:1000"
+      # user   = "1000:1000"
 
       resources {
         memory_max = 1024
@@ -38,7 +38,7 @@ job "wizarr" {
         image = "${local.image}"
         ports = ["http"]
 
-        userns = "keep-id"
+        # userns = "keep-id"
 
         logging = {
           driver = "journald"

@@ -59,7 +59,6 @@ job "unmanic" {
         ]
 
         tmpfs = [
-          "/config/.unmanic/logs:size=1000k",
           "/tmp/unmanic"
         ]
       }

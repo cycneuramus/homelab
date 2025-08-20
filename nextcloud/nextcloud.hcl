@@ -12,14 +12,8 @@ locals {
 job "nextcloud" {
   affinity {
     attribute = "${attr.unique.hostname}"
-    value     = "apex"
-    weight    = 100
-  }
-
-  affinity {
-    attribute = "${attr.unique.hostname}"
-    value     = "ambi"
-    weight    = 50
+    value     = "horreum"
+    weight    = -100
   }
 
   group "nextcloud" {
