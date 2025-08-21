@@ -22,9 +22,9 @@ ______________________________________________________________________
 
   - [Garage S3](https://garagehq.deuxfleurs.fr) cluster for durable object storage
   - [JuiceFS](https://juicefs.com): POSIX-compliant distributed mounts with:
-    - Garage S3 as storage backend
     - Multi-tier caching (memory -> disk -> S3)
-  - [KeyDB](https://docs.keydb.dev) cluster for JuiceFS metadata storage over UNIX sockets
+    - [Valkey](https://valkey.io) for JuiceFS metadata storage
+    - Garage S3 as storage backend
 
 - **Database**:
 
