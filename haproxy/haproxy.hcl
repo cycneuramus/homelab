@@ -13,6 +13,12 @@ job "haproxy" {
         host_network = "private"
       }
 
+      port "valkey" {
+        to           = 16379
+        static       = 16379
+        host_network = "private"
+      }
+
       port "garage" {
         to           = 13900
         static       = 13900
@@ -43,7 +49,7 @@ job "haproxy" {
 
       config {
         image = "${local.image}"
-        ports = ["patroni", "garage", "stats"]
+        ports = ["patroni", "valkey", "garage", "stats"]
 
         logging = {
           driver = "journald"
