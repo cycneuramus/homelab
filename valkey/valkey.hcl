@@ -37,7 +37,7 @@ job "valkey" {
 
         command = "valkey-server"
         args = [
-          "--save", "900", "1", "300", "10",
+          "--save", "1800", "1", "600", "10",
           "--appendonly", "yes",
           "--appendfsync", "everysec",
           "--maxmemory-policy", "noeviction"
