@@ -252,6 +252,11 @@
             uri strip_prefix /push
             import dynamic_srv nextcloud-push.default.service.nomad 
         }
+
+        @collabora path /hosting/discovery* /hosting/capabilities* /cool/* /browser/* /loleaflet/* /cool/adminws*
+        handle @collabora {
+            import dynamic_srv collabora.default.service.nomad
+        }
     }
 }
 

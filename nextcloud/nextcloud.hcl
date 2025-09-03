@@ -223,7 +223,7 @@ job "nextcloud" {
         port         = "collabora"
         provider     = "nomad"
         address_mode = "host"
-        tags         = ["local"]
+        tags         = ["private"]
       }
 
       template {
