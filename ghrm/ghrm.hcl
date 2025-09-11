@@ -1,5 +1,5 @@
 locals {
-  image = "ghcr.io/iamspido/github-release-monitor:1.2.2"
+  image = "ghcr.io/iamspido/github-release-monitor:1.3.0"
   strg  = "/mnt/jfs/ghrm"
 }
 
