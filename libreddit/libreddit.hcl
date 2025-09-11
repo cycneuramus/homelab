@@ -1,6 +1,5 @@
 locals {
-  image = "ghcr.io/cycneuramus/containers:redlib"
-  # image = "quay.io/redlib/redlib@sha256:c1fcda90dca9447d4aa7e18fd3ef85cc2044c29263490159e1ae4b472d0f285c"
+  image = "quay.io/redlib/redlib@sha256:c1fcda90dca9447d4aa7e18fd3ef85cc2044c29263490159e1ae4b472d0f285c"
 }
 
 job "libreddit" {
