@@ -222,6 +222,13 @@
     route @libreddit {
         rewrite /bc {$LIBREDDIT_BC}
         rewrite /it {$LIBREDDIT_IT}
+
+        @block path / /r/all/*
+        handle @block {
+            respond @block "Forbidden" 403 {
+                close
+            }
+        }
     }
 }
 
