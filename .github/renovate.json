@@ -1,198 +1,193 @@
 {
-    "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-    "extends": [
-        "docker:enableMajor",
-        "group:all"
-    ],
-    "commitMessageAction": "Update",
-    "commitMessageTopic": "dependencies",
-    "commitMessageExtra": "",
-    "commitMessageSuffix": "",
-    "semanticCommits": "disabled",
-    "dependencyDashboard": true,
-    "configMigration": true,
-    "customManagers": [
-        {
-            "description": "Match container images defined as local variables in Nomad job files",
-            "customType": "regex",
-            "datasourceTemplate": "docker",
-            "managerFilePatterns": [
-                "/\\.hcl$/"
-            ],
-            "matchStrings": [
-                "[\\w-]+\\s*=\\s*\\\"(?<depName>.*/.*?)(?::(?<currentValue>[^\\\"@]+))?(?:@(?<currentDigest>sha256:[a-f0-9]+))?\\\""
-            ]
-        }
-    ],
-    "packageRules": [
-        {
-            "description": "Parse malformed tags (e.g. client-3.8.4, alpine_x86_64_v6.3.3) as semver",
-            "matchDepNames": [
-                "docker.io/eqalpha/keydb",
-                "docker.io/amruthpillai/reactive-resume",
-                "ghcr.io/go-shiori/shiori"
-            ],
-            "versioning": "regex:^(?<prefix>.*(?:-v|_v|-))?(?<major>\\d+)(\\.(?<minor>\\d+))(\\.(?<patch>\\d+))?$"
-        },
-        {
-            "description": "Pin postgres version",
-            "matchDepNames": [
-                "docker.io/postgres"
-            ],
-            "allowedVersions": "<=17"
-        },
-        {
-            "description": "Pin meilisearch version",
-            "matchDepNames": [
-                "docker.io/getmeili/meilisearch"
-            ],
-            "allowedVersions": "<=1.13"
-        },
-        {
-            "description": "Pin influxdb version",
-            "matchDepNames": [
-                "docker.io/influxdb"
-            ],
-            "allowedVersions": "<=2.2.0"
-        },
-        {
-            "description": "Workaround for Renovate picking up old image tag",
-            "matchDepNames": [
-                "ghcr.io/linuxserver/jellyfin"
-            ],
-            "allowedVersions": "!/^2021\\./"
-        },
-        {
-            "description": "Ignore broken version of Unmanic",
-            "matchDepNames": [
-                "docker.io/josh5/unmanic"
-            ],
-            "allowedVersions": "!/0.2.8/"
-        },
-        {
-            "description": "Ignore broken version of KeyDB",
-            "matchDepNames": [
-                "docker.io/eqalpha/keydb"
-            ],
-            "allowedVersions": "!/6.3.4/"
-        },
-        {
-            "description": "Disallow x.0.0 versions of Nextcloud",
-            "matchDepNames": "docker.io/nextcloud",
-            "allowedVersions": "/^(?:\\d+\\.[1-9]\\d*\\.\\d+(?:-.+)?|\\d+\\.0\\.[1-9]\\d*(?:-.+)?)$/",
-            "changelogUrl": "https://github.com/nextcloud/server/releases"
-        },
-        {
-            "matchDepNames": "docker.io/kutt/kutt",
-            "changelogUrl": "https://github.com/thedevs-network/kutt/releases"
-        },
-        {
-            "matchDepNames": "docker.io/bbernhard/signal-cli-rest-api",
-            "changelogUrl": "https://github.com/bbernhard/signal-cli-rest-api/releases"
-        },
-        {
-            "matchDepNames": "dock.mau.dev/mautrix/signal",
-            "changelogUrl": "https://github.com/mautrix/signal/releases"
-        },
-        {
-            "matchDepNames": "docker.io/collabora/code",
-            "changelogUrl": "https://github.com/CollaboraOnline/richdocumentscode/releases/"
-        },
-        {
-            "matchDepNames": "registry.gitlab.com/nulide/findmydeviceserver",
-            "changelogUrl": "https://gitlab.com/Nulide/findmydeviceserver/-/releases"
-        },
-        {
-            "matchDepNames": "gcr.io/etcd-development/etcd",
-            "changelogUrl": "https://github.com/etcd-io/etcd/releases"
-        },
-        {
-            "matchDepNames": "ghcr.io/immich-app/immich-server",
-            "changelogUrl": "https://github.com/immich-app/immich/releases"
-        },
-        {
-            "matchDepNames": "ghcr.io/immich-app/immich-machine-learning",
-            "changelogUrl": "https://github.com/immich-app/immich/releases"
-        },
-        {
-            "matchDepNames": "ghcr.io/linuxserver/prowlarr",
-            "changelogUrl": "https://github.com/Prowlarr/Prowlarr/releases"
-        },
-        {
-            "matchDepNames": "ghcr.io/linuxserver/jellyfin",
-            "changelogUrl": "https://github.com/jellyfin/jellyfin/releases"
-        },
-        {
-            "matchDepNames": "ghcr.io/home-assistant/home-assistant",
-            "changelogUrl": "https://github.com/home-assistant/core/releases"
-        },
-        {
-            "matchDepNames": "ghcr.io/linuxserver/radarr",
-            "changelogUrl": "https://github.com/Radarr/Radarr/releases"
-        },
-        {
-            "matchDepNames": "ghcr.io/linuxserver/sonarr",
-            "changelogUrl": "https://github.com/Sonarr/Sonarr/releases"
-        },
-        {
-            "matchDepNames": "docker.io/valkey/valkey",
-            "changelogUrl": "https://github.com/valkey-io/valkey/releases"
-        },
-        {
-            "matchDepNames": "ghcr.io/renovatebot/renovate",
-            "changelogUrl": "https://github.com/renovatebot/renovate/releases"
-        },
-        {
-            "matchDepNames": "docker.io/cyfershepard/jellystat",
-            "changelogUrl": "https://github.com/CyferShepard/Jellystat/releases"
-        },
-        {
-            "matchDepNames": "docker.io/dxflrs/garage",
-            "changelogUrl": "https://git.deuxfleurs.fr/Deuxfleurs/garage/releases"
-        },
-        {
-            "matchDepNames": "ghcr.io/go-shiori/shiori",
-            "changelogUrl": "https://github.com/go-shiori/shiori/releases"
-        },
-        {
-            "matchDepNames": "ghcr.io/karakeep-app/karakeep",
-            "changelogUrl": "https://github.com/karakeep-app/karakeep/releases"
-        },
-        {
-            "matchDepNames": "docker.io/lukevella/rallly",
-            "changelogUrl": "https://github.com/lukevella/rallly/releases"
-        },
-        {
-            "matchDepNames": "ghcr.io/bbx0/grocy",
-            "changelogUrl": "https://github.com/grocy/grocy/releases"
-        },
-        {
-            "matchDepNames": "ghcr.io/wizarrrr/wizarr",
-            "changelogUrl": "https://github.com/wizarrrr/wizarr/releases"
-        },
-        {
-            "matchDepNames": "dock.mau.dev/mautrix/whatsapp",
-            "changelogUrl": "https://github.com/mautrix/whatsapp/releases"
-        },
-        {
-            "matchDepNames": "ghcr.io/foxxmd/multi-scrobbler",
-            "changelogUrl": "https://github.com/FoxxMD/multi-scrobbler/releases"
-        },
-        {
-            "matchDepNames": "ghcr.io/lumepart/explo",
-            "changelogUrl": "https://github.com/LumePart/Explo/releases"
-        },
-        {
-            "matchDepNames": "docker.io/gabehf/koito",
-            "changelogUrl": "https://github.com/gabehf/Koito/releases"
-        },
-        {
-            "matchDepNames": "docker.io/aaronleopold/stump",
-            "changelogUrl": "https://github.com/stumpapp/stump/releases"
-        },
-        {
-            "matchDepNames": "ghcr.io/matrix-construct/tuwunel",
-            "changelogUrl": "https://github.com/matrix-construct/tuwunel/releases"
-        }
-    ]
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["docker:enableMajor", "group:all"],
+  "commitMessageAction": "Update",
+  "commitMessageTopic": "dependencies",
+  "commitMessageExtra": "",
+  "commitMessageSuffix": "",
+  "semanticCommits": "disabled",
+  "dependencyDashboard": true,
+  "configMigration": true,
+  "customManagers": [
+    {
+      "description": "Match container images defined as local variables in Nomad job files",
+      "customType": "regex",
+      "datasourceTemplate": "docker",
+      "managerFilePatterns": ["/\\.hcl$/"],
+      "matchStrings": [
+        "[\\w-]+\\s*=\\s*\\\"(?<depName>.*/.*?)(?::(?<currentValue>[^\\\"@]+))?(?:@(?<currentDigest>sha256:[a-f0-9]+))?\\\""
+      ]
+    }
+  ],
+  "packageRules": [
+    {
+      "description": "Parse malformed tags (e.g. client-3.8.4, alpine_x86_64_v6.3.3) as semver",
+      "matchDepNames": [
+        "docker.io/eqalpha/keydb",
+        "docker.io/amruthpillai/reactive-resume",
+        "ghcr.io/go-shiori/shiori"
+      ],
+      "versioning": "regex:^(?<prefix>.*(?:-v|_v|-))?(?<major>\\d+)(\\.(?<minor>\\d+))(\\.(?<patch>\\d+))?$"
+    },
+    {
+      "description": "Pin postgres version",
+      "matchDepNames": ["docker.io/postgres"],
+      "allowedVersions": "<=17"
+    },
+    {
+      "description": "Pin meilisearch version",
+      "matchDepNames": ["docker.io/getmeili/meilisearch"],
+      "allowedVersions": "<=1.13"
+    },
+    {
+      "description": "Pin influxdb version",
+      "matchDepNames": ["docker.io/influxdb"],
+      "allowedVersions": "<=2.2.0"
+    },
+    {
+      "description": "Workaround for Renovate picking up old image tag",
+      "matchDepNames": ["ghcr.io/linuxserver/jellyfin"],
+      "allowedVersions": "!/^2021\\./"
+    },
+    {
+      "description": "Ignore broken version of Unmanic",
+      "matchDepNames": ["docker.io/josh5/unmanic"],
+      "allowedVersions": "!/0.2.8/"
+    },
+    {
+      "description": "Ignore broken version of KeyDB",
+      "matchDepNames": ["docker.io/eqalpha/keydb"],
+      "allowedVersions": "!/6.3.4/"
+    },
+    {
+      "description": "Disallow x.0.0 versions of Nextcloud",
+      "matchDepNames": "docker.io/nextcloud",
+      "allowedVersions": "/^(?:\\d+\\.[1-9]\\d*\\.\\d+(?:-.+)?|\\d+\\.0\\.[1-9]\\d*(?:-.+)?)$/",
+      "changelogUrl": "https://github.com/nextcloud/server/releases"
+    },
+    {
+      "matchDepNames": "docker.io/kutt/kutt",
+      "changelogUrl": "https://github.com/thedevs-network/kutt/releases"
+    },
+    {
+      "matchDepNames": "docker.io/bbernhard/signal-cli-rest-api",
+      "changelogUrl": "https://github.com/bbernhard/signal-cli-rest-api/releases"
+    },
+    {
+      "matchDepNames": "dock.mau.dev/mautrix/signal",
+      "changelogUrl": "https://github.com/mautrix/signal/releases"
+    },
+    {
+      "matchDepNames": "docker.io/collabora/code",
+      "changelogUrl": "https://github.com/CollaboraOnline/richdocumentscode/releases/"
+    },
+    {
+      "matchDepNames": "registry.gitlab.com/nulide/findmydeviceserver",
+      "changelogUrl": "https://gitlab.com/Nulide/findmydeviceserver/-/releases"
+    },
+    {
+      "matchDepNames": "gcr.io/etcd-development/etcd",
+      "changelogUrl": "https://github.com/etcd-io/etcd/releases"
+    },
+    {
+      "matchDepNames": "ghcr.io/immich-app/immich-server",
+      "changelogUrl": "https://github.com/immich-app/immich/releases"
+    },
+    {
+      "matchDepNames": "ghcr.io/immich-app/immich-machine-learning",
+      "changelogUrl": "https://github.com/immich-app/immich/releases"
+    },
+    {
+      "matchDepNames": "ghcr.io/linuxserver/prowlarr",
+      "changelogUrl": "https://github.com/Prowlarr/Prowlarr/releases"
+    },
+    {
+      "matchDepNames": "ghcr.io/linuxserver/jellyfin",
+      "changelogUrl": "https://github.com/jellyfin/jellyfin/releases"
+    },
+    {
+      "matchDepNames": "ghcr.io/home-assistant/home-assistant",
+      "changelogUrl": "https://github.com/home-assistant/core/releases"
+    },
+    {
+      "matchDepNames": "ghcr.io/linuxserver/radarr",
+      "changelogUrl": "https://github.com/Radarr/Radarr/releases"
+    },
+    {
+      "matchDepNames": "ghcr.io/linuxserver/sonarr",
+      "changelogUrl": "https://github.com/Sonarr/Sonarr/releases"
+    },
+    {
+      "matchDepNames": "docker.io/valkey/valkey",
+      "changelogUrl": "https://github.com/valkey-io/valkey/releases"
+    },
+    {
+      "matchDepNames": "ghcr.io/renovatebot/renovate",
+      "changelogUrl": "https://github.com/renovatebot/renovate/releases"
+    },
+    {
+      "matchDepNames": "docker.io/cyfershepard/jellystat",
+      "changelogUrl": "https://github.com/CyferShepard/Jellystat/releases"
+    },
+    {
+      "matchDepNames": "docker.io/dxflrs/garage",
+      "changelogUrl": "https://git.deuxfleurs.fr/Deuxfleurs/garage/releases"
+    },
+    {
+      "matchDepNames": "ghcr.io/go-shiori/shiori",
+      "changelogUrl": "https://github.com/go-shiori/shiori/releases"
+    },
+    {
+      "matchDepNames": "ghcr.io/karakeep-app/karakeep",
+      "changelogUrl": "https://github.com/karakeep-app/karakeep/releases"
+    },
+    {
+      "matchDepNames": "docker.io/lukevella/rallly",
+      "changelogUrl": "https://github.com/lukevella/rallly/releases"
+    },
+    {
+      "matchDepNames": "ghcr.io/bbx0/grocy",
+      "changelogUrl": "https://github.com/grocy/grocy/releases"
+    },
+    {
+      "matchDepNames": "ghcr.io/wizarrrr/wizarr",
+      "changelogUrl": "https://github.com/wizarrrr/wizarr/releases"
+    },
+    {
+      "matchDepNames": "dock.mau.dev/mautrix/whatsapp",
+      "changelogUrl": "https://github.com/mautrix/whatsapp/releases"
+    },
+    {
+      "matchDepNames": "ghcr.io/foxxmd/multi-scrobbler",
+      "changelogUrl": "https://github.com/FoxxMD/multi-scrobbler/releases"
+    },
+    {
+      "matchDepNames": "ghcr.io/lumepart/explo",
+      "changelogUrl": "https://github.com/LumePart/Explo/releases"
+    },
+    {
+      "matchDepNames": "docker.io/gabehf/koito",
+      "changelogUrl": "https://github.com/gabehf/Koito/releases"
+    },
+    {
+      "matchDepNames": "docker.io/aaronleopold/stump",
+      "changelogUrl": "https://github.com/stumpapp/stump/releases"
+    },
+    {
+      "matchDepNames": "ghcr.io/matrix-construct/tuwunel",
+      "changelogUrl": "https://github.com/matrix-construct/tuwunel/releases"
+    },
+    {
+      "matchDepNames": "ghcr.io/twin/gatus",
+      "changelogUrl": "https://github.com/TwiN/gatus/releases"
+    },
+    {
+      "matchDepNames": "ghcr.io/henrygd/beszel/beszel",
+      "changelogUrl": "https://github.com/henrygd/beszel/releases/"
+    },
+    {
+      "matchDepNames": "ghcr.io/twin/gatus",
+      "changelogUrl": "https://github.com/TwiN/gatus/releases"
+    }
+  ]
 }

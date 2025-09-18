@@ -79,7 +79,6 @@ job "nextcloud" {
         volumes = [
           "local/database.config.php:/var/www/html/config/database.config.php",
           "${local.nas}/nextcloud/config/config.php:/var/www/html/config/config.php",
-          "${local.nas}/nextcloud/config/www2.conf:/usr/local/etc/php-fpm.d/www2.conf",
           "${local.nas}/nextcloud/config/nextcloud.ini:/usr/local/etc/php/conf.d/nextcloud.ini",
           "${local.nas}/nextcloud/config/redis-session.ini:/usr/local/etc/php/conf.d/redis-session.ini",
           "${local.nas}/nextcloud/webroot:/var/www/html",
