@@ -1,7 +1,8 @@
 locals {
-  strg  = "/mnt/jfs/audiobookshelf"
-  nas   = "/mnt/nas/apps"
-  image = "ghcr.io/advplyr/audiobookshelf:2.29.0"
+  strg      = "/mnt/jfs/audiobookshelf"
+  nas       = "/mnt/nas/apps"
+  image     = "ghcr.io/advplyr/audiobookshelf:2.29.0"
+  user1path = split("=", chomp(file("../stump/user1path.env")))[1]
 }
 
 job "audiobookshelf" {
@@ -46,7 +47,8 @@ job "audiobookshelf" {
         volumes = [
           "${local.strg}/db:/config",
           "${local.strg}/metadata:/metadata",
-          "${local.nas}/audiobooks:/audiobooks/kids"
+          "${local.nas}/audiobooks:/audiobooks/kids",
+          "${local.nas}/${local.user1path}:/ebooks"
         ]
       }
     }

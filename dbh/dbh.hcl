@@ -1,31 +1,27 @@
 locals {
-  strg  = "/mnt/jfs/wizarr"
-  image = "ghcr.io/wizarrrr/wizarr:v2025.9.4"
+  strg  = "/mnt/jfs/dbh"
+  image = "ghcr.io/astral-sh/uv:0.8-python3.13-alpine"
 }
 
-job "wizarr" {
-  group "wizarr" {
+job "dbh" {
+  group "dbh" {
     network {
       port "http" {
-        to           = 5690
+        to           = 8000
         host_network = "private"
       }
     }
 
-    task "wizarr" {
+    task "dbh" {
       driver = "podman"
-      # user   = "1000:1000"
-
-      resources {
-        memory_max = 1024
-      }
+      user   = "1000:1000"
 
       service {
-        name         = "wizarr"
+        name         = "dbh"
         port         = "http"
         provider     = "nomad"
         address_mode = "host"
-        tags         = ["public"]
+        tags         = ["local"]
       }
 
       template {
@@ -44,17 +40,18 @@ job "wizarr" {
         image = "${local.image}"
         ports = ["http"]
 
-        # userns = "keep-id"
+        userns = "keep-id"
 
-        entrypoint = "/local/entrypoint.sh"
+        working_dir = "/app"
+        entrypoint  = "/local/entrypoint.sh"
 
         logging = {
           driver = "journald"
         }
 
         volumes = [
-          "${local.strg}/data:/data/database",
-          "${local.strg}/cache:/data/.cache"
+          "${local.strg}/app:/app",
+          "${local.strg}/data:/data:ro"
         ]
       }
     }

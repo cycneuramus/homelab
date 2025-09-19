@@ -29,4 +29,9 @@ fi
 echo "[entrypoint] 🔧 Applying alembic migrations…"
 FLASK_SKIP_SCHEDULER=true uv run --frozen --no-dev flask db upgrade
 
-exec "$@"
+uv run --frozen --no-dev \
+	gunicorn \
+	--config gunicorn.conf.py \
+	--bind 0.0.0.0:5690 \
+	--umask 007 \
+	run:app
