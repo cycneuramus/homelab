@@ -19,6 +19,7 @@ job "home-assistant" {
 
     task "home-assistant" {
       driver = "podman"
+      # user   = "1000:1000"
 
       resources {
         memory_max = 1024
@@ -37,16 +38,17 @@ job "home-assistant" {
       }
 
       config {
-        image  = "${local.image}"
-        ports  = ["http"]
-        socket = "root"
+        image = "${local.image}"
+        ports = ["http"]
+
+        # userns = "keep-id"
 
         logging = {
           driver = "journald"
         }
 
         volumes = [
-          "${local.strg}/config:/config"
+          "${local.strg}/config:/config",
         ]
 
         devices = ["/dev/serial/by-id/usb-dresden_elektronik_ingenieurtechnik_GmbH_ConBee_II_DE2139508-if00:/dev/ttyACM0"]
