@@ -1,7 +1,7 @@
 locals {
   strg  = "/mnt/jfs/jellyfin"
   media = "/mnt/nas/media"
-  image = "ghcr.io/linuxserver/jellyfin:10.10.7"
+  image = "ghcr.io/jellyfin/jellyfin:10.10.7"
 }
 
 job "jellyfin" {
@@ -15,6 +15,7 @@ job "jellyfin" {
 
     task "jellyfin" {
       driver = "podman"
+      user   = "1000:1000"
 
       resources {
         memory_max = 8192
@@ -29,11 +30,8 @@ job "jellyfin" {
       }
 
       env {
-        PUID = "1000"
-        PGID = "1000"
-        TZ   = "Europe/Stockholm"
-        # Has no effect on lsio image
-        # JELLYFIN_LOG_DIR = "/tmp/logs"
+        TZ               = "Europe/Stockholm"
+        JELLYFIN_LOG_DIR = "/tmp"
       }
 
       template {
@@ -47,21 +45,19 @@ job "jellyfin" {
         image = "${local.image}"
         ports = ["http"]
 
-        socket = "root"
+        userns = "keep-id"
 
         logging = {
           driver = "journald"
         }
 
         volumes = [
+          "${local.strg}:/config",
           "${local.media}:/mnt/cryptnas/media",
-          "${local.strg}/config:/config",
-          "local/encoding.xml:/config/encoding.xml"
+          "local/encoding.xml:/config/config/encoding.xml"
         ]
 
-        # tmpfs = ["/tmp/logs:size=1000k"]
-
-        devices = ["/dev/dri"]
+        devices = ["/dev/dri/renderD128"]
       }
     }
   }
