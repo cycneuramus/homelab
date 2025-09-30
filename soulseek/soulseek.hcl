@@ -3,6 +3,7 @@ locals {
     slskd   = "/mnt/jfs/soulseek"
     betanin = "/mnt/jfs/betanin"
     music   = "/mnt/nas/apps/navidrome/music"
+    share   = "/mnt/nas/apps/navidrome/discover/explo/Weekly-Exploration"
   }
 
   image = {
@@ -67,6 +68,7 @@ job "soulseek" {
         volumes = [
           "${local.strg.music}:/music",
           "${local.strg.slskd}:/app",
+          "${local.strg.share}:/share",
         ]
       }
     }

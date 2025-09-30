@@ -30,8 +30,11 @@ job "jellyfin" {
       }
 
       env {
-        TZ               = "Europe/Stockholm"
-        JELLYFIN_LOG_DIR = "/tmp"
+        TZ                  = "Europe/Stockholm"
+        JELLYFIN_DATA_DIR   = "/data"
+        JELLYFIN_CONFIG_DIR = "/config"
+        JELLYFIN_CACHE_DIR  = "/cache"
+        JELLYFIN_LOG_DIR    = "/tmp"
       }
 
       template {
@@ -52,9 +55,10 @@ job "jellyfin" {
         }
 
         volumes = [
-          "${local.strg}:/config",
-          "${local.media}:/mnt/cryptnas/media",
-          "local/encoding.xml:/config/config/encoding.xml"
+          "${local.strg}/config:/config",
+          "${local.strg}/data:/data",
+          "${local.media}:/media",
+          "local/encoding.xml:/config/encoding.xml"
         ]
 
         devices = ["/dev/dri/renderD128"]

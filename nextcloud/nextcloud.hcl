@@ -58,6 +58,13 @@ job "nextcloud" {
       }
 
       template {
+        data        = file("config/remoteip.conf")
+        destination = "local/remoteip.conf"
+        uid         = 1000
+        gid         = 1000
+      }
+
+      template {
         data        = file(".env-app")
         destination = ".env-app"
         env         = true
@@ -78,6 +85,7 @@ job "nextcloud" {
 
         volumes = [
           "local/database.config.php:/var/www/html/config/database.config.php",
+          "local/remoteip.conf:/etc/apache2/conf-enabled/remoteip.conf:ro",
           "${local.nas}/nextcloud/config/config.php:/var/www/html/config/config.php",
           "${local.nas}/nextcloud/config/nextcloud.ini:/usr/local/etc/php/conf.d/nextcloud.ini",
           "${local.nas}/nextcloud/config/redis-session.ini:/usr/local/etc/php/conf.d/redis-session.ini",
@@ -112,6 +120,13 @@ job "nextcloud" {
       }
 
       template {
+        data        = file("config/remoteip.conf")
+        destination = "local/remoteip.conf"
+        uid         = 1000
+        gid         = 1000
+      }
+
+      template {
         data        = file(".env-app")
         destination = ".env-app"
         env         = true
@@ -128,6 +143,7 @@ job "nextcloud" {
 
         volumes = [
           "local/database.config.php:/var/www/html/config/database.config.php",
+          "local/remoteip.conf:/etc/apache2/conf-enabled/remoteip.conf:ro",
           "${local.nas}/nextcloud/config/config.php:/var/www/html/config/config.php",
           "${local.nas}/nextcloud/webroot:/var/www/html",
           "${local.sock}:/tmp/sock",
