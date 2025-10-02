@@ -1,6 +1,6 @@
 locals {
   strg  = "/mnt/jfs/home-assistant"
-  image = "ghcr.io/home-assistant/home-assistant:2025.9"
+  image = "ghcr.io/home-assistant/home-assistant:2025.10"
 }
 
 job "home-assistant" {
