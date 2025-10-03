@@ -1,6 +1,6 @@
 ## Overview
 
-This repository contains job definitions for a homelab of self-hosted services orchestrated by [Nomad](https://nomadproject.io), leveraging containerized workloads with a focus on high availability, automation, and security. The infrastructure runs on bare-metal [Debian Stable](https://wiki.debian.org/DebianStable) and is provisioned by [ansible-hybrid-cloud](https://github.com/cycneuramus/ansible-hybrid-cloud/tree/homelab-only).
+This repository contains job definitions for a homelab of self-hosted services orchestrated by [Nomad](https://nomadproject.io), leveraging containerized workloads with a focus on high availability, automation, and security. The infrastructure runs on bare-metal [Debian Stable](https://wiki.debian.org/DebianStable) and is provisioned by [ansible-hybrid-cloud](https://github.com/cycneuramus/ansible-hybrid-cloud).
 
 ______________________________________________________________________
 
