@@ -38,6 +38,10 @@ job "tinyauth" {
         logging = {
           driver = "journald"
         }
+
+        volumes = [
+          "${local.strg}:/data"
+        ]
       }
     }
   }
