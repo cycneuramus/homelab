@@ -188,6 +188,10 @@
     {
       "matchDepNames": "ghcr.io/twin/gatus",
       "changelogUrl": "https://github.com/TwiN/gatus/releases"
+    },
+    {
+      "matchDepNames": "registry.gitlab.com/fmd-foss/fmd-server",
+      "changelogUrl": "https://gitlab.com/fmd-foss/fmd-server/-/releases"
     }
   ]
 }
