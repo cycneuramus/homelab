@@ -4,7 +4,7 @@ locals {
   user1path = split("=", chomp(file("user1path.env")))[1]
   user2path = split("=", chomp(file("user2path.env")))[1]
 
-  image = "docker.io/aaronleopold/stump:0.0.11"
+  image = "docker.io/aaronleopold/stump:0.0.12"
 }
 
 job "stump" {

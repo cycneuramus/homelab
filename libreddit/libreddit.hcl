@@ -1,5 +1,5 @@
 locals {
-  image = "quay.io/redlib/redlib@sha256:c1fcda90dca9447d4aa7e18fd3ef85cc2044c29263490159e1ae4b472d0f285c"
+  image = "quay.io/redlib/redlib@sha256:25dbb5466ebd22e58277d4aa54897899b044f02f7219ca3054784aecc0be34e1"
   # image = "git.ptr.moe/baalajimaestro/redlib@sha256:c882cf38b61063a497e494cac0f0ddeee2a9f6e09411d6b8c4afe5e46c1d0e7a"
 }
 

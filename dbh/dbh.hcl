@@ -1,6 +1,6 @@
 locals {
   strg  = "/mnt/jfs/dbh"
-  image = "ghcr.io/astral-sh/uv:0.8-python3.13-alpine"
+  image = "ghcr.io/astral-sh/uv:0.9-python3.13-alpine"
 }
 
 job "dbh" {

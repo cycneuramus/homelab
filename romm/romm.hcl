@@ -1,6 +1,6 @@
 locals {
   strg  = "/mnt/jfs/romm"
-  image = "ghcr.io/rommapp/romm:4.3.0-slim"
+  image = "ghcr.io/rommapp/romm:4.3.1-slim"
 }
 
 job "romm" {
