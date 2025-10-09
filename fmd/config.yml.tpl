@@ -1,5 +1,4 @@
 DatabaseDir: /var/lib/fmd-server/db
-WebDir: /usr/share/fmd-server/web
 UnixSocketPath: ""
 UnixSocketChmod: 432
 PortSecure: 8443
@@ -8,7 +7,7 @@ UserIdLength: 5
 MaxSavedLoc: 10
 MaxSavedPic: 10
 #enc!
-RegistrationToken: ENC[AES256_GCM,data:U0fzS+Hubm+Lv1q7/+LhgauQBsSfFGELMrIWbo9EuA==,iv:YJcwXYK2bNOROwlyNYDtbVIDkoixPialKnVqfbcKhis=,tag:s1zTVTCSxd48EgWI9jxO3w==,type:str]
+RegistrationToken: ENC[AES256_GCM,data:5r0J9QNvgCWYaxyUPdz3xpVHEQqRyhT8TrKwUit5bg==,iv:CrcZGYA4Bq7Y2c60q9wLzmT/kXu+kgnljFOT5E61P+s=,tag:0CAwsGoi0OvHUQMh9kPZbQ==,type:str]
 ServerCrt: ""
 ServerKey: ""
 sops:
@@ -16,13 +15,13 @@ sops:
         - recipient: age14nu42yf645xewsdgq03rwytpxw4pf6elmlwz9q3yundv32h8l3xqvq7hvn
           enc: |
             -----BEGIN AGE ENCRYPTED FILE-----
-            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSAvR1RyTU9RMEJkYU93bWF6
-            NFB0eGxyYk9UeUJZNC85V2Q2SnZOZkZ2T2lJCkhXRmF6OUF3M0wyTjZHaVZBWUJI
-            MFJaUm5zNTBOMGJoRUhLMW9xSjlrSzQKLS0tIC9menNpVFl6YmxOMUJ2RFV5SUUw
-            RVZja1RuTmVhRHJyL0ZHRHBLTFAzNjAKkThsG4mTKoLikDx7siketO12nqR2mGbD
-            KjqmfDR0g/Etty1L/5qzP6uAOr8qGgjsyzRKzCNr9e/KC3ppUZRE+Q==
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBDb1ZWb2hxN01nTmJOY2pG
+            bVFkZWVnWjhtMVZNUm15T09CZDB2K0Z3TTNZCllhMXRyT3RKekZaRlFwcy9SOEpj
+            UE1tbVFERnpnN2RPaUwxNWx5MW5udFUKLS0tIGNQTUR6RDVDWkUvQVBMdHVYckk0
+            dWd3cW41VUdjbGlMWllFVml4YjJ1TlkKFQB5/iQIhrxQhtD1A/DibasH9HwIBT6h
+            CDmsgti3L8+gm3Wp3Posht7i7b6rt5i3kHwzwwXU3eGq8+0UqTJ11g==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2025-05-26T08:27:44Z"
-    mac: ENC[AES256_GCM,data:TN/MImqK/MkFXYX3eAS45ykQ+wYtVxEgcS30nTwJDU5/j3mJYCblvREKcd3UhAtJw/wIKdv63I/xFe9UNJSFS1JFOTEErY1yvuqG1rIQId/tSHWdIeHqTVGO+qnpXaeawpj41r95FRri2ocRGdSvYoqjtSmbK3UDMVaxfkcuZfc=,iv:2PBxe84rmD8WiLF9r7h0g7VGkBp7+DmkBM6k1cbHFqY=,tag:45zmI+/zBCu8ODOqszl/iQ==,type:str]
+    lastmodified: "2025-10-09T07:29:32Z"
+    mac: ENC[AES256_GCM,data:Jz+Gio0hrIZoEjmMe5jfk5Nh5WtOSqqzueJgXM5OWf5ZTe+GnHISMsA5CQLh2I8Y9x28wa7OwfKmivZbUloDjYcT1QAtka3dSwLgOtrs0LA3allIglUnkA+HjMX92oSjxuAjf0CRogza1kY9l1mTJEePOSJ1UZn30lKGl4hkyNg=,iv:neAc6uyrV+6gEW26r6PODqkLiXgQLmOgM3X9hpkOpKY=,tag:iaEjM28zl9uKylhad55+sA==,type:str]
     encrypted_comment_regex: enc!
-    version: 3.10.1
+    version: 3.10.2
