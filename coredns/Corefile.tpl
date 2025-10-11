@@ -7,8 +7,7 @@ service.nomad. {
     debug
     health
     log
-    nomad {
-        zone service.nomad
+    nomad service.nomad {
         address http://{{ env "attr.unique.network.ip-address" }}:4646
         ttl 30
     }

@@ -1,5 +1,6 @@
 locals {
   image = "ghcr.io/steveiliop56/tinyauth:v4.0.0"
+  strg  = "/mnt/jfs/tinyauth"
 }
 
 job "tinyauth" {
