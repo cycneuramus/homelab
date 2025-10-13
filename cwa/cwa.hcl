@@ -1,8 +1,9 @@
 locals {
   strg = "/mnt/jfs/cwa"
   image = {
-    cwa = "ghcr.io/crocodilestick/calibre-web-automated:V3.1.4"
-    dl  = "ghcr.io/calibrain/calibre-web-automated-book-downloader:0.2.2"
+    cwa          = "ghcr.io/crocodilestick/calibre-web-automated:V3.1.4"
+    dl           = "ghcr.io/calibrain/calibre-web-automated-book-downloader-extbp:0.2.2"
+    flaresolverr = "ghcr.io/flaresolverr/flaresolverr:v3.4.2"
   }
 }
 
@@ -16,6 +17,11 @@ job "cwa" {
 
       port "dl" {
         to           = 8084
+        host_network = "private"
+      }
+
+      port "flaresolverr" {
+        to           = 8191
         host_network = "private"
       }
     }
@@ -91,6 +97,28 @@ job "cwa" {
         volumes = [
           "${local.strg}/ingest:/cwa-book-ingest",
         ]
+      }
+    }
+
+    task "flaresolverr" {
+      driver = "podman"
+      # user   = "1000:1000"
+
+      service {
+        name         = "flaresolverr"
+        port         = "flaresolverr"
+        provider     = "nomad"
+        address_mode = "host"
+        tags         = ["local"]
+      }
+
+      config {
+        image = "${local.image.flaresolverr}"
+        ports = ["flaresolverr"]
+
+        logging = {
+          driver = "journald"
+        }
       }
     }
   }
