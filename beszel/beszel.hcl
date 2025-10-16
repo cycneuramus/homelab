@@ -2,8 +2,8 @@ locals {
   strg = "/mnt/jfs/beszel"
 
   image = {
-    hub   = "ghcr.io/henrygd/beszel/beszel:0.13.1"
-    agent = "ghcr.io/henrygd/beszel/beszel-agent:0.13.1"
+    hub   = "ghcr.io/henrygd/beszel/beszel:0.13.2"
+    agent = "ghcr.io/henrygd/beszel/beszel-agent:0.13.2"
   }
 }
 

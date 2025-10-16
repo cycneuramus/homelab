@@ -1,6 +1,6 @@
 locals {
   image = "quay.io/redlib/redlib@sha256:25dbb5466ebd22e58277d4aa54897899b044f02f7219ca3054784aecc0be34e1"
-  # image = "git.ptr.moe/baalajimaestro/redlib@sha256:c882cf38b61063a497e494cac0f0ddeee2a9f6e09411d6b8c4afe5e46c1d0e7a"
+  # image = "git.ptr.moe/baalajimaestro/redlib@sha256:d8edab5278fecee7c50018eaf84f7dac6cb7e3c635a82f1c359011cd355a06b7"
 }
 
 job "libreddit" {
