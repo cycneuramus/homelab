@@ -123,6 +123,7 @@ oom() {
 		file_stat=$(stat -c '%w' ~/oom)
 		file_create_time=$(date -d "$file_stat" '+%H:%M:%S')
 		push "A container was OOM killed at $file_create_time"
+		rm ~/oom
 	fi
 }
 
