@@ -1,7 +1,7 @@
 locals {
   strg  = "/mnt/jfs/jellyfin"
   media = "/mnt/nas/media"
-  image = "ghcr.io/jellyfin/jellyfin:10.10.7"
+  image = "ghcr.io/jellyfin/jellyfin:10.11.0"
 }
 
 job "jellyfin" {

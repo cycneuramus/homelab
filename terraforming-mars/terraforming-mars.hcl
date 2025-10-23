@@ -1,5 +1,5 @@
 locals {
-  image = "docker.io/andrewsav/terraforming-mars@sha256:375b836d58172427120077cdcdbbd1a747b2bed7b266ad584aad1e6c17acbd75"
+  image = "docker.io/andrewsav/terraforming-mars@sha256:aed51036b4969f64a18045c54d73983c391818043cc345aacbc92fffba234d7b"
 }
 
 job "terraforming-mars" {
