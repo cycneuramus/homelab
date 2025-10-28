@@ -4,6 +4,7 @@ locals {
     betanin = "/mnt/jfs/betanin"
     music   = "/mnt/nas/apps/navidrome/music"
     share   = "/mnt/nas/apps/navidrome/discover/explo/Weekly-Exploration"
+    dl      = "..${NOMAD_ALLOC_DIR}/data"
   }
 
   image = {
@@ -67,7 +68,8 @@ job "soulseek" {
 
         volumes = [
           "${local.strg.music}:/music",
-          "${local.strg.slskd}:/app",
+          "${local.strg.slskd}/data:/app/data",
+          "${local.strg.dl}:/app/downloads",
           "${local.strg.share}:/share",
         ]
       }
@@ -101,7 +103,7 @@ job "soulseek" {
           "${local.strg.betanin}/data:/b/.local/share/betanin",
           "${local.strg.betanin}/config:/b/.config/betanin",
           "${local.strg.betanin}/beets:/b/.config/beets",
-          "${local.strg.slskd}/downloads:/downloads",
+          "${local.strg.dl}:/downloads",
           "${local.strg.music}:/music",
         ]
       }

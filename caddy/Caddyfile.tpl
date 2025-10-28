@@ -281,6 +281,16 @@
     }
 }
 
+(pizza-quirks) {
+    @pizza expression `{labels.2} == "pizza"`
+    handle @pizza {
+        file_server {
+            fs s3-fs
+            root pizza
+        }
+    }
+}
+
 (stfn-quirks) {
     @stfn expression `{labels.2} == "stfn"`
     handle @stfn {
@@ -316,6 +326,7 @@
 
         nomad quirk local
         s3 quirk local
+        pizza quirk public
         stfn quirk public
 
         default unknown local
@@ -336,6 +347,7 @@
     import nextcloud-quirks
     import nomad-quirks
     import s3-quirks
+    import pizza-quirks
     import stfn-quirks
 
     import dynamic_srv {upstream}
