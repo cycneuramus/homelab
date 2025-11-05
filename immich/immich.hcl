@@ -89,7 +89,7 @@ job "immich" {
           "${local.nas}/immich/library:/data/library",
           "${local.nas}/immich/backups:/data/backups",
           "${local.nas}/immich/encoded-video:/data/encoded-video",
-          "${local.nas}/nextcloud/webroot/data/antsva/files/Bilder:/libraries/user-1:ro",
+          "${local.nas}/opencloud/storage/users/users/8bdc36f1-6829-443a-bd0e-eb9cfef018a4/Bilder:/libraries/user-1:ro",
           "${local.nas}/gollery:/libraries/user-3:ro",
         ]
       }

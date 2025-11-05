@@ -249,22 +249,23 @@
 
 (nextcloud-quirks) {
     @nextcloud expression `{labels.2} == "nextcloud"`
-    route @nextcloud {
-        header Strict-Transport-Security max-age=31536000;
+    redir @nextcloud https://opencloud.{$DOMAIN}{uri}
+    # route @nextcloud {
+    #     header Strict-Transport-Security max-age=31536000;
 
-        redir /.well-known/carddav /remote.php/dav 301
-        redir /.well-known/caldav /remote.php/dav 301
+    #     redir /.well-known/carddav /remote.php/dav 301
+    #     redir /.well-known/caldav /remote.php/dav 301
 
-        handle /push/* {
-            uri strip_prefix /push
-            import dynamic_srv nextcloud-push.default.service.nomad 
-        }
+    #     handle /push/* {
+    #         uri strip_prefix /push
+    #         import dynamic_srv nextcloud-push.default.service.nomad 
+    #     }
 
-        @collabora path /hosting/discovery* /hosting/capabilities* /cool/* /browser/* /loleaflet/* /cool/adminws*
-        handle @collabora {
-            import dynamic_srv collabora.default.service.nomad
-        }
-    }
+    #     @collabora path /hosting/discovery* /hosting/capabilities* /cool/* /browser/* /loleaflet/* /cool/adminws*
+    #     handle @collabora {
+    #         import dynamic_srv collabora.default.service.nomad
+    #     }
+    # }
 }
 
 (nomad-quirks) {
