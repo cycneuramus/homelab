@@ -106,6 +106,10 @@
       "changelogUrl": "https://github.com/jellyfin/jellyfin/releases"
     },
     {
+      "matchDepNames": "ghcr.io/jellyfin/jellyfin",
+      "changelogUrl": "https://github.com/jellyfin/jellyfin/releases"
+    },
+    {
       "matchDepNames": "ghcr.io/home-assistant/home-assistant",
       "changelogUrl": "https://github.com/home-assistant/core/releases"
     },
