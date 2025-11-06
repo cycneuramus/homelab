@@ -7,7 +7,7 @@ data_dir = "/var/lib/garage/data"
 db_engine = "lmdb"
 # lmdb_map_size = "1GiB"
 
-compression_level = 3
+compression_level = 1
 
 rpc_bind_addr = "[::]:{{ env "NOMAD_PORT_rpc" }}"
 rpc_public_addr = "{{ env "NOMAD_IP_rpc" }}:{{ env "NOMAD_PORT_rpc" }}"
