@@ -183,13 +183,6 @@ job "arr" {
         env         = true
       }
 
-      template {
-        data        = file("config/bazarr-config.yaml.tpl")
-        destination = "/local/bazarr-config.yaml"
-        uid         = 1000
-        gid         = 1000
-      }
-
       config {
         image = "${local.image.bazarr}"
         ports = ["bazarr"]
@@ -199,7 +192,6 @@ job "arr" {
         }
 
         volumes = [
-          "local/bazarr-config.yaml:/config/config/config.yaml",
           "${local.strg}/bazarr:/config",
           "${local.media}:/mnt/cryptnas/media"
         ]
