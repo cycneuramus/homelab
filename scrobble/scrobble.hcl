@@ -1,7 +1,7 @@
 locals {
   strg = "/mnt/jfs/scrobble"
   image = {
-    multi-scrobbler = "ghcr.io/foxxmd/multi-scrobbler:0.10.0"
+    multi-scrobbler = "ghcr.io/foxxmd/multi-scrobbler:0.10.1"
     koito           = "docker.io/gabehf/koito:v0.0.13"
   }
 }

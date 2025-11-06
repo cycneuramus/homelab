@@ -4,7 +4,7 @@ locals {
   dl    = pathexpand("~/dl")
 
   image = {
-    sonarr   = "ghcr.io/linuxserver/sonarr:4.0.15"
+    sonarr   = "ghcr.io/linuxserver/sonarr:4.0.16"
     radarr   = "ghcr.io/linuxserver/radarr:5.28.0"
     bazarr   = "ghcr.io/linuxserver/bazarr:1.5.3"
     prowlarr = "ghcr.io/linuxserver/prowlarr:2.1.5"

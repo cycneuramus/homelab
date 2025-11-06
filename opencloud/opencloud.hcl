@@ -4,7 +4,7 @@ locals {
 
   image = {
     opencloud = "docker.io/opencloudeu/opencloud-rolling:3.7.0"
-    collabora = "docker.io/collabora/code:25.04.6.2.1"
+    collabora = "docker.io/collabora/code:25.04.7.1.1"
   }
 }
 

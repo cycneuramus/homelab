@@ -2,8 +2,8 @@ locals {
   strg = "/mnt/jfs/cwa"
   image = {
     cwa          = "ghcr.io/crocodilestick/calibre-web-automated:V3.1.4"
-    dl           = "ghcr.io/calibrain/calibre-web-automated-book-downloader-extbp:v0.2.3"
-    flaresolverr = "ghcr.io/flaresolverr/flaresolverr:v3.4.3"
+    dl           = "ghcr.io/calibrain/calibre-web-automated-book-downloader-extbp:v0.2.4"
+    flaresolverr = "ghcr.io/flaresolverr/flaresolverr:v3.4.4"
   }
 }
 
