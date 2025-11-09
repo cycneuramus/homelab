@@ -43,6 +43,7 @@ job "opencloud" {
         tags         = ["local"]
       }
 
+      # WOPI service goes here since the wopi task attaches to this task's network
       service {
         name         = "wopi"
         port         = "wopi"
@@ -70,7 +71,12 @@ job "opencloud" {
 
         volumes = [
           "${local.strg}/config:/etc/opencloud",
-          "${local.data}:/var/lib/opencloud"
+          "${local.strg}/idm:/var/lib/opencloud/idm",
+          "${local.strg}/idp:/var/lib/opencloud/idp",
+          "${local.strg}/nats:/var/lib/opencloud/nats",
+          "${local.strg}/search:/var/lib/opencloud/search",
+          "${local.data}/thumbnails:/var/lib/opencloud/thumbnails",
+          "${local.data}/storage:/var/lib/opencloud/storage"
         ]
       }
     }
@@ -90,12 +96,25 @@ job "opencloud" {
         env         = true
       }
 
+      template {
+        data        = <<-EOF
+          #!/bin/sh
+          collabora="http://${NOMAD_IP_collabora}:${NOMAD_HOST_PORT_collabora}/hosting/discovery"
+          until nc -z 127.0.0.1 9142 && curl -s "$collabora" -o /dev/null; do
+            sleep 5
+          done
+          opencloud collaboration server
+        EOF
+        destination = "/local/entrypoint.sh"
+        perms       = 755
+      }
+
       config {
         image = "${local.image.opencloud}"
 
         network_mode = "task:opencloud"
 
-        entrypoint = ["/bin/sh", "-c", "until nc -z 127.0.0.1 9142; do sleep 1; done; until nc -z $NOMAD_IP_collabora $NOMAD_HOST_PORT_collabora; do sleep 1; done; sleep 5; opencloud collaboration server"]
+        entrypoint = ["/local/entrypoint.sh"]
         userns     = "keep-id"
 
         logging = {

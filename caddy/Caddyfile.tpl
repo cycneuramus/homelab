@@ -185,7 +185,7 @@
 }
 
 (security) {
-    @security expression `!({labels.2}.matches("^(nextcloud|oc-collabora|opencloud|wopi)$"))`
+    @security expression `!({labels.2}.matches("^(nextcloud|opencloud|wopi)$"))`
     route @security {
         header {
             Permissions-Policy interest-cohort=()
