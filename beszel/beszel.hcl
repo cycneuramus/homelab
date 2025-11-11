@@ -3,7 +3,7 @@ locals {
 
   image = {
     hub   = "ghcr.io/henrygd/beszel/beszel:0.15.4"
-    agent = "ghcr.io/henrygd/beszel/beszel-agent:0.15.4"
+    agent = "ghcr.io/henrygd/beszel/beszel-agent:0.15.4-alpine"
   }
 }
 
@@ -67,7 +67,7 @@ job "beszel" {
 
     task "beszel" {
       driver = "podman"
-      user   = "1000:1000"
+      # user   = "1000:1000"
 
       template {
         data        = file("agent.env")
@@ -79,15 +79,19 @@ job "beszel" {
         image = "${local.image.agent}"
         ports = ["http"]
 
+        socket     = "root"
+        privileged = true
+
         network_mode = "host"
 
-        userns = "keep-id"
+        # userns = "keep-id"
 
         logging = {
           driver = "journald"
         }
 
         volumes = [
+          "/dev:/dev:ro",
           "/mnt/jfs/.beszel:/extra-filesystems/jfs:ro",
           "/mnt/nas/.beszel:/extra-filesystems/nas:ro",
           "/run/user/1000/podman/podman.sock:/run/user/1000/podman/podman.sock:ro"
