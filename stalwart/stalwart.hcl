@@ -40,7 +40,7 @@ job "stalwart" {
         port         = "smtp"
         provider     = "nomad"
         address_mode = "host"
-        tags         = ["private"]
+        tags         = ["private", "monitor:communication"]
       }
 
       service {
@@ -48,7 +48,7 @@ job "stalwart" {
         port         = "smtps"
         provider     = "nomad"
         address_mode = "host"
-        tags         = ["private"]
+        tags         = ["private", "monitor:communication"]
       }
 
       service {
@@ -56,7 +56,7 @@ job "stalwart" {
         port         = "imaps"
         provider     = "nomad"
         address_mode = "host"
-        tags         = ["private"]
+        tags         = ["private", "monitor:communication"]
       }
 
       service {
@@ -64,7 +64,7 @@ job "stalwart" {
         port         = "http"
         provider     = "nomad"
         address_mode = "host"
-        tags         = ["local"]
+        tags         = ["local", "monitor:communication"]
       }
 
       template {

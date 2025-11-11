@@ -32,7 +32,7 @@ job "kutt" {
         port         = "app"
         provider     = "nomad"
         address_mode = "host"
-        tags         = ["private"]
+        tags         = ["private", "monitor:proxying"]
       }
 
       template {

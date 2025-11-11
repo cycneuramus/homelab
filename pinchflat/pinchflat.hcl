@@ -25,7 +25,7 @@ job "pinchflat" {
         port         = "http"
         provider     = "nomad"
         address_mode = "host"
-        tags         = ["local"]
+        tags         = ["local", "monitor:curation"]
       }
 
       env {

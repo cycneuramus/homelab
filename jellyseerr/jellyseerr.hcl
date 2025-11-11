@@ -20,7 +20,7 @@ job "jellyseerr" {
         port         = "http"
         provider     = "nomad"
         address_mode = "host"
-        tags         = ["public"]
+        tags         = ["public", "monitor:curation"]
       }
 
       resources {

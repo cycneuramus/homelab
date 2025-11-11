@@ -34,7 +34,7 @@ job "ai" {
         port         = "api"
         provider     = "nomad"
         address_mode = "host"
-        tags         = ["local"]
+        tags         = ["local", "monitor:proxying"]
       }
 
       config {
@@ -70,7 +70,7 @@ job "ai" {
         port         = "ui"
         provider     = "nomad"
         address_mode = "host"
-        tags         = ["local"]
+        tags         = ["local", "monitor:proxying"]
       }
 
       template {

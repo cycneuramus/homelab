@@ -98,7 +98,7 @@ job "deceptifeed" {
         port         = "admin"
         provider     = "nomad"
         address_mode = "host"
-        tags         = ["local"]
+        tags         = ["local", "monitor:security"]
       }
 
       template {

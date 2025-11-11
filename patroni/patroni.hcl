@@ -30,7 +30,7 @@ job "patroni" {
         port         = "etcd-client"
         provider     = "nomad"
         address_mode = "host"
-        tags         = ["private"]
+        tags         = ["private", "monitor:databases"]
       }
 
       template {
@@ -129,7 +129,7 @@ job "patroni" {
         port         = "postgres"
         provider     = "nomad"
         address_mode = "host"
-        tags         = ["private"]
+        tags         = ["private", "monitor:databases"]
       }
 
       template {

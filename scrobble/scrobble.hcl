@@ -29,7 +29,7 @@ job "scrobble" {
         port         = "multi-scrobbler"
         provider     = "nomad"
         address_mode = "host"
-        tags         = ["local"]
+        tags         = ["local", "monitor:entertainment"]
       }
 
       template {
@@ -61,7 +61,7 @@ job "scrobble" {
         port         = "koito"
         provider     = "nomad"
         address_mode = "host"
-        tags         = ["local"]
+        tags         = ["local", "monitor:entertainment"]
       }
 
       template {

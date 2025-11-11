@@ -38,7 +38,7 @@ ______________________________________________________________________
 - **Security**:
 
   - Container isolation with rootless execution where possible
-  - Zero public exposure - all services communicate via Wireguard
+  - Zero public exposure – all services communicate via Wireguard
   - [SOPS](https://github.com/getsops/sops)-encrypted secrets with [Git integration](https://github.com/cycneuramus/git-sops)
   - Automated low-level blocking of honeypot IPs using [`deceptimeed`](https://github.com/cycneuramus/deceptimeed/)
 
@@ -48,7 +48,7 @@ ______________________________________________________________________
   - Rolling or [Blue-Green](https://developer.hashicorp.com/nomad/tutorials/job-updates/job-blue-green-and-canary-deployments) update deployments for critical services
   - Self-hosted [Renovate bot](https://docs.renovatebot.com/) creating PRs for [new container version tags](https://github.com/cycneuramus/homelab/blob/master/.github/renovate.json)
   - Regular pruning and cleanups via [Nomad periodic jobs](https://developer.hashicorp.com/nomad/docs/job-specification/periodic)
-  - Service monitoring and alerting with [Gatus](https://github.com/TwiN/gatus)
+  - Service monitoring and alerting with [Gatus](https://github.com/TwiN/gatus) – fully [automated](https://github.com/cycneuramus/homelab/blob/master/gatus/config.yml.tpl) based on Nomad service tags
 
 ______________________________________________________________________
 

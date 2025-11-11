@@ -1,8 +1,8 @@
 locals {
-  strg      = "/mnt/jfs/audiobookshelf"
-  nas       = "/mnt/nas/apps"
-  image     = "ghcr.io/advplyr/audiobookshelf:2.30.0"
-  user1path = split("=", chomp(file("../stump/user1path.env")))[1]
+  strg  = "/mnt/jfs/audiobookshelf"
+  nas   = "/mnt/nas/apps"
+  image = "ghcr.io/advplyr/audiobookshelf:2.30.0"
+  # user1path = split("=", chomp(file("../stump/user1path.env")))[1]
 }
 
 job "audiobookshelf" {
@@ -27,7 +27,7 @@ job "audiobookshelf" {
         port         = "http"
         provider     = "nomad"
         address_mode = "host"
-        tags         = ["public"]
+        tags         = ["public", "monitor:entertainment"]
       }
 
       config {
@@ -48,7 +48,7 @@ job "audiobookshelf" {
           "${local.strg}/db:/config",
           "${local.strg}/metadata:/metadata",
           "${local.nas}/audiobooks:/audiobooks/kids",
-          "${local.nas}/${local.user1path}:/ebooks"
+          # "${local.nas}/${local.user1path}:/ebooks"
         ]
       }
     }

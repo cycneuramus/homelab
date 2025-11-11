@@ -20,7 +20,7 @@ job "ntfy" {
         port         = "http"
         address_mode = "host"
         provider     = "nomad"
-        tags         = ["public"]
+        tags         = ["public", "monitor:communication"]
       }
 
       template {

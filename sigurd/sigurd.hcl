@@ -35,7 +35,7 @@ job "sigurd" {
         port         = "signal-api"
         provider     = "nomad"
         address_mode = "host"
-        tags         = ["local"]
+        tags         = ["local", "monitor:communication"]
       }
 
       env {

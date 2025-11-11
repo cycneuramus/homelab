@@ -26,7 +26,7 @@ job "jellyfin" {
         port         = "http"
         provider     = "nomad"
         address_mode = "host"
-        tags         = ["public"]
+        tags         = ["public", "monitor:entertainment"]
       }
 
       env {

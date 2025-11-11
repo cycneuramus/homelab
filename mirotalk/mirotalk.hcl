@@ -24,7 +24,7 @@ job "mirotalk" {
         port         = "http"
         provider     = "nomad"
         address_mode = "host"
-        tags         = ["public"]
+        tags         = ["public", "monitor:communication"]
       }
 
       template {

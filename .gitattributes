@@ -10,4 +10,7 @@ server.y* filter=crypt
 settings.y* filter=crypt
 stump/user* filter=crypt
 
+# overrides
+**/gatus/config.y* -filter
+
 *.tpl linguist-detectable=false

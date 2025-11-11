@@ -39,7 +39,7 @@ job "cwa" {
         port         = "cwa"
         provider     = "nomad"
         address_mode = "host"
-        tags         = ["local"]
+        tags         = ["local", "monitor:entertainment"]
       }
 
       template {
@@ -75,7 +75,7 @@ job "cwa" {
         port         = "dl"
         provider     = "nomad"
         address_mode = "host"
-        tags         = ["local"]
+        tags         = ["local", "monitor:curation"]
       }
 
       template {
@@ -113,7 +113,7 @@ job "cwa" {
         port         = "flaresolverr"
         provider     = "nomad"
         address_mode = "host"
-        tags         = ["local"]
+        tags         = ["local", "monitor:proxying"]
       }
 
       config {

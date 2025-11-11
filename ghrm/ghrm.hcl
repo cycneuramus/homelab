@@ -27,7 +27,7 @@ job "ghrm" {
         port         = "app"
         provider     = "nomad"
         address_mode = "host"
-        tags         = ["local"]
+        tags         = ["local", "monitor:monitoring"]
       }
 
       config {
