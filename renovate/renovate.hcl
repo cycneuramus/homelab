@@ -1,6 +1,6 @@
 locals {
   strg  = "/mnt/jfs/renovate"
-  image = "ghcr.io/renovatebot/renovate:41"
+  image = "ghcr.io/renovatebot/renovate:42"
 }
 
 job "renovate" {
