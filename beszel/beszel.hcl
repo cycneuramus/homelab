@@ -1,5 +1,5 @@
 locals {
-  strg = "/mnt/jfs/beszel"
+  strg = pathexpand("~/.local/share/beszel")
 
   image = {
     hub   = "ghcr.io/henrygd/beszel/beszel:0.16.0"
@@ -9,6 +9,11 @@ locals {
 
 job "beszel" {
   group "hub" {
+    constraint {
+      attribute = "${attr.unique.hostname}"
+      value     = "apex"
+    }
+
     network {
       port "http" {
         to           = 8090

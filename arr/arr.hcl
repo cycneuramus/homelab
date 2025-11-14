@@ -1,6 +1,7 @@
 locals {
   strg  = "/mnt/jfs/arr"
   media = "/mnt/nas/media"
+  logs  = "/tmp"
   dl    = pathexpand("~/dl")
 
   image = {
@@ -101,6 +102,7 @@ job "arr" {
         volumes = [
           "local/sonarr-config.xml:/config/config.xml",
           "${local.strg}/sonarr:/config",
+          "${local.logs}:/config/logs",
           "${local.dl}:/downloads",
           "${local.media}:/mnt/cryptnas/media"
         ]
@@ -156,6 +158,7 @@ job "arr" {
         volumes = [
           "local/radarr-config.xml:/config/config.xml",
           "${local.strg}/radarr:/config",
+          "${local.logs}:/config/logs",
           "${local.dl}:/downloads",
           "${local.media}:/mnt/cryptnas/media"
         ]
@@ -193,6 +196,7 @@ job "arr" {
 
         volumes = [
           "${local.strg}/bazarr:/config",
+          "${local.logs}:/config/log",
           "${local.media}:/mnt/cryptnas/media"
         ]
       }
@@ -240,6 +244,7 @@ job "arr" {
         volumes = [
           "local/prowlarr-config.xml:/config/config.xml",
           "${local.strg}/prowlarr:/config",
+          "${local.logs}:/config/logs",
         ]
       }
     }
@@ -313,6 +318,7 @@ job "arr" {
 
         volumes = [
           "${local.strg}/sabnzbd:/config",
+          "${local.logs}:/config/logs",
           "${local.dl}:/downloads",
         ]
       }
