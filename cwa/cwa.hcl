@@ -1,10 +1,6 @@
 locals {
-  strg = "/mnt/jfs/cwa"
-  image = {
-    cwa          = "ghcr.io/crocodilestick/calibre-web-automated:V3.1.4"
-    dl           = "ghcr.io/calibrain/calibre-web-automated-book-downloader-extbp:v0.2.4"
-    flaresolverr = "ghcr.io/flaresolverr/flaresolverr:v3.4.5"
-  }
+  strg  = "/mnt/jfs/cwa"
+  image = "ghcr.io/crocodilestick/calibre-web-automated:V3.1.4"
 }
 
 job "cwa" {
@@ -12,16 +8,6 @@ job "cwa" {
     network {
       port "cwa" {
         to           = 8083
-        host_network = "private"
-      }
-
-      port "dl" {
-        to           = 8084
-        host_network = "private"
-      }
-
-      port "flaresolverr" {
-        to           = 8191
         host_network = "private"
       }
     }
@@ -43,13 +29,13 @@ job "cwa" {
       }
 
       template {
-        data        = file("cwa.env")
+        data        = file(".env")
         destination = "env"
         env         = true
       }
 
       config {
-        image = "${local.image.cwa}"
+        image = "${local.image}"
         ports = ["cwa"]
 
         userns = "keep-id"
@@ -63,66 +49,6 @@ job "cwa" {
           "${local.strg}/ingest:/cwa-book-ingest",
           "${local.strg}/calibre:/calibre-library",
         ]
-      }
-    }
-
-    task "dl" {
-      driver = "podman"
-      # user   = "1000:1000"
-
-      service {
-        name         = "cwa-dl"
-        port         = "dl"
-        provider     = "nomad"
-        address_mode = "host"
-        tags         = ["local", "monitor:curation"]
-      }
-
-      template {
-        data        = file("dl.env")
-        destination = "env"
-        env         = true
-      }
-
-      config {
-        image = "${local.image.dl}"
-        ports = ["dl"]
-
-        # userns = "keep-id"
-
-        logging = {
-          driver = "journald"
-        }
-
-        volumes = [
-          "${local.strg}/ingest:/cwa-book-ingest",
-        ]
-      }
-    }
-
-    task "flaresolverr" {
-      driver = "podman"
-      # user   = "1000:1000"
-
-      resources {
-        memory_max = 1024
-      }
-
-      service {
-        name         = "flaresolverr"
-        port         = "flaresolverr"
-        provider     = "nomad"
-        address_mode = "host"
-        tags         = ["local", "monitor:proxying"]
-      }
-
-      config {
-        image = "${local.image.flaresolverr}"
-        ports = ["flaresolverr"]
-
-        logging = {
-          driver = "journald"
-        }
       }
     }
   }

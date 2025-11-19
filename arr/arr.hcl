@@ -1,7 +1,7 @@
 locals {
   strg  = "/mnt/jfs/arr"
   media = "/mnt/nas/media"
-  logs  = "/tmp"
+  logs  = "..${NOMAD_ALLOC_DIR}/data"
   dl    = pathexpand("~/dl")
 
   image = {

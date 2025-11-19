@@ -8,8 +8,8 @@ log=/logs/cron.log
 exec &> >(tee -a "$log")
 
 push() {
-	local title="$1"
-	local message="$2"
+	local title="ytdl-sub"
+	local message="$1"
 	curl \
 		-H "Authorization: Bearer $PUSH_TOKEN" \
 		-H "Title: $title" \
@@ -28,3 +28,7 @@ ytdl-sub \
 	--log-level info \
 	--config /local/config.yaml \
 	sub /local/subscriptions.yaml
+
+if ! grep -qi "No files changed" "$log"; then
+	push "New media may have been found"
+fi
