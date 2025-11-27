@@ -1,5 +1,5 @@
 locals {
-  image = "ghcr.io/twin/gatus:v5.31.0"
+  image = "ghcr.io/twin/gatus:v5.33.0"
 }
 
 job "gatus" {

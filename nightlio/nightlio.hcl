@@ -1,8 +1,8 @@
 locals {
   strg = "/mnt/jfs/nightlio"
   image = {
-    api      = "ghcr.io/shirsakm/nightlio-api:0.1.6"
-    frontend = "ghcr.io/shirsakm/nightlio-frontend:0.1.6"
+    api      = "ghcr.io/shirsakm/nightlio-api:0.1.7"
+    frontend = "ghcr.io/shirsakm/nightlio-frontend:0.1.7"
   }
 }
 
