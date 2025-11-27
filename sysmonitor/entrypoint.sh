@@ -9,7 +9,7 @@ CPU_THRESHOLD=50
 DISK_SPACE_THRESHOLD_GB=15
 NAS_SPACE_THRESHOLD_GB=5000
 TEMP_THRESHOLD=70
-HIGH_LOAD_TRIGGER_LIMIT=5
+HIGH_LOAD_TRIGGER_LIMIT=3
 
 TEMP_PATH=/sys/class/hwmon/hwmon2/temp1_input
 NEWLINE=$'\n'
@@ -102,8 +102,8 @@ mounts() {
 
 systemd() {
 	services=(
+		juicefs
 		keepalived
-		mnt-jfs
 		mnt-nas
 		nomad
 		podman

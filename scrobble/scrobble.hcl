@@ -24,6 +24,10 @@ job "scrobble" {
       driver = "podman"
       user   = "0:0"
 
+      resources {
+        memory_max = 1024
+      }
+
       service {
         name         = "multi-scrobbler"
         port         = "multi-scrobbler"

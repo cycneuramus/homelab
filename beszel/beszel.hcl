@@ -97,9 +97,10 @@ job "beszel" {
 
         volumes = [
           "/dev:/dev:ro",
+          "/var/run/dbus/system_bus_socket:/var/run/dbus/system_bus_socket:ro",
+          "/run/user/1000/podman/podman.sock:/run/user/1000/podman/podman.sock:ro",
           "/mnt/jfs/.beszel:/extra-filesystems/jfs:ro",
           "/mnt/nas/.beszel:/extra-filesystems/nas:ro",
-          "/run/user/1000/podman/podman.sock:/run/user/1000/podman/podman.sock:ro"
         ]
       }
     }
