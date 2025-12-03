@@ -129,17 +129,13 @@
         expression `{access} == "local"`
         not remote_ip {$IP_SELF}
     }
-    handle @local-only {
-        respond @local-only "Forbidden" 403 {
-            close
-        }
+    respond @local-only "Not found" 404 {
+        close
     }
 
     @unknown expression `{upstream} == "unknown"`
-    handle @unknown {
-        respond @unknown "Not found" 404 {
-            close
-        }
+    respond @unknown "Not found" 404 {
+        close
     }
 }
 
@@ -224,10 +220,8 @@
         rewrite /it {$LIBREDDIT_IT}
 
         @block path / /r/all/*
-        handle @block {
-            respond @block "Forbidden" 403 {
-                close
-            }
+        respond @block "Forbidden" 403 {
+            close
         }
     }
 }
@@ -236,14 +230,10 @@
     @matrix expression `{labels.2} == "matrix"`
     route @matrix {
         @well-known-server path /.well-known/matrix/server
-        handle @well-known-server {
-            respond `{"m.server":"matrix.{$DOMAIN}:443"}`
-        }
+        respond @well-known-server `{"m.server":"matrix.{$DOMAIN}:443"}`
 
         @well-known-client path /.well-known/matrix/client
-        handle @well-known-client {
-            respond `{"m.server":{"base_url":"https://matrix.{$DOMAIN}"},"m.homeserver":{"base_url":"https://matrix.{$DOMAIN}","org.matrix.msc3575.proxy":{"url":"https://matrix.{$DOMAIN}"}}`
-        }
+        respond @well-known-client `{"m.server":{"base_url":"https://matrix.{$DOMAIN}"},"m.homeserver":{"base_url":"https://matrix.{$DOMAIN}","org.matrix.msc3575.proxy":{"url":"https://matrix.{$DOMAIN}"}}`
     }
 }
 
