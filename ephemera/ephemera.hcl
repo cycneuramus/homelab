@@ -5,7 +5,7 @@ locals {
 
   image = {
     ephemera     = "ghcr.io/orwellianepilogue/ephemera:1.3.1"
-    flaresolverr = "ghcr.io/flaresolverr/flaresolverr:v3.4.5"
+    flaresolverr = "ghcr.io/flaresolverr/flaresolverr:v3.4.6"
   }
 }
 

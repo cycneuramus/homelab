@@ -3,8 +3,8 @@ locals {
   data = "/mnt/nas/apps/opencloud"
 
   image = {
-    opencloud = "docker.io/opencloudeu/opencloud-rolling:3.7.0"
-    collabora = "docker.io/collabora/code:25.04.7.2.1"
+    opencloud = "docker.io/opencloudeu/opencloud-rolling:4.0.0"
+    collabora = "docker.io/collabora/code:25.04.7.3.1"
   }
 }
 
