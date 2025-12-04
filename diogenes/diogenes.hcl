@@ -1,6 +1,6 @@
 locals {
   strg     = "/mnt/jfs/diogenes"
-  image    = "ghcr.io/cycneuramus/containers"
+  image    = "ghcr.io/cycneuramus/containers:diogenes"
   datapath = split("=", chomp(file("datapath.env")))[1]
 }
 
