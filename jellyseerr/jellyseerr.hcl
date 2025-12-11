@@ -27,16 +27,10 @@ job "jellyseerr" {
         memory_max = 1024
       }
 
-      env {
-        LOG_LEVEL = "info"
-        TZ        = "Europe/Stockholm"
-      }
-
       template {
-        data        = file("settings.json")
-        destination = "local/settings.json"
-        uid         = 1000
-        gid         = 1000
+        data        = file(".env")
+        destination = "env"
+        env         = true
       }
 
       config {
@@ -48,8 +42,8 @@ job "jellyseerr" {
         }
 
         volumes = [
-          "local/settings.json:/app/config/settings.json",
-          "${local.strg}/db:/app/config/db"
+          "${local.strg}/settings.json:/app/config/settings.json",
+          "${local.strg}/cache:/app/config/cache"
         ]
       }
     }
