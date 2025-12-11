@@ -196,6 +196,10 @@
     {
       "matchDepNames": "registry.gitlab.com/fmd-foss/fmd-server",
       "changelogUrl": "https://gitlab.com/fmd-foss/fmd-server/-/releases"
+    },
+    {
+      "matchDepNames": "docker.io/coredns/coredns",
+      "changelogUrl": "https://github.com/coredns/coredns/releases"
     }
   ]
 }
