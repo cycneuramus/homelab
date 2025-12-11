@@ -1,6 +1,6 @@
 locals {
   strg  = pathexpand("~/.local/share/home-assistant")
-  image = "ghcr.io/home-assistant/home-assistant:2025.11"
+  image = "ghcr.io/home-assistant/home-assistant:2025.12"
 }
 
 job "home-assistant" {

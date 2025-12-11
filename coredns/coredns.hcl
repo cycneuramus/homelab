@@ -1,5 +1,5 @@
 locals {
-  image = "docker.io/coredns/coredns:1.13.1"
+  image = "docker.io/coredns/coredns:1.13.2"
 }
 
 job "coredns" {
