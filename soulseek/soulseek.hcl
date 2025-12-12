@@ -51,7 +51,7 @@ job "soulseek" {
       }
 
       template {
-        data        = file("auto-import.sh.tpl")
+        data        = file("auto-import.sh")
         destination = "/local/auto-import.sh"
         perms       = 755
       }

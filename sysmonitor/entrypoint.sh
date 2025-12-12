@@ -107,7 +107,7 @@ systemd() {
 		mnt-nas
 		nomad
 		podman
-		ufw
+		unbound
 		unattended-upgrades
 	)
 
