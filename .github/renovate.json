@@ -200,6 +200,10 @@
     {
       "matchDepNames": "docker.io/coredns/coredns",
       "changelogUrl": "https://github.com/coredns/coredns/releases"
+    },
+    {
+      "matchDepNames": "ghcr.io/orwellianepilogue/ephemera",
+      "changelogUrl": "https://github.com/OrwellianEpilogue/ephemera/blob/main/packages/shared/CHANGELOG.md"
     }
   ]
 }
