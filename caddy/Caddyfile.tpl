@@ -120,7 +120,7 @@
     }
 
         # header_regexp User-Agent "(?i)(AI2Bot|Ai2Bot\-Dolma|aiHitBot|Amazonbot|Andibot|anthropic\-ai|Applebot|Applebot\-Extended|Awario|bedrockbot|Brightbot\ 1\.0|Bytespider|CCBot|ChatGPT\-User|Claude\-SearchBot|Claude\-User|Claude\-Web|ClaudeBot|cohere\-ai|cohere\-training\-data\-crawler|Cotoyogi|Crawlspace|Datenbank\ Crawler|Devin|Diffbot|DuckAssistBot|Echobot\ Bot|EchoboxBot|FacebookBot|facebookexternalhit|Factset_spyderbot|FirecrawlAgent|FriendlyCrawler|Gemini\-Deep\-Research|Google\-CloudVertexBot|Google\-Extended|GoogleOther|GoogleOther\-Image|GoogleOther\-Video|GPTBot|iaskspider/2\.0|ICC\-Crawler|ImagesiftBot|img2dataset|ISSCyberRiskCrawler|Kangaroo\ Bot|meta\-externalagent|Meta\-ExternalAgent|meta\-externalfetcher|Meta\-ExternalFetcher|MistralAI\-User|MistralAI\-User/1\.0|MyCentralAIScraperBot|netEstate\ Imprint\ Crawler|NovaAct|OAI\-SearchBot|omgili|omgilibot|Operator|PanguBot|Panscient|panscient\.com|Perplexity\-User|PerplexityBot|PetalBot|PhindBot|Poseidon\ Research\ Crawler|QualifiedBot|QuillBot|quillbot\.com|SBIntuitionsBot|Scrapy|SemrushBot\-OCOB|SemrushBot\-SWA|Sidetrade\ indexer\ bot|SummalyBot|Thinkbot|TikTokSpider|Timpibot|VelenPublicWebCrawler|WARDBot|Webzio\-Extended|wpbot|YandexAdditional|YandexAdditionalBot|YouBot)"
-    
+
     handle @ai-crawlers {
         abort
     }
@@ -153,6 +153,10 @@
         {{- else }}
         forward_auth localhost:1111 { {{- end }}
             uri /api/auth/caddy
+            # voidauth
+            # uri /api/authz/forward-auth
+            # copy_headers Remote-User Remote-Groups Remote-Name Remote-Email
+
         }
     }
 }
@@ -248,7 +252,7 @@
 
     #     handle /push/* {
     #         uri strip_prefix /push
-    #         import dynamic_srv nextcloud-push.default.service.nomad 
+    #         import dynamic_srv nextcloud-push.default.service.nomad
     #     }
 
     #     @collabora path /hosting/discovery* /hosting/capabilities* /cool/* /browser/* /loleaflet/* /cool/adminws*
