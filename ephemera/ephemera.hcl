@@ -4,7 +4,7 @@ locals {
   dl     = pathexpand("~/dl")
 
   image = {
-    ephemera     = "ghcr.io/orwellianepilogue/ephemera:1.4.2"
+    ephemera     = "ghcr.io/orwellianepilogue/ephemera:2.0.0"
     flaresolverr = "ghcr.io/flaresolverr/flaresolverr:v3.4.6"
   }
 }
