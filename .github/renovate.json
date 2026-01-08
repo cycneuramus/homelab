@@ -204,6 +204,10 @@
     {
       "matchDepNames": "ghcr.io/orwellianepilogue/ephemera",
       "changelogUrl": "https://github.com/OrwellianEpilogue/ephemera/blob/main/packages/shared/CHANGELOG.md"
+    },
+    {
+      "matchDepNames": "docker.io/josh5/unmanic",
+      "changelogUrl": "https://github.com/Unmanic/unmanic/releases"
     }
   ]
 }
