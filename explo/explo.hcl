@@ -4,10 +4,16 @@ locals {
 }
 
 job "explo" {
+  type = "sysbatch"
+
+  periodic {
+    crons            = ["30 06 * * 7"]
+    prohibit_overlap = true
+  }
+
   group "explo" {
     task "explo" {
       driver = "podman"
-      # user   = "1000:1000"
 
       resources {
         memory_max = 1024
@@ -21,8 +27,6 @@ job "explo" {
 
       config {
         image = "${local.image}"
-
-        # userns = "keep-id"
 
         logging = {
           driver = "journald"
