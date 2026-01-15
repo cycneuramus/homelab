@@ -1,19 +1,18 @@
 locals {
-  strg   = "/mnt/jfs/ephemera"
+  strg   = "/mnt/jfs/shelfmark"
   ingest = "/mnt/jfs/cwa/ingest"
-  dl     = pathexpand("~/dl")
 
   image = {
-    ephemera     = "ghcr.io/orwellianepilogue/ephemera:2.0.0"
+    shelfmark    = "ghcr.io/calibrain/shelfmark-lite:1.0.1"
     flaresolverr = "ghcr.io/flaresolverr/flaresolverr:v3.4.6"
   }
 }
 
-job "ephemera" {
-  group "ephemera" {
+job "shelfmark" {
+  group "shelfmark" {
     network {
-      port "ephemera" {
-        to           = 8286
+      port "shelfmark" {
+        to           = 8084
         host_network = "private"
       }
 
@@ -23,17 +22,16 @@ job "ephemera" {
       }
     }
 
-    task "ephemera" {
+    task "shelfmark" {
       driver = "podman"
-      user   = "0:0"
 
       resources {
         memory_max = 1024
       }
 
       service {
-        name         = "ephemera"
-        port         = "ephemera"
+        name         = "shelfmark"
+        port         = "shelfmark"
         provider     = "nomad"
         address_mode = "host"
         tags         = ["local", "monitor:curation"]
@@ -46,26 +44,22 @@ job "ephemera" {
       }
 
       config {
-        image = "${local.image.ephemera}"
-        ports = ["ephemera"]
-
-        userns = "keep-id"
+        image = "${local.image.shelfmark}"
+        ports = ["shelfmark"]
 
         logging = {
           driver = "journald"
         }
 
         volumes = [
-          "${local.strg}:/app/data",
-          "${local.ingest}:/app/ingest",
-          "${local.dl}:/app/downloads",
+          "${local.strg}:/config",
+          "${local.ingest}:/books",
         ]
       }
     }
 
     task "flaresolverr" {
       driver = "podman"
-      # user   = "1000:1000"
 
       resources {
         memory_max = 1024
