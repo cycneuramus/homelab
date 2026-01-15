@@ -2,8 +2,8 @@ locals {
   strg = pathexpand("~/.local/share/beszel")
 
   image = {
-    hub   = "ghcr.io/henrygd/beszel/beszel:0.17.0"
-    agent = "ghcr.io/henrygd/beszel/beszel-agent:0.17.0-alpine"
+    hub   = "ghcr.io/henrygd/beszel/beszel:0.18.2"
+    agent = "ghcr.io/henrygd/beszel/beszel-agent:0.18.2-alpine"
   }
 }
 

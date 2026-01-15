@@ -8,7 +8,7 @@ locals {
   }
 
   image = {
-    slskd   = "ghcr.io/slskd/slskd:0.24.1"
+    slskd   = "ghcr.io/slskd/slskd:0.24.2"
     betanin = "docker.io/sentriz/betanin:v0.5.6"
   }
 }

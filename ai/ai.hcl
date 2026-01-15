@@ -2,7 +2,7 @@ locals {
   strg = "/mnt/jfs/ai"
 
   image = {
-    ui  = "ghcr.io/open-webui/open-webui:0.6-slim"
+    ui  = "ghcr.io/open-webui/open-webui:0.7-slim"
     api = "docker.io/hlohaus789/g4f:0.6.4.3-slim"
   }
 }
