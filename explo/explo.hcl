@@ -4,13 +4,6 @@ locals {
 }
 
 job "explo" {
-  type = "sysbatch"
-
-  periodic {
-    crons            = ["30 06 * * 7"]
-    prohibit_overlap = true
-  }
-
   group "explo" {
     task "explo" {
       driver = "podman"
