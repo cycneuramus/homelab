@@ -1,6 +1,6 @@
 locals {
   strg  = "/mnt/jfs/deceptifeed"
-  image = "docker.io/deceptifeed/server:0.65.0"
+  image = "docker.io/deceptifeed/server:0.66.0"
 }
 
 job "deceptifeed" {
