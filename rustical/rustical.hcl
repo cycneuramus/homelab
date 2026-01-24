@@ -1,18 +1,18 @@
 locals {
-  strg  = "/mnt/jfs/radicale"
-  image = "ghcr.io/kozea/radicale:3.6.0"
+  strg  = "/mnt/jfs/rustical"
+  image = "ghcr.io/lennart-k/rustical:0.12.0"
 }
 
-job "radicale" {
-  group "radicale" {
+job "rustical" {
+  group "rustical" {
     network {
       port "http" {
-        to           = 5232
+        to           = 4000
         host_network = "private"
       }
     }
 
-    task "radicale" {
+    task "rustical" {
       driver = "podman"
       user   = "1000:1000"
 
@@ -24,19 +24,27 @@ job "radicale" {
         tags         = ["local", "monitor:collaboration"]
       }
 
+      template {
+        data        = file("config.toml")
+        destination = "/local/config.toml"
+      }
+
       config {
         image = "${local.image}"
         ports = ["http"]
 
         userns = "keep-id"
 
+        entrypoint = [
+          "rustical", "-c", "/local/config.toml"
+        ]
+
         logging = {
           driver = "journald"
         }
 
         volumes = [
-          "${local.strg}/config:/etc/radicale",
-          "${local.strg}/data:/var/lib/radicale"
+          "${local.strg}:/var/lib/rustical"
         ]
       }
     }

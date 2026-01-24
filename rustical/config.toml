@@ -1,0 +1,20 @@
+[data_store.sqlite]
+db_url = "/var/lib/rustical/db.sqlite3"
+
+[http]
+host = "0.0.0.0"
+port = 4000
+payload_limit_mb = 10
+
+[frontend]
+enabled = true
+allow_password_login = true
+
+[tracing]
+opentelemetry = false
+
+[dav_push]
+enabled = true
+
+[nextcloud_login]
+enabled = true
