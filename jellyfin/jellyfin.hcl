@@ -1,10 +1,16 @@
 locals {
-  strg  = "/mnt/jfs/jellyfin"
+  strg = pathexpand("~/cld/jellyfin") # TODO
+  # strg  = "/mnt/jfs/jellyfin"
   media = "/mnt/nas/media"
   image = "ghcr.io/jellyfin/jellyfin:10.11.6"
 }
 
 job "jellyfin" {
+  constraint { # TODO
+    attribute = "${attr.unique.hostname}"
+    value     = "apex"
+
+  }
   group "jellyfin" {
     network {
       port "http" {
