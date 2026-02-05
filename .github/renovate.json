@@ -208,6 +208,10 @@
     {
       "matchDepNames": "docker.io/josh5/unmanic",
       "changelogUrl": "https://github.com/Unmanic/unmanic/releases"
+    },
+    {
+      "matchDepNames": "docker.io/deceptifeed/server",
+      "changelogUrl": "https://github.com/r-smith/deceptifeed/releases"
     }
   ]
 }
