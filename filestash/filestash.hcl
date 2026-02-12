@@ -1,7 +1,7 @@
 locals {
   strg  = "/mnt/jfs/filestash"
   nas   = "/mnt/nas/apps"
-  image = "docker.io/machines/filestash@sha256:aad2b60df6db92487d5b4ab5bd21a160e8c9aac918453fba49bd3b402a261cb3"
+  image = "docker.io/machines/filestash@sha256:3a2f50a4da6e61410f9bb591b21c6118d75fb9ca7ea3a94430eab5502272b85c"
 }
 
 job "filestash" {

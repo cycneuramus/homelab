@@ -2,7 +2,7 @@ locals {
   strg     = "/mnt/jfs/navidrome"
   music    = "/mnt/nas/apps/navidrome/music"
   discover = "/mnt/nas/apps/navidrome/discover"
-  image    = "ghcr.io/navidrome/navidrome:0.60.0"
+  image    = "ghcr.io/navidrome/navidrome:0.60.3"
 }
 
 job "navidrome" {
