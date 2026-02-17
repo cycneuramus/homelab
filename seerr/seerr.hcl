@@ -1,10 +1,10 @@
 locals {
-  strg  = "/mnt/jfs/jellyseerr"
-  image = "docker.io/fallenbagel/jellyseerr:2.7.3"
+  strg  = "/mnt/jfs/seerr"
+  image = "ghcr.io/seerr-team/seerr:v3.0.1"
 }
 
-job "jellyseerr" {
-  group "jellyseerr" {
+job "seerr" {
+  group "seerr" {
     network {
       port "http" {
         to           = 5055
@@ -12,8 +12,9 @@ job "jellyseerr" {
       }
     }
 
-    task "jellyseerr" {
+    task "seerr" {
       driver = "podman"
+      user   = "1000:1000"
 
       service {
         name         = "jellyseerr"
@@ -37,13 +38,18 @@ job "jellyseerr" {
         image = "${local.image}"
         ports = ["http"]
 
+        userns = "keep-id"
+
         logging = {
           driver = "journald"
         }
 
         volumes = [
-          "${local.strg}/settings.json:/app/config/settings.json",
-          "${local.strg}/cache:/app/config/cache"
+          "${local.strg}:/app/config"
+        ]
+
+        tmpfs = [
+          "/app/config/logs"
         ]
       }
     }
