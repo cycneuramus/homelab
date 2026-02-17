@@ -46,10 +46,8 @@ job "navidrome" {
         volumes = [
           "${local.music}:/music",
           "${local.discover}:/discover",
-          "${local.strg}/db:/data"
+          "${local.strg}:/data"
         ]
-
-        tmpfs = ["/data/cache"]
       }
     }
   }
