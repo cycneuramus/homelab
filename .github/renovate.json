@@ -212,6 +212,10 @@
     {
       "matchDepNames": "docker.io/deceptifeed/server",
       "changelogUrl": "https://github.com/r-smith/deceptifeed/releases"
+    },
+    {
+      "matchDepNames": "ghcr.io/codewithcj/sparkyfitness-server",
+      "changelogUrl": "https://github.com/CodeWithCJ/SparkyFitness/releases"
     }
   ]
 }
