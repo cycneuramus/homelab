@@ -2,6 +2,7 @@ locals {
   strg  = "/mnt/jfs/unmanic"
   media = "/mnt/nas/media"
   image = "docker.io/josh5/unmanic:0.4.0"
+  logs  = "..${NOMAD_ALLOC_DIR}/data"
 }
 
 job "unmanic" {
@@ -21,7 +22,7 @@ job "unmanic" {
 
     task "unmanic" {
       driver = "podman"
-      user   = "0:0"
+      user   = "1000:1000"
 
       resources {
         memory_max = 8192
@@ -36,9 +37,7 @@ job "unmanic" {
       }
 
       env {
-        PUID = "1000"
-        PGID = "1000"
-        TZ   = "Europe/Stockholm"
+        TZ = "Europe/Stockholm"
       }
 
       config {
@@ -59,7 +58,7 @@ job "unmanic" {
         ]
 
         tmpfs = [
-          "/tmp/unmanic"
+          "/config/.unmanic/logs:size=50000k"
         ]
       }
     }
