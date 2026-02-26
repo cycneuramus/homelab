@@ -1,6 +1,6 @@
 locals {
   image = {
-    searx  = "docker.io/searxng/searxng@sha256:60055af6f2f1ca14b488d9c0f47a019d1dbaf15b4f6547a7194253bf2ab94744"
+    searx  = "docker.io/searxng/searxng@sha256:edf110a2816d8963949d03879c72a7e19c221b5f7bfb7952a33ae073f96ccb18"
     valkey = "docker.io/valkey/valkey:9.0-alpine"
   }
 }
