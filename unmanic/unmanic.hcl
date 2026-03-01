@@ -51,14 +51,11 @@ job "unmanic" {
         }
 
         volumes = [
+          "${local.logs}:/config/.unmanic/logs",
           "${local.strg}/data/config:/config/.unmanic/config",
           "${local.strg}/data/plugins:/config/.unmanic/plugins",
           "${local.strg}/data/userdata:/config/.unmanic/userdata",
           "${local.media}:/library"
-        ]
-
-        tmpfs = [
-          "/config/.unmanic/logs:size=50000k"
         ]
       }
     }
