@@ -157,7 +157,31 @@ sonarr
 soulseek
 unmanic
 wizarr
+{{- end -}}
+
+{{- define "nomadOnly" -}}
+gickup|10. Collaboration
+explo|12. Curation
+sigurd|06. Communication
+sysmonitor|06. Monitoring
 {{- end }}
+
+{{ range $line := executeTemplate "nomadOnly" | split "\n" -}}
+{{- if ne $line "" -}}
+{{- $parts := split "|" $line -}}
+{{- $job := index $parts 0 -}}
+{{- $group := index $parts 1 }}
+  - name: {{ $job }}
+    !!merge <<: *services
+    group: {{ $group }}
+    url: http://{{ env "attr.unique.network.ip-address" }}:4646/v1/job/{{ $job }}/summary
+    conditions:
+      - "[STATUS] == 200"
+      - "[BODY].Summary.{{ $job }}.Running >= 1"
+      - "[BODY].Summary.{{ $job }}.Failed == 0"
+      - "[BODY].Summary.{{ $job }}.Lost == 0"
+{{- end }}
+{{ end }}
 
   - name: turn
     !!merge <<: *services
