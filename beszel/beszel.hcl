@@ -30,7 +30,7 @@ job "beszel" {
         port         = "http"
         provider     = "nomad"
         address_mode = "host"
-        tags         = ["local", "monitor:monitoring"]
+        tags         = ["local"]
       }
 
       template {

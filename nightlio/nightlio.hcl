@@ -55,7 +55,7 @@ job "nightlio" {
         port         = "frontend"
         provider     = "nomad"
         address_mode = "host"
-        tags         = ["local", "monitor:personal"]
+        tags         = ["local"]
       }
 
       env {

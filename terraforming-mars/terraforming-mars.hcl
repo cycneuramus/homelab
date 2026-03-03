@@ -26,7 +26,7 @@ job "terraforming-mars" {
         port         = "http"
         provider     = "nomad"
         address_mode = "host"
-        tags         = ["public", "monitor:entertainment"]
+        tags         = ["public"]
       }
 
       env {

@@ -21,7 +21,7 @@ job "vaultwarden" {
         port         = "app"
         provider     = "nomad"
         address_mode = "host"
-        tags         = ["public", "monitor:security"]
+        tags         = ["public"]
       }
 
       template {

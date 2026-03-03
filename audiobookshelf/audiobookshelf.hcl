@@ -27,7 +27,7 @@ job "audiobookshelf" {
         port         = "http"
         provider     = "nomad"
         address_mode = "host"
-        tags         = ["public", "monitor:entertainment"]
+        tags         = ["public"]
       }
 
       config {

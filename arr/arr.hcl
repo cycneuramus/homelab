@@ -65,7 +65,7 @@ job "arr" {
         port         = "sonarr"
         address_mode = "host"
         provider     = "nomad"
-        tags         = ["local", "monitor:curation"]
+        tags         = ["local"]
       }
 
       template {
@@ -122,7 +122,7 @@ job "arr" {
         port         = "radarr"
         provider     = "nomad"
         address_mode = "host"
-        tags         = ["local", "monitor:curation"]
+        tags         = ["local"]
       }
 
       template {
@@ -177,7 +177,7 @@ job "arr" {
         port         = "bazarr"
         provider     = "nomad"
         address_mode = "host"
-        tags         = ["local", "monitor:curation"]
+        tags         = ["local"]
       }
 
       template {
@@ -215,7 +215,7 @@ job "arr" {
         port         = "prowlarr"
         provider     = "nomad"
         address_mode = "host"
-        tags         = ["local", "monitor:curation"]
+        tags         = ["local"]
       }
 
       env {
@@ -297,7 +297,7 @@ job "arr" {
         port         = "sabnzbd"
         provider     = "nomad"
         address_mode = "host"
-        tags         = ["local", "monitor:curation"]
+        tags         = ["local"]
       }
 
       env {

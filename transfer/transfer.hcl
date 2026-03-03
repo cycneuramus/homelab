@@ -21,7 +21,7 @@ job "transfer" {
         port         = "http"
         provider     = "nomad"
         address_mode = "host"
-        tags         = ["private", "monitor:collaboration"]
+        tags         = ["private"]
       }
 
       template {

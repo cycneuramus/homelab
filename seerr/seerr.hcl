@@ -21,7 +21,7 @@ job "seerr" {
         port         = "http"
         provider     = "nomad"
         address_mode = "host"
-        tags         = ["public", "monitor:curation"]
+        tags         = ["public"]
       }
 
       resources {

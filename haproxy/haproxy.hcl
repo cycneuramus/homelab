@@ -39,7 +39,7 @@ job "haproxy" {
         port         = "stats"
         provider     = "nomad"
         address_mode = "host"
-        tags         = ["local", "monitor:network"]
+        tags         = ["local"]
       }
 
       template {

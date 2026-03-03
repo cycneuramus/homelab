@@ -118,7 +118,7 @@ job "caddy" {
         port         = "admin"
         provider     = "nomad"
         address_mode = "host"
-        tags         = ["private", "monitor:network"]
+        tags         = ["private"]
       }
 
       template {

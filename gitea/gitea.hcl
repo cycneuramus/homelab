@@ -30,7 +30,7 @@ job "gitea" {
         port         = "http"
         provider     = "nomad"
         address_mode = "host"
-        tags         = ["public", "monitor:collaboration"]
+        tags         = ["public"]
       }
 
       env {

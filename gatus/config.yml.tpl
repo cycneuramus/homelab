@@ -40,34 +40,125 @@ service-endpoint: &services
       failure-threshold: 2
       success-threshold: 2
 
-{{ define "emit_category_endpoints" -}}
-{{- $category := .category -}}
-{{- $group := .group -}}
-{{- $want := printf "monitor:%s" $category -}}
-{{- $allocID := env "NOMAD_ALLOC_ID" -}}
-{{- range $svc := nomadServices -}}
-  {{- $svcName := $svc.Name -}}
-  {{- $has := false -}}
-  {{- range $tag := $svc.Tags -}}
-    {{- if eq $tag $want -}} {{- $has = true -}} {{- end -}}
-  {{- end -}}
-  {{- if $has -}}
-    {{- $up := nomadService 1 $allocID $svcName }}
-  - name: {{ $svcName }}
-    !!merge <<: *services
-    group: {{ $group }}
-    {{- if $up -}}
-    {{ range $up }}
-    url: tcp://{{ .Address }}:{{ .Port }}
-    {{ end }}
-    {{- else -}}
-    url: tcp://localhost:1111
-    {{ end }}
-  {{- end -}}
-{{- end -}}
+endpoints:
+
+{{- define "databases" -}}
+etcd
+hannes-db
+postgres-ambi
+postgres-apex
+postgres-horreum
+valkey
 {{- end -}}
 
-endpoints:
+{{- define "network" -}}
+caddy-ambi
+caddy-apex
+caddy-horreum
+coredns-ambi
+coredns-apex
+coredns-horreum
+haproxy-ambi
+haproxy-apex
+haproxy-horreum
+{{- end -}}
+
+{{- define "storage" -}}
+s3-ambi
+s3-apex
+s3-horreum
+{{- end -}}
+
+{{- define "security" -}}
+auth
+fmd
+honeypot
+oidc
+vaultwarden
+{{- end -}}
+
+{{- define "monitoring" -}}
+beszel
+ghrm
+{{- end -}}
+
+{{- define "proxying" -}}
+ai
+change
+flaresolverr
+gpt
+kutt
+libreddit
+searx
+{{- end -}}
+
+{{- define "communication" -}}
+imaps
+matrix
+meet
+ntfy
+signal-api
+signal-bridge
+smtp
+smtps
+stalwart
+whatsapp-bridge
+{{- end -}}
+
+{{- define "personal" -}}
+dbh
+diogenes
+fitness
+grocy
+hannes
+hass
+immich
+mood
+pin
+resume
+resume-backend
+rss
+timelapse
+{{- end -}}
+
+{{- define "collaboration" -}}
+collabora
+dav
+gist
+git
+ihatemoney
+opencloud
+rallly
+transfer
+wopi
+{{- end -}}
+
+{{- define "entertainment" -}}
+audiobooks
+cwa
+jellyfin
+koinsight
+koito
+multi-scrobbler
+navidrome
+roms
+tm
+{{- end -}}
+
+{{- define "curation" -}}
+bazarr
+beets
+jellyseerr
+prowlarr
+radarr
+sabnzbd
+shelfmark
+sonarr
+soulseek
+unmanic
+wizarr
+{{- end }}
+
   - name: turn
     !!merge <<: *services
     group: 08. Communication
@@ -94,14 +185,156 @@ endpoints:
     conditions:
       - "[STATUS] == 200"
 
-{{ template "emit_category_endpoints" (sprig_dict "category" "databases" "group" "02. Databases") }}
-{{ template "emit_category_endpoints" (sprig_dict "category" "network" "group" "03. Network") }}
-{{ template "emit_category_endpoints" (sprig_dict "category" "storage" "group" "04. Storage") }}
-{{ template "emit_category_endpoints" (sprig_dict "category" "security" "group" "05. Security") }}
-{{ template "emit_category_endpoints" (sprig_dict "category" "monitoring" "group" "06. Monitoring") }}
-{{ template "emit_category_endpoints" (sprig_dict "category" "proxying" "group" "07. Proxying") }}
-{{ template "emit_category_endpoints" (sprig_dict "category" "communication" "group" "08. Communication") }}
-{{ template "emit_category_endpoints" (sprig_dict "category" "personal" "group" "09. Personal") }}
-{{ template "emit_category_endpoints" (sprig_dict "category" "collaboration" "group" "10. Collaboration") }}
-{{ template "emit_category_endpoints" (sprig_dict "category" "entertainment" "group" "11. Entertainment") }}
-{{ template "emit_category_endpoints" (sprig_dict "category" "curation" "group" "12. Curation") }}
+{{ range $service := executeTemplate "databases" | split "\n" -}}
+{{- $allocID := env "NOMAD_ALLOC_ID" -}}
+{{- $upstream := nomadService 1 $allocID $service }}
+  - name: {{ $service }}
+    !!merge <<: *services
+    group: 02. Databases
+{{- if $upstream -}}
+{{- range $upstream }}
+    url: tcp://{{ .Address }}:{{ .Port }}{{ end }}
+{{- else }}
+    url: tcp://localhost:1111
+{{- end }}
+{{ end }}
+
+{{ range $service := executeTemplate "network" | split "\n" -}}
+{{- $allocID := env "NOMAD_ALLOC_ID" -}}
+{{- $upstream := nomadService 1 $allocID $service }}
+  - name: {{ $service }}
+    !!merge <<: *services
+    group: 03. Network
+{{- if $upstream -}}
+{{- range $upstream }}
+    url: tcp://{{ .Address }}:{{ .Port }}{{ end }}
+{{- else }}
+    url: tcp://localhost:1111
+{{- end }}
+{{ end }}
+
+{{ range $service := executeTemplate "storage" | split "\n" -}}
+{{- $allocID := env "NOMAD_ALLOC_ID" -}}
+{{- $upstream := nomadService 1 $allocID $service }}
+  - name: {{ $service }}
+    !!merge <<: *services
+    group: 04. Storage
+{{- if $upstream -}}
+{{- range $upstream }}
+    url: tcp://{{ .Address }}:{{ .Port }}{{ end }}
+{{- else }}
+    url: tcp://localhost:1111
+{{- end }}
+{{ end }}
+
+{{ range $service := executeTemplate "security" | split "\n" -}}
+{{- $allocID := env "NOMAD_ALLOC_ID" -}}
+{{- $upstream := nomadService 1 $allocID $service }}
+  - name: {{ $service }}
+    !!merge <<: *services
+    group: 05. Security
+{{- if $upstream -}}
+{{- range $upstream }}
+    url: tcp://{{ .Address }}:{{ .Port }}{{ end }}
+{{- else }}
+    url: tcp://localhost:1111
+{{- end }}
+{{ end }}
+
+{{ range $service := executeTemplate "monitoring" | split "\n" -}}
+{{- $allocID := env "NOMAD_ALLOC_ID" -}}
+{{- $upstream := nomadService 1 $allocID $service }}
+  - name: {{ $service }}
+    !!merge <<: *services
+    group: 06. Monitoring
+{{- if $upstream -}}
+{{- range $upstream }}
+    url: tcp://{{ .Address }}:{{ .Port }}{{ end }}
+{{- else }}
+    url: tcp://localhost:1111
+{{- end }}
+{{ end }}
+
+{{ range $service := executeTemplate "proxying" | split "\n" -}}
+{{- $allocID := env "NOMAD_ALLOC_ID" -}}
+{{- $upstream := nomadService 1 $allocID $service }}
+  - name: {{ $service }}
+    !!merge <<: *services
+    group: 07. Proxying
+{{- if $upstream -}}
+{{- range $upstream }}
+    url: tcp://{{ .Address }}:{{ .Port }}{{ end }}
+{{- else }}
+    url: tcp://localhost:1111
+{{- end }}
+{{ end }}
+
+{{ range $service := executeTemplate "communication" | split "\n" -}}
+{{- $allocID := env "NOMAD_ALLOC_ID" -}}
+{{- $upstream := nomadService 1 $allocID $service }}
+  - name: {{ $service }}
+    !!merge <<: *services
+    group: 08. Communication
+{{- if $upstream -}}
+{{- range $upstream }}
+    url: tcp://{{ .Address }}:{{ .Port }}{{ end }}
+{{- else }}
+    url: tcp://localhost:1111
+{{- end }}
+{{ end }}
+
+{{ range $service := executeTemplate "personal" | split "\n" -}}
+{{- $allocID := env "NOMAD_ALLOC_ID" -}}
+{{- $upstream := nomadService 1 $allocID $service }}
+  - name: {{ $service }}
+    !!merge <<: *services
+    group: 09. Personal
+{{- if $upstream -}}
+{{- range $upstream }}
+    url: tcp://{{ .Address }}:{{ .Port }}{{ end }}
+{{- else }}
+    url: tcp://localhost:1111
+{{- end }}
+{{ end }}
+
+{{ range $service := executeTemplate "collaboration" | split "\n" -}}
+{{- $allocID := env "NOMAD_ALLOC_ID" -}}
+{{- $upstream := nomadService 1 $allocID $service }}
+  - name: {{ $service }}
+    !!merge <<: *services
+    group: 10. Collaboration
+{{- if $upstream -}}
+{{- range $upstream }}
+    url: tcp://{{ .Address }}:{{ .Port }}{{ end }}
+{{- else }}
+    url: tcp://localhost:1111
+{{- end }}
+{{ end }}
+
+{{ range $service := executeTemplate "entertainment" | split "\n" -}}
+{{- $allocID := env "NOMAD_ALLOC_ID" -}}
+{{- $upstream := nomadService 1 $allocID $service }}
+  - name: {{ $service }}
+    !!merge <<: *services
+    group: 11. Entertainment
+{{- if $upstream -}}
+{{- range $upstream }}
+    url: tcp://{{ .Address }}:{{ .Port }}{{ end }}
+{{- else }}
+    url: tcp://localhost:1111
+{{- end }}
+{{ end }}
+
+{{ range $service := executeTemplate "curation" | split "\n" -}}
+{{- $allocID := env "NOMAD_ALLOC_ID" -}}
+{{- $upstream := nomadService 1 $allocID $service }}
+  - name: {{ $service }}
+    !!merge <<: *services
+    group: 12. Curation
+{{- if $upstream -}}
+{{- range $upstream }}
+    url: tcp://{{ .Address }}:{{ .Port }}{{ end }}
+{{- else }}
+    url: tcp://localhost:1111
+{{- end }}
+{{ end }}

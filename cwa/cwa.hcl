@@ -25,7 +25,7 @@ job "cwa" {
         port         = "cwa"
         provider     = "nomad"
         address_mode = "host"
-        tags         = ["local", "monitor:entertainment"]
+        tags         = ["local"]
       }
 
       template {

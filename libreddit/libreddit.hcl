@@ -21,7 +21,7 @@ job "libreddit" {
         port         = "http"
         provider     = "nomad"
         address_mode = "host"
-        tags         = ["local", "monitor:proxying"]
+        tags         = ["local"]
       }
 
       template {

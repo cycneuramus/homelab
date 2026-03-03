@@ -25,7 +25,7 @@ job "wizarr" {
         port         = "http"
         provider     = "nomad"
         address_mode = "host"
-        tags         = ["public", "monitor:curation"]
+        tags         = ["public"]
       }
 
       template {

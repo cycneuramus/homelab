@@ -20,7 +20,7 @@ job "opengist" {
         port         = "http"
         provider     = "nomad"
         address_mode = "host"
-        tags         = ["public", "monitor:collaboration"]
+        tags         = ["public"]
       }
 
       template {

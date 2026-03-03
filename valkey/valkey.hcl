@@ -27,7 +27,7 @@ job "valkey" {
         port         = "valkey"
         provider     = "nomad"
         address_mode = "host"
-        tags         = ["private", "monitor:databases"]
+        tags         = ["private"]
       }
 
       config {

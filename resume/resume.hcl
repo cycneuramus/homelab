@@ -39,7 +39,7 @@ job "resume" {
         port         = "frontend"
         provider     = "nomad"
         address_mode = "host"
-        tags         = ["local", "monitor:personal"]
+        tags         = ["local"]
       }
 
       template {
@@ -70,7 +70,7 @@ job "resume" {
         port         = "backend"
         provider     = "nomad"
         address_mode = "host"
-        tags         = ["local", "monitor:personal"]
+        tags         = ["local"]
       }
 
       template {

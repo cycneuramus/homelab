@@ -81,7 +81,7 @@ job "garage" {
         port         = "s3"
         provider     = "nomad"
         address_mode = "host"
-        tags         = ["private", "monitor:storage"]
+        tags         = ["private"]
       }
 
       template {

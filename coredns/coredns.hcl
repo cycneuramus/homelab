@@ -47,7 +47,7 @@ job "coredns" {
         provider     = "nomad"
         port         = "dns"
         address_mode = "host"
-        tags         = ["local", "monitor:network"]
+        tags         = ["local"]
       }
 
       template {

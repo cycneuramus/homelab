@@ -36,7 +36,7 @@ job "soulseek" {
         port         = "slskd"
         provider     = "nomad"
         address_mode = "host"
-        tags         = ["local", "monitor:curation"]
+        tags         = ["local"]
       }
 
       template {
@@ -83,7 +83,7 @@ job "soulseek" {
         port         = "betanin"
         provider     = "nomad"
         address_mode = "host"
-        tags         = ["local", "monitor:curation"]
+        tags         = ["local"]
       }
 
       env {

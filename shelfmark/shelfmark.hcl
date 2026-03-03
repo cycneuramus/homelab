@@ -34,7 +34,7 @@ job "shelfmark" {
         port         = "shelfmark"
         provider     = "nomad"
         address_mode = "host"
-        tags         = ["local", "monitor:curation"]
+        tags         = ["local"]
       }
 
       template {
@@ -70,7 +70,7 @@ job "shelfmark" {
         port         = "flaresolverr"
         provider     = "nomad"
         address_mode = "host"
-        tags         = ["local", "monitor:proxying"]
+        tags         = ["local"]
       }
 
       config {

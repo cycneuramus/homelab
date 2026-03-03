@@ -40,7 +40,7 @@ job "matrix" {
         port         = "http"
         provider     = "nomad"
         address_mode = "host"
-        tags         = ["public", "monitor:communication"]
+        tags         = ["public"]
       }
 
       template {
@@ -76,7 +76,7 @@ job "matrix" {
         port         = "signal-bridge"
         provider     = "nomad"
         address_mode = "host"
-        tags         = ["local", "monitor:communication"]
+        tags         = ["local"]
       }
 
       env {
@@ -108,7 +108,7 @@ job "matrix" {
         port         = "whatsapp-bridge"
         provider     = "nomad"
         address_mode = "host"
-        tags         = ["local", "monitor:communication"]
+        tags         = ["local"]
       }
 
       env {

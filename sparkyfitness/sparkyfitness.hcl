@@ -23,7 +23,7 @@ job "sparkyfitness" {
         port         = "http"
         provider     = "nomad"
         address_mode = "host"
-        tags         = ["local", "monitor:personal"]
+        tags         = ["local"]
       }
 
       template {

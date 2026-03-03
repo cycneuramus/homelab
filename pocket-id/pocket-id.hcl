@@ -21,7 +21,7 @@ job "pocket-id" {
         port         = "http"
         provider     = "nomad"
         address_mode = "host"
-        tags         = ["public", "monitor:security"]
+        tags         = ["public"]
       }
 
       template {

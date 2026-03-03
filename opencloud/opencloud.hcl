@@ -40,7 +40,7 @@ job "opencloud" {
         port         = "app"
         provider     = "nomad"
         address_mode = "host"
-        tags         = ["public", "monitor:collaboration"]
+        tags         = ["public"]
       }
 
       # WOPI service goes here since the wopi task attaches to this task's network
@@ -49,7 +49,7 @@ job "opencloud" {
         port         = "wopi"
         provider     = "nomad"
         address_mode = "host"
-        tags         = ["local", "monitor:collaboration"]
+        tags         = ["local"]
       }
 
       template {
@@ -139,7 +139,7 @@ job "opencloud" {
         port         = "collabora"
         provider     = "nomad"
         address_mode = "host"
-        tags         = ["public", "monitor:collaboration"]
+        tags         = ["public"]
       }
 
       template {
