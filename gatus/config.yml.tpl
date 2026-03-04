@@ -161,9 +161,9 @@ wizarr
 {{- end -}}
 
 {{- define "nomadOnly" -}}
-gickup|10. Collaboration
 explo|12. Curation
-sigurd|06. Communication
+gickup|10. Collaboration
+sigurd|08. Communication
 sysmonitor|06. Monitoring
 {{- end }}
 
