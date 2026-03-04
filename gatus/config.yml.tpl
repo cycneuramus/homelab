@@ -43,6 +43,7 @@ service-endpoint: &services
 endpoints:
 
 {{- define "databases" -}}
+books-db
 etcd
 hannes-db
 postgres-ambi
@@ -135,7 +136,7 @@ wopi
 
 {{- define "entertainment" -}}
 audiobooks
-cwa
+books
 jellyfin
 koinsight
 koito
