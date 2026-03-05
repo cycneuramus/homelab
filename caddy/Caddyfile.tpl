@@ -335,7 +335,7 @@
 
     import auth hannes
     import auth mood
-    import auth notes
+    # import auth notes
     import auth tm
 
     import libreddit-quirks

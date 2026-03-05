@@ -74,7 +74,6 @@ s3-horreum
 auth
 fmd
 honeypot
-oidc
 vaultwarden
 {{- end -}}
 
