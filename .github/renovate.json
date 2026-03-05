@@ -45,6 +45,11 @@
       "allowedVersions": "<=2.2.0"
     },
     {
+      "description": "Pin mariadb version",
+      "matchDepNames": ["ghcr.io/mariadb/mariadb"],
+      "allowedVersions": "<=11.8.3-ubi9"
+    },
+    {
       "description": "Workaround for Renovate picking up old image tag",
       "matchDepNames": ["ghcr.io/linuxserver/jellyfin"],
       "allowedVersions": "!/^2021\\./"
