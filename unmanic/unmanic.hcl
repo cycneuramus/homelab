@@ -1,8 +1,8 @@
 locals {
   strg  = "/mnt/jfs/unmanic"
   media = "/mnt/nas/media"
-  image = "docker.io/josh5/unmanic:0.4.0"
   logs  = "..${NOMAD_ALLOC_DIR}/data"
+  image = "docker.io/josh5/unmanic:0.4.0"
 }
 
 job "unmanic" {

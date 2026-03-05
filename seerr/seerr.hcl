@@ -1,5 +1,7 @@
 locals {
-  strg  = "/mnt/jfs/seerr"
+  strg = "/mnt/jfs/seerr"
+  logs = "..${NOMAD_ALLOC_DIR}/data"
+
   image = "ghcr.io/seerr-team/seerr:v3.1.0"
 }
 
@@ -45,12 +47,13 @@ job "seerr" {
         }
 
         volumes = [
-          "${local.strg}:/app/config"
+          "${local.strg}:/app/config",
+          "${local.logs}:/app/config/logs"
         ]
 
-        tmpfs = [
-          "/app/config/logs"
-        ]
+        # tmpfs = [
+        #   "/app/config/logs"
+        # ]
       }
     }
   }
