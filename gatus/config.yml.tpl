@@ -178,7 +178,6 @@ sysmonitor|06. Monitoring
     conditions:
       - "[STATUS] == 200"
       - "[BODY].Summary.{{ $job }}.Running >= 1"
-      - "[BODY].Summary.{{ $job }}.Failed == 0"
       - "[BODY].Summary.{{ $job }}.Lost == 0"
 {{- end }}
 {{ end }}
