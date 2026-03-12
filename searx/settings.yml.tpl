@@ -5,8 +5,8 @@ server:
     limiter: false
     image_proxy: true
     #enc!
-    secret_key: ENC[AES256_GCM,data:7vVWQL7HJN9vhN2DUBXtk45o0hZXHywR3Sg4oZQ=,iv:wM8XHXGmLD9n++mt+71qrEmG90f6kbakQwInR1XPQy0=,tag:WPPaVEk9lJ83k6OfJ8+ZBw==,type:str]
-redis:
+    secret_key: ENC[AES256_GCM,data:u3ILcRHKY6pUS5S8rVP2S7EPaoqeOhNSPX0sY4w=,iv:SNVbtd/+a+trYFxqlI3icsgeNFTvf5h79bo/ncLsQNQ=,tag:H+bR/SakMZGykkO77o9exw==,type:str]
+valkey:
     url: redis://{{ env "NOMAD_ADDR_redis" }}/0
 general:
     enable_metrics: false
@@ -44,22 +44,17 @@ engines:
     - name: qwant
       disabled: true
 sops:
-    kms: []
-    gcp_kms: []
-    azure_kv: []
-    hc_vault: []
     age:
         - recipient: age14nu42yf645xewsdgq03rwytpxw4pf6elmlwz9q3yundv32h8l3xqvq7hvn
           enc: |
             -----BEGIN AGE ENCRYPTED FILE-----
-            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSAyUVBSZDJHUHZKcm8xazAr
-            Mndzcld2ZGVmbi9PbDh6Z2ZWSVdFQ3ltN2hZClRSNzdlZnlyTis0NTY5a1BLUTdL
-            U0NoMmtLdUd0bDBneDZBTXQ3NW9Uam8KLS0tIGtKMndVbE9pb1dhNDR1Z2p1VUh2
-            ZnNZTEh3c0hJZ1Z0cy9VcENBWDFLSlEKaslgYUB/iz494n5rF99NjFsA6lVvUtKM
-            sdqhJRph7ADc9NnRZAqv717zj0jh/779RULOLlwcgfLkJNsKp9jmAQ==
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSB0VWhnVC9KTUlZcEJvL1hC
+            ZXd3SzdLVmRVYkFCb2svRENnVGhoYS9GSjFrCjFYS3VuVWRFZXhxTGdGOGQvSXhR
+            YWk2anQzeHJqVWVhQWpxdjZ5RS9EMTgKLS0tIGg3WCt2ZmNTVDdyTzZxdVlmVFdj
+            TFEyNmV4b2ZQL1ZSNnNJaWVVOU1kSE0K53LG84HwsbB4sqh1b2xiwbfHtL+lQEud
+            opb7efA5rIOOg3B/r5IooSCuMC/h07kyfmxmXXMPDPlm59qrcsVTeQ==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2025-01-21T11:41:46Z"
-    mac: ENC[AES256_GCM,data:1ooOM8r/uMuy4KyL2YZNIUphtRyIs/7YBSfyeg+mRMACI2oVzPf+V4AZfOilIuulfpshTgIgs2VkJqa0G/kdy7n/A+BBfJzq+lJzecqBiltDmSjM7qsCney3kX+Rg0OyRkdl1TvND83AUT/Lj7Q/zlN0vDWCFC4i440QRw+NLUE=,iv:9jvVMmdObr45fQFk7GkagD2n1fA9nhfAtyFQ/QB7NmE=,tag:e8+n/W9POrIC0m3nAbD4gg==,type:str]
-    pgp: []
+    lastmodified: "2026-03-12T09:44:54Z"
+    mac: ENC[AES256_GCM,data:OPR/tmnP6xyn6y/n4dePoxGmm8ObWpiHT0Lo2KrMaEdCYFR26iM2gdJ3jNHp1M3aQM4N2aVDJ1ZWCn5Mw/66BR/uULHh4s0TkDLYXewfVpdX+YSzPbiocEpNtBFS8DyS1E0TPc/5T3XlNuqZi733q+xSlSg5rnYruzHQ/2XxxiI=,iv:QO1R3cKJKpHc2Tk0luMXn+J0xzkw/L9nsolELU1cDxc=,tag:RTi5YFft1/Vt1XsraHpUAg==,type:str]
     encrypted_comment_regex: enc!
-    version: 3.9.3
+    version: 3.10.2
