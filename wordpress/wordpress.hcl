@@ -3,7 +3,7 @@ locals {
 
   image = {
     mariadb   = "ghcr.io/mariadb/mariadb:11.8.3-ubi9"
-    wordpress = "docker.io/wordpress:6.9.1-php8.3-apache"
+    wordpress = "docker.io/wordpress:6.9.4-php8.3-apache"
   }
 }
 

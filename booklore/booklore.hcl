@@ -1,7 +1,7 @@
 locals {
   strg = "/mnt/jfs/booklore"
   image = {
-    booklore = "ghcr.io/booklore-app/booklore:v2.0.5"
+    booklore = "ghcr.io/booklore-app/booklore:v2.2.0"
     mariadb  = "ghcr.io/mariadb/mariadb:11.8.3-ubi9"
   }
 }
