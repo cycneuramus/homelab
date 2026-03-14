@@ -89,7 +89,7 @@ flaresolverr
 gpt
 kutt
 libreddit
-searx
+search
 {{- end -}}
 
 {{- define "communication" -}}
