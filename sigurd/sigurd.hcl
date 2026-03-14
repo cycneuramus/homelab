@@ -3,7 +3,7 @@ locals {
 
   image = {
     sigurd     = "ghcr.io/cycneuramus/containers:sigurd"
-    signal-api = "docker.io/bbernhard/signal-cli-rest-api:0.98"
+    signal-api = "docker.io/bbernhard/signal-cli-rest-api:0.97"
   }
 }
 
@@ -24,7 +24,6 @@ job "sigurd" {
 
     task "signal-api" {
       driver = "podman"
-      user   = "0:0"
 
       resources {
         cpu = 1024
@@ -38,13 +37,10 @@ job "sigurd" {
         tags         = ["local"]
       }
 
-      env {
-        MODE                        = "json-rpc"
-        SIGNAL_CLI_CONFIG_DIR       = "/signal-cli"
-        SIGNAL_CLI_GID              = "1000"
-        SIGNAL_CLI_UID              = "1000"
-        JSON_RPC_IGNORE_ATTACHMENTS = true
-        JSON_RPC_IGNORE_STORIES     = true
+      template {
+        data        = file("signal-api.env")
+        destination = "env"
+        env         = true
       }
 
       template {
@@ -58,8 +54,6 @@ job "sigurd" {
         ports = ["signal-api"]
 
         cpu_hard_limit = true
-
-        userns = "keep-id"
 
         entrypoint = [
           "/local/entrypoint.sh"
@@ -86,7 +80,7 @@ job "sigurd" {
       }
 
       template {
-        data        = file(".env")
+        data        = file("app.env")
         destination = "env"
         env         = true
       }
@@ -114,7 +108,7 @@ job "sigurd" {
       user   = "1000:1000"
 
       template {
-        data        = file(".env")
+        data        = file("app.env")
         destination = "env"
         env         = true
       }
