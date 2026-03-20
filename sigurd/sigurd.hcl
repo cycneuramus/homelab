@@ -24,6 +24,7 @@ job "sigurd" {
 
     task "signal-api" {
       driver = "podman"
+      user   = "0:0"
 
       resources {
         cpu = 1024
@@ -54,6 +55,8 @@ job "sigurd" {
         ports = ["signal-api"]
 
         cpu_hard_limit = true
+
+        userns = "keep-id"
 
         entrypoint = [
           "/local/entrypoint.sh"
