@@ -65,6 +65,11 @@
       "allowedVersions": "!/6.3.4/"
     },
     {
+      "description": "Ignore broken version of signal-cli-rest-api",
+      "matchDepNames": ["docker.io/bbernhard/signal-cli-rest-api"],
+      "allowedVersions": "!/0.98/"
+    },
+    {
       "description": "Disallow x.0.0 versions of Nextcloud",
       "matchDepNames": "docker.io/nextcloud",
       "allowedVersions": "/^(?:\\d+\\.[1-9]\\d*\\.\\d+(?:-.+)?|\\d+\\.0\\.[1-9]\\d*(?:-.+)?)$/",
