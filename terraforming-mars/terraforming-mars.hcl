@@ -1,5 +1,5 @@
 locals {
-  image = "docker.io/andrewsav/terraforming-mars@sha256:582de9d5bcf839f18dc0cf2481a017d9041ecf907c55e7c6e3b0cd057907c60d"
+  image = "docker.io/andrewsav/terraforming-mars@sha256:cb0ea53a5eee7bd0ec309a236739761043024ff1d56167c7a3f1368db90bb5e5"
   strg  = "..${NOMAD_ALLOC_DIR}/data"
 }
 

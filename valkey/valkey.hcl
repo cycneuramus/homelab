@@ -1,6 +1,6 @@
 locals {
   strg  = "/mnt/nas/apps/valkey"
-  image = "docker.io/valkey/valkey:9.0-alpine"
+  image = "docker.io/valkey/valkey:9.1-alpine"
 }
 
 job "valkey" {

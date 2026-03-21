@@ -3,7 +3,7 @@ locals {
 
   image = {
     gitea  = "codeberg.org/forgejo/forgejo:14.0.3-rootless"
-    valkey = "docker.io/valkey/valkey:9.0-alpine"
+    valkey = "docker.io/valkey/valkey:9.1-alpine"
   }
 }
 

@@ -1,5 +1,5 @@
 locals {
-  image = "ghcr.io/steveiliop56/tinyauth:v5.0.3"
+  image = "ghcr.io/steveiliop56/tinyauth:v5.0.4"
   strg  = "/mnt/jfs/tinyauth"
 }
 
