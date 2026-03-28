@@ -10,7 +10,7 @@ job "ytdl-sub" {
   type = "batch"
 
   periodic {
-    crons            = ["0 3 * * *"]
+    crons            = ["0 1 * * *"]
     prohibit_overlap = true
   }
 

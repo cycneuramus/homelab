@@ -3,7 +3,7 @@ locals {
   ingest = "/mnt/jfs/booklore/ingest"
 
   image = {
-    shelfmark    = "ghcr.io/calibrain/shelfmark-lite:v1.2.0"
+    shelfmark    = "ghcr.io/calibrain/shelfmark-lite:v1.2.1"
     flaresolverr = "ghcr.io/flaresolverr/flaresolverr:v3.4.6"
   }
 }

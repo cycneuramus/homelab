@@ -1,6 +1,6 @@
 locals {
   strg  = "/mnt/jfs/degoog"
-  image = "ghcr.io/fccview/degoog:0.9.0"
+  image = "ghcr.io/fccview/degoog:0.10.0"
 }
 
 job "degoog" {
@@ -14,7 +14,6 @@ job "degoog" {
 
     task "degoog" {
       driver = "podman"
-      user   = "1000:1000"
 
       service {
         name         = "search"
@@ -24,11 +23,15 @@ job "degoog" {
         tags         = ["local"]
       }
 
+      template {
+        data        = file(".env")
+        destination = "env"
+        env         = true
+      }
+
       config {
         image = "${local.image}"
         ports = ["http"]
-
-        userns = "keep-id"
 
         logging = {
           driver = "journald"
