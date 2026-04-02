@@ -2,7 +2,7 @@ locals {
   strg = pathexpand("~/cld/jellyfin") # TODO
   # strg  = "/mnt/jfs/jellyfin"
   media = "/mnt/nas/media"
-  image = "ghcr.io/jellyfin/jellyfin:10.11.6"
+  image = "ghcr.io/jellyfin/jellyfin:10.11.7"
 }
 
 job "jellyfin" {
