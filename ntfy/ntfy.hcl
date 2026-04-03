@@ -1,5 +1,5 @@
 locals {
-  image = "docker.io/binwiederhier/ntfy:v2.20.1"
+  image = "docker.io/binwiederhier/ntfy:v2.21.0"
 }
 
 job "ntfy" {
