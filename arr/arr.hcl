@@ -8,7 +8,7 @@ locals {
     sonarr   = "ghcr.io/linuxserver/sonarr:4.0.17"
     radarr   = "ghcr.io/linuxserver/radarr:6.1.1"
     bazarr   = "ghcr.io/linuxserver/bazarr:1.5.6"
-    prowlarr = "ghcr.io/linuxserver/prowlarr:2.3.0"
+    prowlarr = "ghcr.io/linuxserver/prowlarr:2.3.5"
     sabnzbd  = "ghcr.io/linuxserver/sabnzbd:4.5.5"
   }
 }
