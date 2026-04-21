@@ -70,6 +70,11 @@
       "allowedVersions": "!/0.98/"
     },
     {
+      "description": "Ignore probably unstable breaking version of stalwart",
+      "matchDepNames": ["ghcr.io/stalwartlabs/stalwart"],
+      "allowedVersions": "!/0.16.0/"
+    },
+    {
       "description": "Disallow x.0.0 versions of Nextcloud",
       "matchDepNames": "docker.io/nextcloud",
       "allowedVersions": "/^(?:\\d+\\.[1-9]\\d*\\.\\d+(?:-.+)?|\\d+\\.0\\.[1-9]\\d*(?:-.+)?)$/",
