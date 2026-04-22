@@ -155,6 +155,7 @@ sabnzbd
 shelfmark
 sonarr
 soulseek
+torrent
 unmanic
 wizarr
 {{- end -}}
