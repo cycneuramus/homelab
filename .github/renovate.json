@@ -50,6 +50,11 @@
       "allowedVersions": "<=11.8.3-ubi9"
     },
     {
+      "description": "Pin betanin version",
+      "matchDepNames": ["docker.io/sentriz/betanin"],
+      "allowedVersions": "<=0.5.6"
+    },
+    {
       "description": "Workaround for Renovate picking up old image tag",
       "matchDepNames": ["ghcr.io/linuxserver/jellyfin"],
       "allowedVersions": "!/^2021\\./"
