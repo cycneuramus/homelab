@@ -2,7 +2,7 @@ locals {
   strg = "/mnt/jfs/changedetection"
 
   image = {
-    changedetection = "ghcr.io/dgtlmoon/changedetection.io:0.54.9"
+    changedetection = "ghcr.io/dgtlmoon/changedetection.io:0.54.10"
     browser         = "docker.io/selenium/standalone-chrome-debug:3.141.59"
   }
 }
