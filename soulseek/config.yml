@@ -1,9 +1,9 @@
 remote_configuration: false
 soulseek:
     #enc!
-    username: ENC[AES256_GCM,data:TbK2gt4s1d0=,iv:fie7ITCNs1Q9G/apfAtQ/T1D526xjIASdMD+/M+QjLg=,tag:luljB+RQharWGA8n2t8MDw==,type:str]
+    username: ENC[AES256_GCM,data:sePLf7XDdXo=,iv:Q10soFLHBhwL6MqclGdjXcEZhcuD5OyCp189aAAKjYE=,tag:Gmw3G50+bM9/hYXMSnoNmA==,type:str]
     #enc!
-    password: ENC[AES256_GCM,data:NTHfNdtStBL21EWj9m33Ev3Nw26G91Hox0BWgpBlGZfAK1HEUZTgTTgRYLRvSWlcfEI=,iv:3aay1abGRJdcPZMca3lGnpJUkPEm7Ogso+xW1rB94rw=,tag:c4lL0JkfjEdQpSAp2snEFQ==,type:str]
+    password: ENC[AES256_GCM,data:sffxTVX/h5WYk1xVIC1ABwQKPuCzr4kdPk5aOc4k7Yv9cK9PUyZsLDmN1/S2MDKeQC4=,iv:pnsbhvkAcFBye6e4T2SV3z8M+v3L9jenYSK3GnQmo4E=,tag:QQZ3yAWdQ56eelt2i3nSfw==,type:str]
 shares:
     directories:
         - /share
@@ -13,13 +13,13 @@ web:
     authentication:
         disabled: false
         #enc!
-        username: ENC[AES256_GCM,data:AEZ5SiTYTVA=,iv:ZgLXchf0F2+TdWIbWnCNHLVqMegs8+53i+4jvye3VI0=,tag:+QWT3rZb3iS+aX1fSPXQdg==,type:str]
+        username: ENC[AES256_GCM,data:0P57i0GZyUQ=,iv:MCq/JebpC+aS/HbDH+5iTe8V3EfwZ8d3npzggJJmOJk=,tag:uQ8vmZMZsSv4UX+5N1XKMA==,type:str]
         #enc!
-        password: ENC[AES256_GCM,data:1ELoZy42T6TLKucxhkRXFMS60TD+CUa4WNTWSDaVLR/XlzagNRJPEr/AGanjysE3mEI=,iv:el41jY4/ZjVOnAGZF9QYx5AKjudFnSzNl8V3CoShuEU=,tag:vyIVZbK4gUAMEBBWePgzpg==,type:str]
+        password: ENC[AES256_GCM,data:hpX4Nts0lLC55FYYj1Im4M9Y+cwlut1EBz6cYNYWVxqowj/H77P1BRmAPQm1uTel1gA=,iv:dxA8Us4RSqEryl0Oq53sqEKABFOt6bVktBtZKmGtUZk=,tag:czphSduIJniJNHFzP02ggw==,type:str]
         api_keys:
             explo:
                 #enc!
-                key: ENC[AES256_GCM,data:qbErNJIy0D7BCzOT6f1jDmQ2L0BtY8tgdyGOfZfRKZUdP1+3TTgHdGwg3Q==,iv:UHZzVWczSAQsOW1BPuw9kItGvde17ZaYQspKDXKEJD4=,tag:uiu30WslwVEfsoeBIKxa+A==,type:str]
+                key: ENC[AES256_GCM,data:PMNdIo+oY56jQ+rSIvDWAIOlRVN394RpnLgDDZWspuswKs1GgVfL+kxZxw==,iv:sNRVZwVToQ7PPEmogl0/nDxJE1igy6idQPMGyBKgeeI=,tag:criANtrfRzIs8yt1Q28KEQ==,type:str]
                 cidr: 0.0.0.0/0
 retention:
     search: 60
@@ -30,7 +30,7 @@ retention:
             # 2 weeks, in minutes
             errored: 20160
             cancelled: 5
-integration:
+integrations:
     scripts:
         auto-import:
             "on":
@@ -42,13 +42,13 @@ sops:
         - recipient: age14nu42yf645xewsdgq03rwytpxw4pf6elmlwz9q3yundv32h8l3xqvq7hvn
           enc: |
             -----BEGIN AGE ENCRYPTED FILE-----
-            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBOSlJWVFZnQjRmMjJQY1Vy
-            emtZbUQyRnlvNkxva0RRMWdmdGVUWGZmSlVnCmw5b0krendzOGM4WEl6Z2owSjVl
-            SHNrZGNWYW1GcnFCYXYxakhCNTZTSW8KLS0tIGtsN2xvU1ZxLzZ4Y1ZJeTBhdGds
-            L1EyRVJZNnFPUWd5Z0pxMVd4dUllSzAKozU3TsXdLrLfwpp1rQh2ZlgGU6yDirJY
-            lWLqtH0I2PTLbbygH9oTZwIPsiHx7N48TfEHoQpHxOE63QzuiMjESg==
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBDTytmdFhHdE1xTTBVcjM4
+            Q1IyZW52Q2czd1dDd3J2bEV5YVliT01aRUhzCjhGcElUelEwYWFVSGlEWDQ5VTJR
+            YnNucnhJUzF1L3FOMmxPV0hPZ1V1eFkKLS0tIEk2ZXNONmtxbytwR0hxTlFDZmw1
+            dkhQQ3prUEUvTTkxbnJ1citGN3g5RWcK2Ch3oKPXtDtn86zle19MQNvANAVPcFH3
+            mrZRa/DhS6eUHptu2j5oHNqTQI0qjpGl/JlZ+ufAEVZnPQG5sFOa4g==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2025-12-18T10:44:51Z"
-    mac: ENC[AES256_GCM,data:x1Yq2pi4IT9tiwTmCxM05aV7FcS0QvgwXyqCYgYR76fu2lDOpLyRp/pjv3hwdFfq1XfKUkUE3hCYprLYJZTZN0FXCCYVQL1xRyx7hI2/wSc85XwpAOCJNu+dwQD8hmH8VhGnd9mUZ+Pell7iM7YmWbVAjShtWp3UEe52gTVjMZw=,iv:KC8SkBzc8npkmc8A7/1rNlR5XxCp79KW7hvoce2m6q8=,tag:5Lyp4+/WA55DYW8qnPcEOA==,type:str]
+    lastmodified: "2026-04-29T13:14:23Z"
+    mac: ENC[AES256_GCM,data:NI/U86t6dwgvdyLosgmlk/a96+C/6ci+5we6H5yO+0d/w8Cs09meL/B/i8rCS5DVJVF5Y9APMEstXty+W3bxWmm1RnC9jvQqQhPQPhn+sdtnN+jy6FY/SCMUG22aW6hswvEl2hpUWv7xpTHGd3tvGoTzSDtNaVZUMlsDuifg36o=,iv:MU9nbtKlr0OTPj+6uMpoGPUxbEezat7JMu3N4eOeab4=,tag:JJ0Oo2KudSWj92iuCkfjvg==,type:str]
     encrypted_comment_regex: enc!
     version: 3.10.2

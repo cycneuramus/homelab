@@ -237,7 +237,7 @@
         respond @well-known-server `{"m.server":"matrix.{$DOMAIN}:443"}`
 
         @well-known-client path /.well-known/matrix/client
-        respond @well-known-client `{"m.server":{"base_url":"https://matrix.{$DOMAIN}"},"m.homeserver":{"base_url":"https://matrix.{$DOMAIN}","org.matrix.msc3575.proxy":{"url":"https://matrix.{$DOMAIN}"}}`
+        respond @well-known-client `{"m.homeserver": {"base_url":"https://matrix.{$DOMAIN}"}}`
     }
 }
 
