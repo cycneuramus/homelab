@@ -75,9 +75,9 @@
       "allowedVersions": "!/0.98/"
     },
     {
-      "description": "Ignore probably unstable breaking version of stalwart",
+      "description": "Postpone huge stalwart upgrade",
       "matchDepNames": ["ghcr.io/stalwartlabs/stalwart"],
-      "allowedVersions": "!/0.16.0/"
+      "allowedVersions": "<0.16.0"
     },
     {
       "description": "Disallow x.0.0 versions of Nextcloud",
