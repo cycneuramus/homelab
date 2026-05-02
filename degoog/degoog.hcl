@@ -1,6 +1,6 @@
 locals {
   strg  = "/mnt/jfs/degoog"
-  image = "ghcr.io/fccview/degoog:0.13.1"
+  image = "ghcr.io/fccview/degoog:0.15.0"
 }
 
 job "degoog" {

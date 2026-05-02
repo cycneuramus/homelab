@@ -1,5 +1,5 @@
 locals {
-  image = "docker.io/lukevella/rallly:4.9"
+  image = "docker.io/lukevella/rallly:4.10"
 }
 
 job "rallly" {
