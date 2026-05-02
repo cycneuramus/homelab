@@ -24,6 +24,7 @@ job "shelfmark" {
 
     task "shelfmark" {
       driver = "podman"
+      user   = "1000:1000"
 
       resources {
         memory_max = 1024
