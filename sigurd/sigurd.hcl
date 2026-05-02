@@ -3,7 +3,7 @@ locals {
 
   image = {
     sigurd     = "ghcr.io/cycneuramus/containers:sigurd"
-    signal-api = "docker.io/bbernhard/signal-cli-rest-api:0.99"
+    signal-api = "docker.io/bbernhard/signal-cli-rest-api:0.99-rootless"
   }
 }
 
@@ -24,11 +24,11 @@ job "sigurd" {
 
     task "signal-api" {
       driver = "podman"
-      user   = "0:0"
+      user   = "1000:1000"
 
-      resources {
-        cpu = 1024
-      }
+      # resources {
+      #   cpu = 1024
+      # }
 
       service {
         name         = "signal-api"
@@ -54,13 +54,13 @@ job "sigurd" {
         image = "${local.image.signal-api}"
         ports = ["signal-api"]
 
-        cpu_hard_limit = true
+        # cpu_hard_limit = true
 
         userns = "keep-id"
 
-        entrypoint = [
-          "/local/entrypoint.sh"
-        ]
+        # entrypoint = [
+        #   "/local/entrypoint.sh"
+        # ]
 
         logging = {
           driver = "journald"
