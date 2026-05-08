@@ -1,6 +1,6 @@
 locals {
   strg  = "/mnt/jfs/vaultwarden"
-  image = "ghcr.io/dani-garcia/vaultwarden:1.35.8-alpine"
+  image = "ghcr.io/dani-garcia/vaultwarden:1.36.0-alpine"
 }
 
 job "vaultwarden" {
