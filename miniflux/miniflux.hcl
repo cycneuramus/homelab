@@ -1,5 +1,5 @@
 locals {
-  image = "ghcr.io/miniflux/miniflux:2.2.19"
+  image = "ghcr.io/miniflux/miniflux:2.3.0"
 }
 
 job "miniflux" {
