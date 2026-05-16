@@ -75,6 +75,11 @@
       "allowedVersions": "!/0.98/"
     },
     {
+      "description": "Ignore broken version of tuwunel",
+      "matchDepNames": ["ghcr.io/matrix-construct/tuwunel"],
+      "allowedVersions": "!/v1.6.2/"
+    },
+    {
       "description": "Postpone huge stalwart upgrade",
       "matchDepNames": ["ghcr.io/stalwartlabs/stalwart"],
       "allowedVersions": "<0.16.0"
