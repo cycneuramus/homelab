@@ -45,7 +45,6 @@ endpoints:
 {{- define "databases" -}}
 books-db
 etcd
-hannes-db
 postgres-ambi
 postgres-apex
 postgres-horreum
@@ -110,7 +109,6 @@ dbh
 diogenes
 fitness
 grocy
-hannes
 hass
 immich
 mood
