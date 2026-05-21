@@ -35,11 +35,6 @@
       "allowedVersions": "<=17"
     },
     {
-      "description": "Pin meilisearch version",
-      "matchDepNames": ["docker.io/getmeili/meilisearch"],
-      "allowedVersions": "<=1.13"
-    },
-    {
       "description": "Pin influxdb version",
       "matchDepNames": ["docker.io/influxdb"],
       "allowedVersions": "<=2.2.0"

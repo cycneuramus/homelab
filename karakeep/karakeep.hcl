@@ -1,8 +1,10 @@
 locals {
-  strg = "/mnt/jfs/karakeep"
+  strg  = "/mnt/jfs/karakeep"
+  meili = "..${NOMAD_ALLOC_DIR}/data"
+
   image = {
     karakeep    = "ghcr.io/karakeep-app/karakeep:0.32.0"
-    meilisearch = "docker.io/getmeili/meilisearch:v1.13.3"
+    meilisearch = "docker.io/getmeili/meilisearch:v1.41.0"
     chrome      = "gcr.io/zenika-hub/alpine-chrome:124"
   }
 }
@@ -87,7 +89,7 @@ job "karakeep" {
         }
 
         volumes = [
-          "${local.strg}/meilisearch:/meili_data"
+          "${local.meili}:/meili_data"
         ]
       }
     }
