@@ -1,7 +1,7 @@
 locals {
   strg  = "/mnt/jfs/audiobookshelf"
   nas   = "/mnt/nas/apps"
-  image = "ghcr.io/advplyr/audiobookshelf:2.34.0"
+  image = "ghcr.io/advplyr/audiobookshelf:2.35.0"
   # user1path = split("=", chomp(file("../stump/user1path.env")))[1]
 }
 
