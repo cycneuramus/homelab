@@ -14,7 +14,7 @@ job "tinyauth" {
 
     task "tinyauth" {
       driver = "podman"
-      user   = "1000:1000"
+      # user   = "1000:1000"
 
       service {
         name         = "auth"
@@ -34,7 +34,7 @@ job "tinyauth" {
         image = "${local.image}"
         ports = ["http"]
 
-        userns = "keep-id"
+        # userns = "keep-id"
 
         logging = {
           driver = "journald"
