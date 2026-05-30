@@ -4,7 +4,7 @@ locals {
 
   image = {
     shelfmark    = "ghcr.io/calibrain/shelfmark-lite:v1.3.0"
-    flaresolverr = "ghcr.io/flaresolverr/flaresolverr:v3.4.6"
+    flaresolverr = "ghcr.io/flaresolverr/flaresolverr:v3.5.0"
   }
 }
 
