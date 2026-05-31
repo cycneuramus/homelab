@@ -20,7 +20,7 @@ job "gameyfin" {
       user   = "0:0"
 
       resources {
-        memory_max = 1024
+        memory_max = 4096
       }
 
       service {
