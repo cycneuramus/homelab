@@ -1,6 +1,6 @@
 locals {
   strg   = "/mnt/jfs/shelfmark"
-  ingest = "/mnt/jfs/booklore/ingest"
+  ingest = "/mnt/jfs/bookorbit/data/book-dock"
 
   image = {
     shelfmark    = "ghcr.io/calibrain/shelfmark-lite:v1.3.0"

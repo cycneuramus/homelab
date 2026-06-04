@@ -43,7 +43,6 @@ service-endpoint: &services
 endpoints:
 
 {{- define "databases" -}}
-books-db
 etcd
 postgres-ambi
 postgres-apex
