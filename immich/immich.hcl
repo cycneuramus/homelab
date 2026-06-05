@@ -1,5 +1,5 @@
 locals {
-  sock = pathexpand("~/cld/immich/sock")
+  sock = "..${NOMAD_ALLOC_DIR}/data"
   nas  = "/mnt/nas/apps"
 
   image = {
@@ -43,11 +43,6 @@ job "immich" {
 
       port "machinelearning" {
         to           = 3003
-        host_network = "private"
-      }
-
-      port "redis" {
-        to           = 6379
         host_network = "private"
       }
     }
@@ -99,7 +94,7 @@ job "immich" {
       driver = "podman"
 
       resources {
-        memory_max = 8092
+        memory_max = 8192
       }
 
       template {
