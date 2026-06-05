@@ -60,6 +60,10 @@ job "scrobble" {
       driver = "podman"
       user   = "1000:1000"
 
+      resources {
+        memory_max = 1024
+      }
+
       service {
         name         = "koito"
         port         = "koito"
