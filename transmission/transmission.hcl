@@ -1,7 +1,7 @@
 locals {
   dl    = pathexpand("~/dl/torrent")
   strg  = "/mnt/jfs/transmission"
-  image = "ghcr.io/linuxserver/transmission:4.1.1"
+  image = "ghcr.io/linuxserver/transmission:4.1.2"
 }
 
 job "transmission" {

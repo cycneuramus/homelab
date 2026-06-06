@@ -1,5 +1,5 @@
 locals {
-  image = "docker.io/haproxy:3.3-alpine"
+  image = "docker.io/haproxy:3.4-alpine"
 }
 
 job "haproxy" {
