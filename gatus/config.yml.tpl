@@ -54,6 +54,7 @@ valkey
 caddy-ambi
 caddy-apex
 caddy-horreum
+caddy-redis
 coredns-ambi
 coredns-apex
 coredns-horreum
