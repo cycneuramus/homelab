@@ -48,6 +48,8 @@ job "shelfmark" {
         image = "${local.image.shelfmark}"
         ports = ["shelfmark"]
 
+        userns = "keep-id"
+
         logging = {
           driver = "journald"
         }
