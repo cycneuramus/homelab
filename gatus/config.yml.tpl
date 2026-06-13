@@ -147,6 +147,7 @@ tm
 {{- define "curation" -}}
 bazarr
 beets
+explo
 jellyseerr
 prowlarr
 radarr
@@ -160,7 +161,6 @@ wizarr
 {{- end -}}
 
 {{- define "nomadOnly" -}}
-explo|12. Curation
 gickup|10. Collaboration
 imap-idle-notify|08. Communication
 sigurd|08. Communication
