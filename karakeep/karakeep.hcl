@@ -4,7 +4,7 @@ locals {
 
   image = {
     karakeep    = "ghcr.io/karakeep-app/karakeep:0.32.0"
-    meilisearch = "docker.io/getmeili/meilisearch:v1.45.2"
+    meilisearch = "docker.io/getmeili/meilisearch:v1.46.1"
     chrome      = "gcr.io/zenika-hub/alpine-chrome:124"
   }
 }

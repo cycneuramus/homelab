@@ -3,7 +3,7 @@ locals {
   media = "/mnt/nas/media/tv/yt"
   dl    = pathexpand("~/dl/ytdl-sub")
 
-  image = "ghcr.io/jmbannon/ytdl-sub:2026.03.19"
+  image = "ghcr.io/jmbannon/ytdl-sub:2026.06.12"
 }
 
 job "ytdl-sub" {

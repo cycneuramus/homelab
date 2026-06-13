@@ -1,6 +1,6 @@
 locals {
   music = "/mnt/nas/apps/navidrome/discover/explo"
-  image = "ghcr.io/lumepart/explo:v1.0.1"
+  image = "ghcr.io/lumepart/explo:v1.1.0"
 }
 
 job "explo" {
