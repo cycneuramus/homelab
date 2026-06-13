@@ -240,6 +240,10 @@
     {
       "matchDepNames": "docker.io/haproxy",
       "changelogUrl": "https://github.com/haproxy/haproxy/blob/master/CHANGELOG"
+    },
+    {
+      "matchDepNames": "ghcr.io/bookorbit/bookorbit",
+      "changelogUrl": "https://github.com/bookorbit/bookorbit/releases"
     }
   ]
 }
