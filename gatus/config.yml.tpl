@@ -138,6 +138,7 @@ games
 jellyfin
 koinsight
 koito
+moodist
 multi-scrobbler
 navidrome
 roms
