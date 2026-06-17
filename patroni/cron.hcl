@@ -1,6 +1,5 @@
 locals {
-  strg  = pathexpand("~/.local/share/patroni")
-  nas   = "/mnt/nas/apps"
+  strg  = "/mnt/nas/apps/patroni/apex"
   image = "docker.io/postgres:17-alpine"
 }
 
@@ -57,26 +56,6 @@ job "cron-patroni" {
 
         volumes = [
           "${local.strg}:/patroni"
-        ]
-      }
-    }
-
-    task "offsite" {
-      driver = "raw_exec"
-      user   = "antsva"
-
-      lifecycle {
-        hook    = "poststop"
-        sidecar = false
-      }
-
-      config {
-        command = "rclone"
-        args = [
-          "copy",
-          "${local.strg}/backup.sql",
-          "${local.nas}/patroni/${attr.unique.hostname}",
-          "--progress"
         ]
       }
     }
