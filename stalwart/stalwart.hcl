@@ -1,6 +1,6 @@
 locals {
   strg  = "/mnt/jfs/stalwart"
-  image = "ghcr.io/stalwartlabs/stalwart:v0.15.5"
+  image = "ghcr.io/stalwartlabs/stalwart:v0.16.8"
 }
 
 job "stalwart" {
@@ -68,10 +68,9 @@ job "stalwart" {
       }
 
       template {
-        data        = file("config.toml")
-        destination = "/local/config.toml"
-        uid         = 1000
-        gid         = 1000
+        data        = file(".env")
+        destination = "env"
+        env         = true
       }
 
       config {
@@ -88,10 +87,7 @@ job "stalwart" {
           "net.ipv4.ip_unprivileged_port_start" = "25"
         }
 
-        entrypoint = ["/usr/local/bin/stalwart", "--config", "/local/config.toml"]
-
-        volumes = ["${local.strg}:/opt/stalwart"]
-        tmpfs   = ["/var/log/tracer"]
+        volumes = ["${local.strg}:/etc/stalwart"]
       }
     }
   }
