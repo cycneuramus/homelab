@@ -3,7 +3,7 @@ locals {
   music = "/mnt/nas/apps/navidrome/discover/explo"
   logs  = "..${NOMAD_ALLOC_DIR}/data"
 
-  image = "ghcr.io/lumepart/explo:v1.1.0"
+  image = "ghcr.io/lumepart/explo:v1.1.2"
 }
 
 job "explo" {
