@@ -26,7 +26,7 @@ job "rallly" {
       }
 
       service {
-        name         = "rallly"
+        name         = "polls"
         port         = "app"
         provider     = "nomad"
         address_mode = "host"

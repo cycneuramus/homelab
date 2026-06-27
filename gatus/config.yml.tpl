@@ -126,7 +126,7 @@ gist
 git
 ihatemoney
 opencloud
-rallly
+polls
 transfer
 wopi
 {{- end -}}
