@@ -1,5 +1,5 @@
 locals {
-  image = "ghcr.io/itxworks/imap-idle-notify@sha256:afe196103b50f1b1005669392b3fae9ee1df32f7cdf8e517eac87e7e0dfe9f9e"
+  image = "ghcr.io/itxworks/imap-idle-notify@sha256:0bae98e5bc9f2c701df5e17927f68dd90061d8d5b49b71aec7661107bac919a5"
 }
 
 job "imap-idle-notify" {

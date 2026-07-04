@@ -1,6 +1,6 @@
 locals {
   strg  = "/mnt/jfs/bookorbit"
-  image = "ghcr.io/bookorbit/bookorbit:1.12.0"
+  image = "ghcr.io/bookorbit/bookorbit:2.1.0"
 }
 
 job "bookorbit" {
