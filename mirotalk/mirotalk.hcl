@@ -1,5 +1,5 @@
 locals {
-  image = "docker.io/mirotalk/p2p@sha256:d4a1ba8ff1cfba101178281354250b7b5aa539862078bc3425ccfe053d1c720d"
+  image = "docker.io/mirotalk/p2p@sha256:ebd4d4009f8378ea07b345aebb59881ec5e978c1846fa3af5229ef4d0b80d04a"
 }
 
 job "mirotalk" {

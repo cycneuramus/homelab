@@ -1,6 +1,6 @@
 locals {
   strg  = "/mnt/jfs/stalwart"
-  image = "ghcr.io/stalwartlabs/stalwart:v0.16.11"
+  image = "ghcr.io/stalwartlabs/stalwart:v0.16.12"
 }
 
 job "stalwart" {

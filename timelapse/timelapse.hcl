@@ -1,6 +1,6 @@
 locals {
   strg  = "/mnt/jfs/timelapse"
-  image = "docker.io/arnaudcayrol/immich-selfie-timelapse:2.2.1"
+  image = "docker.io/arnaudcayrol/immich-selfie-timelapse:2.3.0"
 }
 
 job "timelapse" {

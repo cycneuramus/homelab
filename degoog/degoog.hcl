@@ -3,7 +3,7 @@ locals {
   sock = "..${NOMAD_ALLOC_DIR}/data"
 
   image = {
-    degoog = "ghcr.io/fccview/degoog:0.22.0"
+    degoog = "ghcr.io/fccview/degoog:0.23.0"
     valkey = "docker.io/valkey/valkey:9.1-alpine"
   }
 }
