@@ -4,7 +4,7 @@ locals {
     betanin = "/mnt/jfs/betanin"
     music   = "/mnt/nas/apps/navidrome/music"
     share   = "/mnt/nas/apps/navidrome/discover/explo"
-    dl      = "..${NOMAD_ALLOC_DIR}/data"
+    dl      = "/mnt/nas/apps/slskd/downloads"
   }
 
   image = {

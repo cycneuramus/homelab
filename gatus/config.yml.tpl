@@ -83,8 +83,8 @@ ghrm
 
 {{- define "proxying" -}}
 ai
+bypass
 change
-flaresolverr
 gpt
 kutt
 libreddit
