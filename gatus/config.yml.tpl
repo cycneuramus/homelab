@@ -134,7 +134,6 @@ wopi
 {{- define "entertainment" -}}
 audiobooks
 books
-dispatcharr
 games
 jellyfin
 koinsight
