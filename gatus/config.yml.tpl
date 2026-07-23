@@ -136,7 +136,6 @@ audiobooks
 books
 games
 jellyfin
-koinsight
 koito
 moodist
 multi-scrobbler

@@ -25,7 +25,7 @@ job "bookorbit" {
         port         = "http"
         provider     = "nomad"
         address_mode = "host"
-        tags         = ["local"]
+        tags         = ["public"]
       }
 
       template {
