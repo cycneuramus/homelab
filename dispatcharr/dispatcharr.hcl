@@ -2,7 +2,7 @@ locals {
   strg = "/mnt/jfs/dispatcharr"
 
   image = {
-    dispatcharr = "ghcr.io/dispatcharr/dispatcharr:0.27.2"
+    dispatcharr = "ghcr.io/dispatcharr/dispatcharr:0.28.2"
     valkey      = "docker.io/valkey/valkey:9.1-alpine"
   }
 }
