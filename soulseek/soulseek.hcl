@@ -29,7 +29,7 @@ job "soulseek" {
 
     task "slskd" {
       driver = "podman"
-      user   = "1000:1000"
+      # user   = "1000:1000"
 
       service {
         name         = "soulseek"
@@ -60,7 +60,7 @@ job "soulseek" {
         image = "${local.image.slskd}"
         ports = ["slskd"]
 
-        userns = "keep-id"
+        # userns = "keep-id"
 
         logging = {
           driver = "journald"
