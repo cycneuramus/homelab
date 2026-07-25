@@ -128,7 +128,6 @@ ihatemoney
 opencloud
 polls
 transfer
-wopi
 {{- end -}}
 
 {{- define "entertainment" -}}

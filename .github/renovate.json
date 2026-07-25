@@ -94,6 +94,7 @@
     },
     {
       "matchDepNames": "docker.io/collabora/code",
+      "allowedVersions": "<=26.04.2.1.1",
       "changelogUrl": "https://github.com/CollaboraOnline/richdocumentscode/releases/"
     },
     {

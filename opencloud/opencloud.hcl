@@ -4,7 +4,7 @@ locals {
 
   image = {
     opencloud = "docker.io/opencloudeu/opencloud:7.2.2"
-    collabora = "docker.io/collabora/code:26.04.2.4.1"
+    collabora = "docker.io/collabora/code:26.04.2.1.1"
   }
 }
 
@@ -13,11 +13,6 @@ job "opencloud" {
     network {
       port "app" {
         to           = 9200
-        host_network = "private"
-      }
-
-      port "wopi" {
-        to           = 9300
         host_network = "private"
       }
 
@@ -43,27 +38,32 @@ job "opencloud" {
         tags         = ["public"]
       }
 
-      # WOPI service goes here since the wopi task attaches to this task's network
-      service {
-        name         = "wopi"
-        port         = "wopi"
-        provider     = "nomad"
-        address_mode = "host"
-        tags         = ["local"]
-      }
-
       template {
         data        = file("app.env")
         destination = "env"
         env         = true
       }
 
+      template {
+        data        = <<-EOF
+          #!/bin/sh
+          collabora="http://${NOMAD_IP_collabora}:${NOMAD_HOST_PORT_collabora}/hosting/discovery"
+          until curl -s "$collabora" -o /dev/null; do
+            sleep 5
+          done
+          opencloud init || true; opencloud server
+        EOF
+        destination = "/local/entrypoint.sh"
+        perms       = 755
+      }
+
       config {
         image = "${local.image.opencloud}"
-        ports = ["app", "wopi"]
+        ports = ["app"]
 
-        entrypoint = ["/bin/sh", "-c", "opencloud init || true; opencloud server"]
-        userns     = "keep-id"
+        entrypoint = ["/local/entrypoint.sh"]
+
+        userns = "keep-id"
 
         logging = {
           driver = "journald"
@@ -77,52 +77,6 @@ job "opencloud" {
           "${local.strg}/search:/var/lib/opencloud/search",
           "${local.data}/thumbnails:/var/lib/opencloud/thumbnails",
           "${local.data}/storage:/var/lib/opencloud/storage"
-        ]
-      }
-    }
-
-    task "wopi" {
-      driver = "podman"
-      user   = "1000:1000"
-
-      lifecycle {
-        hook    = "poststart"
-        sidecar = true
-      }
-
-      template {
-        data        = file("wopi.env")
-        destination = "env"
-        env         = true
-      }
-
-      template {
-        data        = <<-EOF
-          #!/bin/sh
-          collabora="http://${NOMAD_IP_collabora}:${NOMAD_HOST_PORT_collabora}/hosting/discovery"
-          until nc -z 127.0.0.1 9142 && curl -s "$collabora" -o /dev/null; do
-            sleep 5
-          done
-          opencloud collaboration server
-        EOF
-        destination = "/local/entrypoint.sh"
-        perms       = 755
-      }
-
-      config {
-        image = "${local.image.opencloud}"
-
-        network_mode = "task:opencloud"
-
-        entrypoint = ["/local/entrypoint.sh"]
-        userns     = "keep-id"
-
-        logging = {
-          driver = "journald"
-        }
-
-        volumes = [
-          "${local.strg}/config:/etc/opencloud",
         ]
       }
     }
