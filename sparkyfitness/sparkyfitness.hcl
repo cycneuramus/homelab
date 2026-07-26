@@ -18,6 +18,10 @@ job "sparkyfitness" {
       driver = "podman"
       # user   = "1000:1000"
 
+      resources {
+        memory_max = 1024
+      }
+
       service {
         name         = "fitness"
         port         = "http"
