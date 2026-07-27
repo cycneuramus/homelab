@@ -44,10 +44,6 @@ job "rallly" {
         ports = ["app"]
 
         # userns = "keep-id"
-
-        logging = {
-          driver = "journald"
-        }
       }
     }
   }

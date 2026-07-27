@@ -40,10 +40,6 @@ job "bookorbit" {
 
         userns = "keep-id"
 
-        logging = {
-          driver = "journald"
-        }
-
         volumes = [
           "${local.strg}/books:/books",
           "${local.strg}/data:/data"

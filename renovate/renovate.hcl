@@ -61,10 +61,6 @@ job "renovate" {
         image  = "${local.image}"
         userns = "keep-id"
 
-        logging = {
-          driver = "journald"
-        }
-
         volumes = [
           "${local.strg}:/var/log/renovate"
         ]

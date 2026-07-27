@@ -48,10 +48,6 @@ job "wizarr" {
 
         entrypoint = "/local/entrypoint.sh"
 
-        logging = {
-          driver = "journald"
-        }
-
         volumes = [
           "${local.strg}/data:/data/database",
           "${local.strg}/cache:/data/.cache"

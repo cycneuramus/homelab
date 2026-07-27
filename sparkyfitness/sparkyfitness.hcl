@@ -41,10 +41,6 @@ job "sparkyfitness" {
         ports = ["http"]
 
         # userns = "keep-id"
-
-        logging = {
-          driver = "journald"
-        }
       }
     }
 
@@ -69,10 +65,6 @@ job "sparkyfitness" {
         network_mode = "task:backend"
 
         # userns = "keep-id"
-
-        logging = {
-          driver = "journald"
-        }
       }
     }
 

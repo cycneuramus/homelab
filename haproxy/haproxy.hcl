@@ -51,10 +51,6 @@ job "haproxy" {
         image = "${local.image}"
         ports = ["patroni", "valkey", "garage", "stats"]
 
-        logging = {
-          driver = "journald"
-        }
-
         entrypoint = [
           "haproxy", "-f", "/local/haproxy.cfg"
         ]

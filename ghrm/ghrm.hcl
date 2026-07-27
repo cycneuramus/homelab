@@ -36,10 +36,6 @@ job "ghrm" {
 
         userns = "keep-id"
 
-        logging = {
-          driver = "journald"
-        }
-
         volumes = [
           "${local.strg}:/app/data"
         ]

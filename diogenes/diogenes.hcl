@@ -31,10 +31,6 @@ job "diogenes" {
 
         userns = "keep-id"
 
-        logging = {
-          driver = "journald"
-        }
-
         volumes = [
           "${local.datapath}:/data",
           "${local.strg}:/home/diogenes/.diogenes"

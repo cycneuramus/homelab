@@ -58,10 +58,6 @@ job "matrix" {
 
         userns = "keep-id"
 
-        logging = {
-          driver = "journald"
-        }
-
         volumes = [
           "${local.strg}/db:/var/lib/tuwunel"
         ]
@@ -90,10 +86,6 @@ job "matrix" {
 
         # userns = "keep-id"
 
-        logging = {
-          driver = "journald"
-        }
-
         volumes = [
           "${local.strg}/bridges/signal:/data"
         ]
@@ -121,10 +113,6 @@ job "matrix" {
         ports = ["whatsapp-bridge"]
 
         # userns = "keep-id"
-
-        logging = {
-          driver = "journald"
-        }
 
         volumes = [
           "${local.strg}/bridges/whatsapp:/data"

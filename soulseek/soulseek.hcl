@@ -62,10 +62,6 @@ job "soulseek" {
 
         # userns = "keep-id"
 
-        logging = {
-          driver = "journald"
-        }
-
         volumes = [
           "${local.strg.music}:/music",
           "${local.strg.slskd}/data:/app/data",
@@ -94,10 +90,6 @@ job "soulseek" {
       config {
         image = "${local.image.betanin}"
         ports = ["betanin"]
-
-        logging = {
-          driver = "journald"
-        }
 
         volumes = [
           "${local.strg.betanin}/data:/b/.local/share/betanin",

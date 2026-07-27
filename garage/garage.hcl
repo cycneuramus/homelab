@@ -101,10 +101,6 @@ job "garage" {
         image = "${local.image}"
         ports = ["admin", "rpc", "s3"]
 
-        logging = {
-          driver = "journald"
-        }
-
         volumes = [
           "${local.strg}/meta:/var/lib/garage/meta",
           "${local.strg}/data:/var/lib/garage/data",

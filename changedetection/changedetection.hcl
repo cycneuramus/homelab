@@ -48,10 +48,6 @@ job "changedetection" {
         image = "${local.image.changedetection}"
         ports = ["http"]
 
-        logging = {
-          driver = "journald"
-        }
-
         volumes = [
           "${local.strg}/data:/datastore"
         ]
@@ -75,10 +71,6 @@ job "changedetection" {
       config {
         image = "${local.image.browser}"
         ports = ["browser"]
-
-        logging = {
-          driver = "journald"
-        }
       }
     }
   }

@@ -42,10 +42,6 @@ job "seerr" {
 
         userns = "keep-id"
 
-        logging = {
-          driver = "journald"
-        }
-
         volumes = [
           "${local.strg}:/app/config",
           "${local.logs}:/app/config/logs"

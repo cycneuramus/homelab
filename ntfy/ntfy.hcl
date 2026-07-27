@@ -40,10 +40,6 @@ job "ntfy" {
 
         userns = "keep-id"
 
-        logging = {
-          driver = "journald"
-        }
-
         command = "serve"
         args    = ["-c", "/local/server.yml"]
 

@@ -36,10 +36,6 @@ job "opengist" {
 
         entrypoint = ["./opengist", "--config", "/local/config.yml"]
 
-        logging = {
-          driver = "journald"
-        }
-
         volumes = [
           "${local.strg}/data:/opengist"
         ]

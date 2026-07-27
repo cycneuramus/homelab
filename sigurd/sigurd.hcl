@@ -62,10 +62,6 @@ job "sigurd" {
         #   "/local/entrypoint.sh"
         # ]
 
-        logging = {
-          driver = "journald"
-        }
-
         volumes = [
           "${local.strg}/music:/music",
           "${local.strg}/bot:/home/sigurd/bot",
@@ -94,10 +90,6 @@ job "sigurd" {
 
         userns = "keep-id"
 
-        logging = {
-          driver = "journald"
-        }
-
         volumes = [
           "${local.strg}/music:/music",
           "${local.strg}/bot:/home/sigurd/bot",
@@ -121,10 +113,6 @@ job "sigurd" {
         command = "cron"
 
         userns = "keep-id"
-
-        logging = {
-          driver = "journald"
-        }
 
         volumes = [
           "${local.strg}/bot:/home/sigurd/bot",

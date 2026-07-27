@@ -36,10 +36,6 @@ job "shiori" {
 
         userns = "keep-id"
 
-        logging = {
-          driver = "journald"
-        }
-
         volumes = [
           "${local.strg}:/data"
         ]

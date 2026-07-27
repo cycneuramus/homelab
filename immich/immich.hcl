@@ -72,10 +72,6 @@ job "immich" {
         image = "${local.image.immich}"
         ports = ["server"]
 
-        logging = {
-          driver = "journald"
-        }
-
         volumes = [
           "${local.sock}:/tmp/sock",
           "${local.nas}/immich/thumbs:/data/thumbs",
@@ -107,10 +103,6 @@ job "immich" {
         image = "${local.image.machine-learning}"
         ports = ["machinelearning"]
 
-        logging = {
-          driver = "journald"
-        }
-
         volumes = [
           "${local.sock}:/tmp/sock",
           "${local.nas}/immich/cache:/cache",
@@ -139,10 +131,6 @@ job "immich" {
         args = [
           "/local/redis.conf"
         ]
-
-        logging = {
-          driver = "journald"
-        }
 
         volumes = [
           "${local.sock}:/tmp/sock"

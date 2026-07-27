@@ -65,10 +65,6 @@ job "opencloud" {
 
         userns = "keep-id"
 
-        logging = {
-          driver = "journald"
-        }
-
         volumes = [
           "${local.strg}/config:/etc/opencloud",
           "${local.strg}/idm:/var/lib/opencloud/idm",
@@ -107,10 +103,6 @@ job "opencloud" {
         ports = ["collabora"]
 
         # entrypoint = ["/bin/bash", "-c", "coolconfig generate-proof-key && /start-collabora-online.sh"]
-
-        logging = {
-          driver = "journald"
-        }
       }
     }
   }

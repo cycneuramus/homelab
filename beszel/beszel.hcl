@@ -45,10 +45,6 @@ job "beszel" {
 
         userns = "keep-id"
 
-        logging = {
-          driver = "journald"
-        }
-
         volumes = [
           "${local.strg}:/beszel_data"
         ]
@@ -90,10 +86,6 @@ job "beszel" {
         network_mode = "host"
 
         # userns = "keep-id"
-
-        logging = {
-          driver = "journald"
-        }
 
         volumes = [
           "/dev:/dev:ro",

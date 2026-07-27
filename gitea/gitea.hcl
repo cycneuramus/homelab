@@ -52,10 +52,6 @@ job "gitea" {
 
         entrypoint = ["/usr/local/bin/forgejo", "-c", "/local/app.ini", "web"]
 
-        logging {
-          driver = "journald"
-        }
-
         volumes = [
           "${local.strg}/data:/var/lib/gitea"
         ]
@@ -75,10 +71,6 @@ job "gitea" {
         args = [
           "--save", "300", "1", "--loglevel", "warning"
         ]
-
-        logging {
-          driver = "journald"
-        }
 
         volumes = [
           "${local.strg}/redis:/data"

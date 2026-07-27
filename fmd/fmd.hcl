@@ -37,10 +37,6 @@ job "fmd" {
 
         userns = "keep-id"
 
-        logging = {
-          driver = "journald"
-        }
-
         entrypoint = ["/opt/fmd-server", "-c", "/local/config.yml", "serve"]
 
         volumes = [

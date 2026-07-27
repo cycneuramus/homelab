@@ -45,10 +45,6 @@ job "dbh" {
         working_dir = "/app"
         entrypoint  = "/local/entrypoint.sh"
 
-        logging = {
-          driver = "journald"
-        }
-
         volumes = [
           "${local.strg}/app:/app",
           "${local.strg}/data:/data:ro"

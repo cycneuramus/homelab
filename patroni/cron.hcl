@@ -54,10 +54,6 @@ job "cron-patroni" {
 
         userns = "keep-id"
 
-        logging = {
-          driver = "journald"
-        }
-
         volumes = [
           "${local.strg}:/patroni"
         ]

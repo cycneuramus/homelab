@@ -38,10 +38,6 @@ job "degoog" {
         image = "${local.image.degoog}"
         ports = ["http"]
 
-        logging = {
-          driver = "journald"
-        }
-
         volumes = [
           "${local.strg}:/app/data",
           "${local.sock}:/tmp/sock",
@@ -71,10 +67,6 @@ job "degoog" {
         ]
 
         userns = "keep-id"
-
-        logging = {
-          driver = "journald"
-        }
 
         volumes = [
           "${local.sock}:/tmp/sock"

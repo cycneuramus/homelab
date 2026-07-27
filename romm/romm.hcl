@@ -40,10 +40,6 @@ job "romm" {
 
         userns = "keep-id"
 
-        logging = {
-          driver = "journald"
-        }
-
         volumes = [
           "${local.strg}/config:/romm/config",
           "${local.strg}/resources:/romm/resources",

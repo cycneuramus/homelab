@@ -22,10 +22,6 @@ job "signal-cli-cron" {
 
         userns = "keep-id"
 
-        logging = {
-          driver = "journald"
-        }
-
         volumes = [
           "${local.strg}:/var/lib/signal-cli"
         ]

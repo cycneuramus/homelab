@@ -44,10 +44,6 @@ job "kutt" {
       config {
         image = "${local.image.kutt}"
         ports = ["app"]
-
-        logging = {
-          driver = "journald"
-        }
       }
     }
 
@@ -57,10 +53,6 @@ job "kutt" {
       config {
         image = "${local.image.valkey}"
         ports = ["redis"]
-
-        logging = {
-          driver = "journald"
-        }
       }
     }
   }

@@ -39,10 +39,6 @@ job "navidrome" {
         image = "${local.image}"
         ports = ["http"]
 
-        logging = {
-          driver = "journald"
-        }
-
         volumes = [
           "${local.music}:/music",
           "${local.discover}:/discover",

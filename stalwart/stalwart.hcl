@@ -79,10 +79,6 @@ job "stalwart" {
 
         userns = "keep-id"
 
-        logging = {
-          driver = "journald"
-        }
-
         sysctl = {
           "net.ipv4.ip_unprivileged_port_start" = "25"
         }

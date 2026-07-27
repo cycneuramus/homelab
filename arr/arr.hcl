@@ -85,10 +85,6 @@ job "arr" {
 
         userns = "keep-id"
 
-        logging = {
-          driver = "journald"
-        }
-
         volumes = [
           "local/sonarr-config.xml:/config/config.xml",
           "${local.strg}/sonarr:/config",
@@ -141,10 +137,6 @@ job "arr" {
 
         userns = "keep-id"
 
-        logging = {
-          driver = "journald"
-        }
-
         volumes = [
           "local/radarr-config.xml:/config/config.xml",
           "${local.strg}/radarr:/config",
@@ -179,10 +171,6 @@ job "arr" {
       config {
         image = "${local.image.bazarr}"
         ports = ["bazarr"]
-
-        logging = {
-          driver = "journald"
-        }
 
         volumes = [
           "${local.strg}/bazarr:/config",
@@ -227,10 +215,6 @@ job "arr" {
 
         userns = "keep-id"
 
-        logging = {
-          driver = "journald"
-        }
-
         volumes = [
           "local/prowlarr-config.xml:/config/config.xml",
           "${local.strg}/prowlarr:/config",
@@ -266,10 +250,6 @@ job "arr" {
         ports = ["sabnzbd"]
 
         userns = "keep-id"
-
-        logging = {
-          driver = "journald"
-        }
 
         volumes = [
           "${local.strg}/sabnzbd:/config",

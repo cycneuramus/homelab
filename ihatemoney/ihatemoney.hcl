@@ -34,10 +34,6 @@ job "ihatemoney" {
         ports = ["http"]
 
         # userns = "keep-id"
-
-        logging = {
-          driver = "journald"
-        }
       }
     }
   }

@@ -29,10 +29,6 @@ job "grocy" {
         ports  = ["http"]
         userns = "keep-id"
 
-        logging = {
-          driver = "journald"
-        }
-
         volumes = [
           "${local.strg}/data:/data"
         ]

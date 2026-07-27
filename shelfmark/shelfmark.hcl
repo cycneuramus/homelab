@@ -50,40 +50,11 @@ job "shelfmark" {
 
         userns = "keep-id"
 
-        logging = {
-          driver = "journald"
-        }
-
         volumes = [
           "${local.strg}:/config",
           "${local.ingest}:/books",
         ]
       }
     }
-
-    # task "flaresolverr" {
-    #   driver = "podman"
-    #
-    #   resources {
-    #     memory_max = 1024
-    #   }
-    #
-    #   service {
-    #     name         = "flaresolverr"
-    #     port         = "flaresolverr"
-    #     provider     = "nomad"
-    #     address_mode = "host"
-    #     tags         = ["local"]
-    #   }
-    #
-    #   config {
-    #     image = "${local.image.flaresolverr}"
-    #     ports = ["flaresolverr"]
-    #
-    #     logging = {
-    #       driver = "journald"
-    #     }
-    #   }
-    # }
   }
 }

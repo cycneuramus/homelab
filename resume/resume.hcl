@@ -51,10 +51,6 @@ job "resume" {
       config {
         image = "${local.image.frontend}"
         ports = ["frontend"]
-
-        logging = {
-          driver = "journald"
-        }
       }
     }
 
@@ -82,10 +78,6 @@ job "resume" {
       config {
         image = "${local.image.backend}"
         ports = ["backend"]
-
-        logging = {
-          driver = "journald"
-        }
 
         volumes = ["${local.strg}/uploads:/app/server/dist/assets/uploads"]
       }

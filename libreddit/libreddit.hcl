@@ -41,10 +41,6 @@ job "libreddit" {
         ports = ["http"]
 
         userns = "keep-id"
-
-        logging = {
-          driver = "journald"
-        }
       }
     }
   }

@@ -28,10 +28,6 @@ job "gollery" {
 
         userns = "keep-id"
 
-        logging = {
-          driver = "journald"
-        }
-
         volumes = [
           "${local.nas}/opencloud/storage/users/users/8bdc36f1-6829-443a-bd0e-eb9cfef018a4/Bilder:/home/extractor/src:ro",
           "${local.nas}/gollery:/home/extractor/data"

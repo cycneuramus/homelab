@@ -51,10 +51,6 @@ job "ytdl-sub" {
           "/local/entrypoint.sh"
         ]
 
-        logging = {
-          driver = "journald"
-        }
-
         volumes = [
           "${local.dl}:/dl",
           "${local.strg}:/logs",

@@ -35,10 +35,6 @@ job "transmission" {
 
         userns = "keep-id"
 
-        logging = {
-          driver = "journald"
-        }
-
         volumes = [
           "${local.strg}:/config",
           "${local.dl}:/downloads"

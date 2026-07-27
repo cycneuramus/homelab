@@ -49,10 +49,6 @@ job "dispatcharr" {
 
         # userns = "keep-id"
 
-        logging {
-          driver = "journald"
-        }
-
         devices = ["/dev/dri/renderD128"]
 
         volumes = [
@@ -87,10 +83,6 @@ job "dispatcharr" {
 
         entrypoint = ["/app/docker/entrypoint.celery.sh"]
 
-        logging {
-          driver = "journald"
-        }
-
         volumes = [
           "${local.strg}:/data"
         ]
@@ -106,10 +98,6 @@ job "dispatcharr" {
         ports = ["redis"]
 
         userns = "keep-id"
-
-        logging {
-          driver = "journald"
-        }
       }
     }
   }

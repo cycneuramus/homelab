@@ -53,10 +53,6 @@ job "gameyfin" {
           "/local/entrypoint.sh"
         ]
 
-        logging = {
-          driver = "journald"
-        }
-
         volumes = [
           "${local.strg}/db:/opt/gameyfin/db",
           "${local.strg}/data:/opt/gameyfin/data",

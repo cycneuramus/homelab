@@ -41,10 +41,6 @@ job "terraforming-mars" {
 
         force_pull = true
 
-        logging = {
-          driver = "journald"
-        }
-
         volumes = [
           "${local.strg}:/usr/src/app/db"
         ]

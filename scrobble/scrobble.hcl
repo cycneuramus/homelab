@@ -46,10 +46,6 @@ job "scrobble" {
         image = "${local.image.multi-scrobbler}"
         ports = ["multi-scrobbler"]
 
-        logging = {
-          driver = "journald"
-        }
-
         volumes = [
           "${local.strg}/multi-scrobbler:/config"
         ]
@@ -83,10 +79,6 @@ job "scrobble" {
         ports = ["koito"]
 
         userns = "keep-id"
-
-        logging = {
-          driver = "journald"
-        }
 
         volumes = [
           "${local.strg}/koito:/etc/koito"

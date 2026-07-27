@@ -46,10 +46,6 @@ job "unmanic" {
 
         userns = "keep-id"
 
-        logging = {
-          driver = "journald"
-        }
-
         volumes = [
           "${local.logs}:/config/.unmanic/logs",
           "${local.strg}/data/config:/config/.unmanic/config",

@@ -126,10 +126,6 @@ job "deceptifeed" {
         entrypoint = "/deceptifeed"
         args       = ["-config", "/local/config.xml"]
 
-        logging = {
-          driver = "journald"
-        }
-
         volumes = [
           "${local.strg}:/data"
         ]

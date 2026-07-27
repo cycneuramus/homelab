@@ -28,10 +28,6 @@ job "moodist" {
         ports = ["http"]
 
         userns = "keep-id"
-
-        logging = {
-          driver = "journald"
-        }
       }
     }
   }

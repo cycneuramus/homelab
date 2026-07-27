@@ -36,10 +36,6 @@ job "coredns" {
         args = ["-conf", "/local/Corefile", "-dns.port", "1053"]
 
         userns = "keep-id"
-
-        logging = {
-          driver = "journald"
-        }
       }
 
       service {

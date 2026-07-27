@@ -46,10 +46,6 @@ job "trawl" {
         ports = ["http"]
 
         # userns = "keep-id"
-
-        logging {
-          driver = "journald"
-        }
       }
     }
 
@@ -62,10 +58,6 @@ job "trawl" {
         ports = ["redis"]
 
         userns = "keep-id"
-
-        logging {
-          driver = "journald"
-        }
       }
     }
   }

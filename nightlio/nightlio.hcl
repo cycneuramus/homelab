@@ -36,10 +36,6 @@ job "nightlio" {
 
         # userns = "keep-id"
 
-        logging = {
-          driver = "journald"
-        }
-
         volumes = [
           "${local.strg}:/app/data"
         ]
@@ -71,10 +67,6 @@ job "nightlio" {
         # }
 
         # userns = "keep-id"
-
-        logging = {
-          driver = "journald"
-        }
       }
     }
   }

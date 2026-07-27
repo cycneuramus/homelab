@@ -43,10 +43,6 @@ job "valkey" {
           "--maxmemory-policy", "noeviction"
         ]
 
-        logging {
-          driver = "journald"
-        }
-
         volumes = [
           "${local.strg}:/data"
         ]

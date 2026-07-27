@@ -43,10 +43,6 @@ job "home-assistant" {
 
         # userns = "keep-id"
 
-        logging = {
-          driver = "journald"
-        }
-
         volumes = [
           "${local.strg}/config:/config",
         ]

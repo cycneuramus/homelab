@@ -159,10 +159,6 @@ job "caddy" {
           "caddy", "run", "--config", "/local/Caddyfile", "--adapter", "caddyfile"
         ]
 
-        logging = {
-          driver = "journald"
-        }
-
         volumes = [
           "${local.log}:/var/log"
         ]
@@ -201,10 +197,6 @@ job "caddy" {
         args = [
           "--save", "60", "1"
         ]
-
-        logging = {
-          driver = "journald"
-        }
 
         volumes = [
           "${local.redis}:/data",

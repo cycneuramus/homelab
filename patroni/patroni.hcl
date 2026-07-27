@@ -51,10 +51,6 @@ job "patroni" {
       config {
         image = "${local.image.etcd}"
         ports = ["etcd-peer", "etcd-client"]
-
-        logging = {
-          driver = "journald"
-        }
       }
     }
   }
@@ -145,10 +141,6 @@ job "patroni" {
         command = "/local/patroni.yml"
 
         userns = "keep-id"
-
-        logging = {
-          driver = "journald"
-        }
 
         volumes = [
           "${local.strg}/data:/home/patroni/data"

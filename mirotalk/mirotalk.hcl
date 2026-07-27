@@ -44,10 +44,6 @@ job "mirotalk" {
 
         userns = "keep-id"
 
-        logging = {
-          driver = "journald"
-        }
-
         volumes = [
           "local/config.js:/src/app/src/config.js:ro"
         ]

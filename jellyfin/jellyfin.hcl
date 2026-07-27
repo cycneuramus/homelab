@@ -56,10 +56,6 @@ job "jellyfin" {
 
         userns = "keep-id"
 
-        logging = {
-          driver = "journald"
-        }
-
         volumes = [
           "${local.strg}/config:/config",
           "${local.strg}/data:/data",

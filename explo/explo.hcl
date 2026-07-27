@@ -40,10 +40,6 @@ job "explo" {
         image = "${local.image}"
         ports = ["http"]
 
-        logging = {
-          driver = "journald"
-        }
-
         volumes = [
           "${local.music}:/data",
           "${local.strg}/cache:/opt/explo/config/cache",

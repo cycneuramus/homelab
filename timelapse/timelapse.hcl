@@ -46,10 +46,6 @@ job "timelapse" {
 
         userns = "keep-id"
 
-        logging = {
-          driver = "journald"
-        }
-
         volumes = [
           "${local.strg}/config:/app/config",
           "${local.strg}/output:/app/output"

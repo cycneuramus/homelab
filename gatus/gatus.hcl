@@ -40,10 +40,6 @@ job "gatus" {
       config {
         image = "${local.image}"
         ports = ["gatus"]
-
-        logging = {
-          driver = "journald"
-        }
       }
     }
   }

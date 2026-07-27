@@ -18,10 +18,6 @@ job "gickup" {
         command = "/local/config.yml"
 
         userns = "keep-id"
-
-        logging = {
-          driver = "journald"
-        }
       }
     }
   }

@@ -43,10 +43,6 @@ job "ai" {
 
         userns = "keep-id"
 
-        logging = {
-          driver = "journald"
-        }
-
         entrypoint = [
           "python", "-m", "g4f.cli", "api", "--gui", "--debug"
         ]
@@ -84,10 +80,6 @@ job "ai" {
         ports = ["ui"]
 
         # userns = "keep-id"
-
-        logging = {
-          driver = "journald"
-        }
 
         volumes = [
           "${local.strg}/ui:/app/backend/data"

@@ -39,10 +39,6 @@ job "rustical" {
           "rustical", "-c", "/local/config.toml"
         ]
 
-        logging = {
-          driver = "journald"
-        }
-
         volumes = [
           "${local.strg}:/var/lib/rustical"
         ]
