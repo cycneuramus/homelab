@@ -4,7 +4,7 @@ locals {
 
   image = {
     opencloud = "docker.io/opencloudeu/opencloud:7.2.2"
-    collabora = "docker.io/collabora/code:26.04.2.1.1"
+    collabora = "docker.io/collabora/code:26.04.2.4.1"
   }
 }
 
@@ -106,7 +106,7 @@ job "opencloud" {
         image = "${local.image.collabora}"
         ports = ["collabora"]
 
-        entrypoint = ["/bin/bash", "-c", "coolconfig generate-proof-key && /start-collabora-online.sh"]
+        # entrypoint = ["/bin/bash", "-c", "coolconfig generate-proof-key && /start-collabora-online.sh"]
 
         logging = {
           driver = "journald"
