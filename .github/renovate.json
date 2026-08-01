@@ -126,7 +126,7 @@
     },
     {
       "matchDepNames": "ghcr.io/home-assistant/home-assistant",
-      "changelogUrl": "https://github.com/home-assistant/core/releases"
+      "changelogUrl": "https://home-assistant.io/blog/categories/release-notes"
     },
     {
       "matchDepNames": "ghcr.io/linuxserver/radarr",

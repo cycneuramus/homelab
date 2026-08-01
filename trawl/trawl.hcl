@@ -24,7 +24,7 @@ job "trawl" {
       # user   = "1000:1000"
 
       resources {
-        memory_max = 1024
+        memory_max = 2048
       }
 
       service {
