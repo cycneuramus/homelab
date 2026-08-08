@@ -1,5 +1,5 @@
 locals {
-  image = "docker.io/ihatemoney/ihatemoney:7.1.1"
+  image = "docker.io/ihatemoney/ihatemoney:7.2.1"
 }
 
 job "ihatemoney" {
