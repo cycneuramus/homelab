@@ -94,7 +94,6 @@ search
 {{- define "communication" -}}
 imaps
 matrix
-meet
 ntfy
 signal-api
 signal-bridge
@@ -161,6 +160,7 @@ wizarr
 
 {{- define "nomadOnly" -}}
 gickup|10. Collaboration
+mirotalk|08. Communication
 sigurd|08. Communication
 sysmonitor|06. Monitoring
 {{- end }}
