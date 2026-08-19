@@ -36,7 +36,7 @@ job "rustical" {
         userns = "keep-id"
 
         entrypoint = [
-          "rustical", "-c", "/local/config.toml"
+          "rustical", "-c", "/local/config.toml", "serve"
         ]
 
         volumes = [
