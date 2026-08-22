@@ -3,7 +3,7 @@ locals {
   ingest = "/mnt/jfs/bookorbit/data/book-dock"
 
   image = {
-    shelfmark    = "ghcr.io/calibrain/shelfmark-lite:v1.3.7"
+    shelfmark    = "ghcr.io/calibrain/shelfmark-lite:v1.3.11"
     flaresolverr = "ghcr.io/flaresolverr/flaresolverr:v3.5.0"
   }
 }
