@@ -2,10 +2,7 @@ locals {
   strg   = "/mnt/jfs/shelfmark"
   ingest = "/mnt/jfs/bookorbit/data/book-dock"
 
-  image = {
-    shelfmark    = "ghcr.io/calibrain/shelfmark-lite:v1.3.15"
-    flaresolverr = "ghcr.io/flaresolverr/flaresolverr:v3.5.0"
-  }
+  image = "ghcr.io/calibrain/shelfmark-lite:v1.3.15"
 }
 
 job "shelfmark" {
@@ -45,7 +42,7 @@ job "shelfmark" {
       }
 
       config {
-        image = "${local.image.shelfmark}"
+        image = "${local.image}"
         ports = ["shelfmark"]
 
         userns = "keep-id"
