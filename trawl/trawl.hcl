@@ -1,6 +1,6 @@
 locals {
   image = {
-    trawl  = "ghcr.io/germondai/trawl:1.4.2"
+    trawl  = "ghcr.io/germondai/trawl:1.5.0"
     valkey = "docker.io/valkey/valkey:9.1-alpine"
   }
 }
