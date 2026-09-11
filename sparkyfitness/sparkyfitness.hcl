@@ -1,7 +1,7 @@
 locals {
   image = {
-    backend  = "ghcr.io/codewithcj/sparkyfitness-server:v1.6.4"
-    frontend = "ghcr.io/codewithcj/sparkyfitness-frontend:v1.6.4"
+    backend  = "ghcr.io/codewithcj/sparkyfitness-server:v1.6.5"
+    frontend = "ghcr.io/codewithcj/sparkyfitness-frontend:v1.6.5"
   }
 }
 
