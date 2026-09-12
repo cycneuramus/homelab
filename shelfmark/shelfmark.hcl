@@ -2,7 +2,7 @@ locals {
   strg   = "/mnt/jfs/shelfmark"
   ingest = "/mnt/jfs/bookorbit/data/book-dock"
 
-  image = "ghcr.io/calibrain/shelfmark-lite:v1.3.15"
+  image = "ghcr.io/calibrain/shelfmark:1.3.15"
 }
 
 job "shelfmark" {
@@ -12,11 +12,6 @@ job "shelfmark" {
         to           = 8084
         host_network = "private"
       }
-
-      port "flaresolverr" {
-        to           = 8191
-        host_network = "private"
-      }
     }
 
     task "shelfmark" {
@@ -24,7 +19,7 @@ job "shelfmark" {
       user   = "1000:1000"
 
       resources {
-        memory_max = 1024
+        memory_max = 2048
       }
 
       service {

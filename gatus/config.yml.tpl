@@ -83,7 +83,6 @@ ghrm
 
 {{- define "proxying" -}}
 ai
-bypass
 change
 gpt
 kutt
