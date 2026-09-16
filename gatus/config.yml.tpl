@@ -158,6 +158,7 @@ wizarr
 {{- end -}}
 
 {{- define "nomadOnly" -}}
+cloudflare-ddns|06. Monitoring
 gickup|10. Collaboration
 mirotalk|08. Communication
 sigurd|08. Communication
