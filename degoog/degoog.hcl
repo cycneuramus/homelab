@@ -4,7 +4,7 @@ locals {
 
   image = {
     degoog = "ghcr.io/fccview/degoog:0.24.0"
-    valkey = "docker.io/valkey/valkey:9.1-alpine"
+    valkey = "docker.io/valkey/valkey:9.2-alpine"
   }
 }
 

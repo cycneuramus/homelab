@@ -7,7 +7,7 @@ locals {
   image = {
     sonarr   = "ghcr.io/linuxserver/sonarr:4.0.19"
     radarr   = "ghcr.io/linuxserver/radarr:6.3.0"
-    bazarr   = "ghcr.io/linuxserver/bazarr:1.6.0"
+    bazarr   = "ghcr.io/linuxserver/bazarr:1.6.1"
     prowlarr = "ghcr.io/linuxserver/prowlarr:2.5.2"
     sabnzbd  = "ghcr.io/linuxserver/sabnzbd:5.1.3"
   }
