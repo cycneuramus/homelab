@@ -1,5 +1,5 @@
 locals {
-  image = "docker.io/favonia/cloudflare-ddns:1.17.1"
+  image = "ghcr.io/favonia/cloudflare-ddns:1.17.1"
 }
 
 job "cloudflare-ddns" {
