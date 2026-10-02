@@ -1,5 +1,5 @@
 locals {
-  image = "ghcr.io/remvze/moodist:v3.0.0"
+  image = "ghcr.io/remvze/moodist:v3.1.1"
 }
 
 job "moodist" {
