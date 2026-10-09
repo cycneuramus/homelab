@@ -7,7 +7,7 @@ job "renovate" {
   type = "batch"
 
   periodic {
-    crons            = ["0 9 * * 5"]
+    crons            = ["0 8 * * 5"]
     prohibit_overlap = true
     time_zone        = "Europe/Stockholm"
   }
