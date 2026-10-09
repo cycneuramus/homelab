@@ -1,6 +1,6 @@
 locals {
   strg  = "/mnt/jfs/signal-cli"
-  image = "ghcr.io/asamk/signal-cli:0.14.8-native"
+  image = "ghcr.io/asamk/signal-cli:0.14.9-native"
 }
 
 job "signal-cli-cron" {
