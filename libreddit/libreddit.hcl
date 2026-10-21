@@ -1,6 +1,6 @@
 locals {
   # image = "quay.io/redlib/redlib@sha256:e6647a94d553bf3f7c95c53fc6d9da5785e6c278d9002e99ea32abdb5e3c513a"
-  image = "ghcr.io/silvenga/redlib:0.36.0"
+  image = "ghcr.io/nachtalb/redlib:sha-fca8b45"
   # image = "git.ptr.moe/baalajimaestro/redlib@sha256:e7ec9efa14da44eaf2809d7a1029e4aa6e5c4ce53a0dba662bc213cd4197fc1d"
   # image = "ghcr.io/cycneuramus/containers:redlib"
 }
