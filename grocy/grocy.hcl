@@ -21,7 +21,7 @@ job "grocy" {
         port         = "http"
         provider     = "nomad"
         address_mode = "host"
-        tags         = ["public"]
+        tags         = ["local"]
       }
 
       config {
