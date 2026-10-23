@@ -1,7 +1,7 @@
 locals {
-  # image = "quay.io/redlib/redlib@sha256:e6647a94d553bf3f7c95c53fc6d9da5785e6c278d9002e99ea32abdb5e3c513a"
+  # image = "quay.io/redlib/redlib@sha256:37f624d87ce6cdd90d945af3688fdf0c195a0251d3b5ba62047792e8be2390df"
   image = "ghcr.io/nachtalb/redlib:sha-fca8b45"
-  # image = "git.ptr.moe/baalajimaestro/redlib@sha256:e7ec9efa14da44eaf2809d7a1029e4aa6e5c4ce53a0dba662bc213cd4197fc1d"
+  # image = "git.ptr.moe/baalajimaestro/redlib@sha256:1c605c3af39855b77d3f81fc01343b30ed21bd1bf8764bdf9c095e0b35da57b5"
   # image = "ghcr.io/cycneuramus/containers:redlib"
 }
 

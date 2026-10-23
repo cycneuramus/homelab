@@ -2,7 +2,7 @@ locals {
   strg   = "/mnt/jfs/shelfmark"
   ingest = "/mnt/jfs/bookorbit/data/book-dock"
 
-  image = "ghcr.io/calibrain/shelfmark:v1.4.0"
+  image = "ghcr.io/calibrain/shelfmark:v1.5.0"
 }
 
 job "shelfmark" {

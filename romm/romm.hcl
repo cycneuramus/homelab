@@ -1,6 +1,6 @@
 locals {
   strg  = "/mnt/jfs/romm"
-  image = "ghcr.io/rommapp/romm:5.4.0-slim"
+  image = "ghcr.io/rommapp/romm:5.4.1-slim"
 }
 
 job "romm" {
@@ -17,7 +17,7 @@ job "romm" {
       user   = "1000:1000"
 
       resources {
-        memory_max = 1024
+        memory_max = 2048
       }
 
       service {

@@ -2,7 +2,7 @@ locals {
   strg = "/mnt/jfs/seerr"
   logs = "..${NOMAD_ALLOC_DIR}/data"
 
-  image = "ghcr.io/seerr-team/seerr:v3.5.0"
+  image = "ghcr.io/seerr-team/seerr:v3.5.1"
 }
 
 job "seerr" {
