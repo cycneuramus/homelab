@@ -59,7 +59,7 @@ job "opencloud" {
 
       config {
         image = "${local.image.opencloud}"
-        ports = ["app"]
+        ports = ["app", "collabora"]
 
         entrypoint = ["/local/entrypoint.sh"]
 
@@ -84,12 +84,17 @@ job "opencloud" {
         memory_max = 4096
       }
 
+      lifecycle {
+        hook    = "poststart"
+        sidecar = true
+      }
+
       service {
         name         = "collabora"
         port         = "collabora"
         provider     = "nomad"
         address_mode = "host"
-        tags         = ["public"]
+        tags         = ["local"]
       }
 
       template {
@@ -99,8 +104,9 @@ job "opencloud" {
       }
 
       config {
-        image = "${local.image.collabora}"
-        ports = ["collabora"]
+        image        = "${local.image.collabora}"
+        network_mode = "task:opencloud"
+        # ports = ["collabora"]
 
         # entrypoint = ["/bin/bash", "-c", "coolconfig generate-proof-key && /start-collabora-online.sh"]
       }
