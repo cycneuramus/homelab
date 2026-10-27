@@ -134,7 +134,6 @@ books
 games
 jellyfin
 koito
-moodist
 multi-scrobbler
 navidrome
 roms
