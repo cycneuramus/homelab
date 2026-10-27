@@ -114,7 +114,6 @@ pin
 resume
 resume-backend
 rss
-timelapse
 {{- end -}}
 
 {{- define "collaboration" -}}
