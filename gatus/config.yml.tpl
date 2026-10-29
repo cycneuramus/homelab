@@ -84,7 +84,6 @@ ghrm
 {{- define "proxying" -}}
 ai
 change
-gpt
 kutt
 libreddit
 search

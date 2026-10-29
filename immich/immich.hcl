@@ -1,11 +1,13 @@
 locals {
   sock = "..${NOMAD_ALLOC_DIR}/data"
   nas  = "/mnt/nas/apps"
+  iou  = "/mnt/jfs/iou"
 
   image = {
     immich           = "ghcr.io/immich-app/immich-server:v3.3.5"
     machine-learning = "ghcr.io/immich-app/immich-machine-learning:v3.3.5"
     valkey           = "docker.io/valkey/valkey:9.2-alpine"
+    iou = "ghcr.io/joojoooo/immich-upload-optimizer:v1.0.2"
   }
 }
 
@@ -138,4 +140,49 @@ job "immich" {
       }
     }
   }
+
+    # network {
+    #   port "http" {
+    #     to           = 2284
+    #     host_network = "private"
+    #   }
+    # }
+
+    task "iou" {
+      driver = "podman"
+      user   = "1000:1000"
+
+      service {
+        name         = "iou"
+        port         = "http"
+        provider     = "nomad"
+        address_mode = "host"
+        tags         = ["private"]
+      }
+
+      template {
+        data        = file(".env")
+        destination = "env"
+        env         = true
+      }
+
+      template {
+        data        = file("tasks.yaml")
+        destination = "tasks.yaml"
+      }
+
+      config {
+        image = "${local.image}"
+        ports = ["http"]
+
+        userns = "keep-id"
+
+        volumes = [
+          "${local.strg}:/IOU"
+        ]
+      }
+    }
+  }
+}
+
 }

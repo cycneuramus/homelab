@@ -2,8 +2,8 @@ locals {
   strg = "/mnt/jfs/ai"
 
   image = {
-    ui  = "ghcr.io/open-webui/open-webui:0.12-slim"
-    api = "docker.io/hlohaus789/g4f:0.6.4.3-slim"
+    ui = "ghcr.io/open-webui/open-webui:0.12-slim"
+    # api = "docker.io/hlohaus789/g4f:0.6.4.3-slim"
   }
 }
 
@@ -15,43 +15,43 @@ job "ai" {
         host_network = "private"
       }
 
-      port "api" {
-        to           = 1337
-        host_network = "private"
-      }
+      #   port "api" {
+      #     to           = 1337
+      #     host_network = "private"
+      #   }
     }
-
-    task "api" {
-      driver = "podman"
-      user   = "1000:1000"
-
-      resources {
-        memory_max = 1024
-      }
-
-      service {
-        name         = "gpt"
-        port         = "api"
-        provider     = "nomad"
-        address_mode = "host"
-        tags         = ["local"]
-      }
-
-      config {
-        image = "${local.image.api}"
-        ports = ["api"]
-
-        userns = "keep-id"
-
-        entrypoint = [
-          "python", "-m", "g4f.cli", "api", "--gui", "--debug"
-        ]
-
-        volumes = [
-          "${local.strg}/api/auth:/app/har_and_cookies"
-        ]
-      }
-    }
+    #
+    # task "api" {
+    #   driver = "podman"
+    #   user   = "1000:1000"
+    #
+    #   resources {
+    #     memory_max = 1024
+    #   }
+    #
+    #   service {
+    #     name         = "gpt"
+    #     port         = "api"
+    #     provider     = "nomad"
+    #     address_mode = "host"
+    #     tags         = ["local"]
+    #   }
+    #
+    #   config {
+    #     image = "${local.image.api}"
+    #     ports = ["api"]
+    #
+    #     userns = "keep-id"
+    #
+    #     entrypoint = [
+    #       "python", "-m", "g4f.cli", "api", "--gui", "--debug"
+    #     ]
+    #
+    #     volumes = [
+    #       "${local.strg}/api/auth:/app/har_and_cookies"
+    #     ]
+    #   }
+    # }
 
     task "ai" {
       driver = "podman"
