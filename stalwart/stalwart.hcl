@@ -1,5 +1,4 @@
 locals {
-  strg  = "/mnt/jfs/stalwart"
   image = "ghcr.io/stalwartlabs/stalwart:v1.0.1"
 }
 
@@ -73,6 +72,11 @@ job "stalwart" {
         env         = true
       }
 
+      template {
+        data        = file("config.json.tpl")
+        destination = "local/config.json"
+      }
+
       config {
         image = "${local.image}"
         ports = ["smtp", "smtps", "imaps", "http"]
@@ -82,8 +86,6 @@ job "stalwart" {
         sysctl = {
           "net.ipv4.ip_unprivileged_port_start" = "25"
         }
-
-        volumes = ["${local.strg}:/etc/stalwart"]
       }
     }
   }
