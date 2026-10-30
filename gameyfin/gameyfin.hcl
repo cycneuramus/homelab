@@ -3,7 +3,7 @@ locals {
   nas  = "/mnt/nas/apps/gameyfin"
   logs = "..${NOMAD_ALLOC_DIR}/data"
 
-  image = "ghcr.io/gameyfin/gameyfin:2.5.1"
+  image = "ghcr.io/gameyfin/gameyfin:2.6.0"
 }
 
 job "gameyfin" {

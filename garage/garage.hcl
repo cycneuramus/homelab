@@ -1,6 +1,6 @@
 locals {
   strg  = pathexpand("~/.local/share/s3")
-  image = "docker.io/dxflrs/garage:v2.4.1"
+  image = "docker.io/dxflrs/garage:v2.5.0"
 }
 
 job "garage" {

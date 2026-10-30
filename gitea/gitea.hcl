@@ -2,7 +2,7 @@ locals {
   strg = "/mnt/jfs/gitea"
 
   image = {
-    gitea  = "codeberg.org/forgejo/forgejo:17.0.0-rootless"
+    gitea  = "codeberg.org/forgejo/forgejo:17.0.1-rootless"
     valkey = "docker.io/valkey/valkey:9.2-alpine"
   }
 }
