@@ -3,7 +3,7 @@ locals {
   redis = "/mnt/nas/apps/caddy"
 
   image = {
-    caddy  = "ghcr.io/cycneuramus/containers:caddy"
+    caddy  = "ghcr.io/cycneuramus/containers:caddy-2.11.9"
     valkey = "docker.io/valkey/valkey:9.2-alpine"
   }
 }
