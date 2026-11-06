@@ -26,9 +26,9 @@ job "sigurd" {
       driver = "podman"
       user   = "1000:1000"
 
-      # resources {
-      #   cpu = 1024
-      # }
+      resources {
+        memory_max = 1024
+      }
 
       service {
         name         = "signal-api"
