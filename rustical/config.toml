@@ -10,9 +10,6 @@ payload_limit_mb = 10
 enabled = true
 allow_password_login = true
 
-[tracing]
-opentelemetry = false
-
 [dav_push]
 enabled = true
 
