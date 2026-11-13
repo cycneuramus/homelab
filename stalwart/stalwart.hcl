@@ -1,5 +1,5 @@
 locals {
-  image = "ghcr.io/stalwartlabs/stalwart:v1.0.3"
+  image = "ghcr.io/stalwartlabs/stalwart:v1.1.0"
 }
 
 job "stalwart" {
