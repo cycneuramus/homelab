@@ -6,7 +6,9 @@
   "commitMessageExtra": "",
   "commitMessageSuffix": "",
   "semanticCommits": "disabled",
-  "dependencyDashboard": true,
+  "dependencyDashboard": {
+    "enabled": true
+  },
   "configMigration": true,
   "customManagers": [
     {
