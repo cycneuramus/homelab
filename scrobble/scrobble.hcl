@@ -22,7 +22,7 @@ job "scrobble" {
 
     task "multi-scrobbler" {
       driver = "podman"
-      user   = "0:0"
+      user   = "1000:1000"
 
       resources {
         memory_max = 1024
@@ -45,6 +45,8 @@ job "scrobble" {
       config {
         image = "${local.image.multi-scrobbler}"
         ports = ["multi-scrobbler"]
+
+        userns = "keep-id"
 
         volumes = [
           "${local.strg}/multi-scrobbler:/config"
